@@ -16,7 +16,7 @@ You're right! Let me break this down clearly:
 
 ### **Tier 4: Statistics & Data (61-80)**
 
-61. Simpson's Paradox, 62. Berkson's Paradox, 63. Low Birth Weight Paradox, 64. Accuracy Paradox, 65. Lindley's Paradox, 66. Inspection Paradox (formal), 67. Borel's Paradox, 68. Bertrand's Paradox (random chords), 69. Freedman's Paradox, 70. Proebsting's Paradox, 71. Grice's Paradox, 72. Base Rate Fallacy Paradox, 73. Prosecutor's Fallacy Paradox, 74. Regression Paradox, 75. Ecological Fallacy Paradox, 76. Multiple Comparisons Paradox, 77. Survivorship Bias Paradox, 78. Correlation vs Causation Paradox, 79. Birthday Paradox (extended), 80. Reference Class Problem
+61. Simpson's Paradox, 62. Berkson's Paradox, 63. Low Birth Weight Paradox, 64. Accuracy Paradox, 65. Lindley's Paradox, 66. Inspection Paradox (formal), 67. Borel's Paradox, 68. Bertrand's Paradox (random chords), 69. Freedman's Paradox, 70. Proebsting's Paradox, 71. Grice's Paradox, 72. Base Rate Paradox Paradox, 73. Prosecutor's Paradox Paradox, 74. Regression Paradox, 75. Ecological Paradox Paradox, 76. Multiple Comparisons Paradox, 77. Survivorship Bias Paradox, 78. Correlation vs Causation Paradox, 79. Birthday Paradox (extended), 80. Reference Class Problem
 
 ### **Tier 5: Time & Space (81-100)**
 

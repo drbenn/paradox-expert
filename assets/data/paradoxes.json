@@ -1071,7 +1071,7 @@
     "resolution_difficulty": "requires explanation",
     "related_paradoxes": ["Birthday Paradox", "Simpson Paradox"],
     "historical_detail": [
-      "The False Positive Paradox, also known as the Base Rate Fallacy, was first systematically studied in the 1960s during early research on medical diagnostics and decision theory. Researchers noticed that even highly accurate tests could be misleading when used to screen for rare conditions, leading to unnecessary anxiety and medical procedures.",
+      "The False Positive Paradox, also known as the Base Rate Paradox, was first systematically studied in the 1960s during early research on medical diagnostics and decision theory. Researchers noticed that even highly accurate tests could be misleading when used to screen for rare conditions, leading to unnecessary anxiety and medical procedures.",
       "The paradox gained widespread attention during the HIV/AIDS crisis of the 1980s, when mass testing programs revealed that positive results from accurate tests didn't guarantee infection when testing low-risk populations. This led to important developments in medical ethics and the understanding of when and how to conduct screening programs.",
       "The False Positive Paradox has crucial applications in medicine, security screening, quality control, and any field involving testing or classification. It demonstrates why understanding base rates is essential for interpreting test results and has influenced guidelines for medical screening and diagnostic practices worldwide."
     ],
@@ -2466,7 +2466,7 @@
     "prerequisites": "basic logic",
     "mind_blow_factor": "surprising",
     "resolution_difficulty": "requires explanation",
-    "related_paradoxes": ["False Positive Paradox", "Base Rate Fallacy"],
+    "related_paradoxes": ["False Positive Paradox", "Base Rate Paradox"],
     "historical_detail": [
       "The Accuracy Paradox emerged from machine learning and data science practice in the 1990s and 2000s as researchers began working with highly imbalanced datasets. It became apparent that traditional accuracy metrics could be misleading when dealing with rare events, fraud detection, medical diagnosis, and other applications with unequal class distributions.",
       "The paradox highlighted fundamental problems with how predictive model performance was being evaluated and led to the development of alternative metrics like precision, recall, F1-score, and area under the ROC curve. It became a cornerstone example in machine learning education about the importance of appropriate evaluation metrics.",
@@ -2766,7 +2766,7 @@
     "id": "72",
     "isFavorite": false,
     "isLearned": false,
-    "title": "Base Rate Fallacy Paradox",
+    "title": "Base Rate Paradox Paradox",
     "category": "Statistics & Data",
     "type": "statistical",
     "tier": "4",
@@ -2780,18 +2780,18 @@
     "resolution_difficulty": "requires explanation",
     "related_paradoxes": ["False Positive Paradox", "Representativeness Heuristic"],
     "historical_detail": [
-      "The Base Rate Fallacy was first systematically studied by psychologists Daniel Kahneman and Amos Tversky in the 1970s as part of their research on cognitive biases and heuristics. They found that people consistently neglect base rate information in favor of specific case information, even when the base rates are more diagnostic.",
+      "The Base Rate Paradox was first systematically studied by psychologists Daniel Kahneman and Amos Tversky in the 1970s as part of their research on cognitive biases and heuristics. They found that people consistently neglect base rate information in favor of specific case information, even when the base rates are more diagnostic.",
       "The fallacy became central to understanding human reasoning errors and has been extensively studied in medical decision-making, legal reasoning, and diagnostic contexts. It demonstrates how human intuition about probability differs systematically from normative probability theory.",
-      "The Base Rate Fallacy has practical implications for medical testing, security screening, jury decision-making, and any field where probabilistic reasoning about rare events is important. Understanding this bias has influenced the design of decision support systems and training programs for professionals who must make probabilistic judgments."
+      "The Base Rate Paradox has practical implications for medical testing, security screening, jury decision-making, and any field where probabilistic reasoning about rare events is important. Understanding this bias has influenced the design of decision support systems and training programs for professionals who must make probabilistic judgments."
     ],
     "examples": [
       "The disease test is 95% accurate, but most positive results are false positives because the disease is rare. People focus on 95% accuracy and ignore the base rate.",
       "What do you mean most positive tests are wrong? The test is highly accurate! This is exactly the kind of statistical confusion that would make me distrust medical testing!",
-      "Why does the Base Rate Fallacy occur? Because people focus on specific test accuracy while ignoring how rare the condition being tested is in the general population!",
+      "Why does the Base Rate Paradox occur? Because people focus on specific test accuracy while ignoring how rare the condition being tested is in the general population!",
       "The doctor has to explain to patients why a positive test result doesn't mean they probably have the disease, due to base rate considerations.",
       "The security analyst flags suspicious behavior but doesn't account for how rare actual threats are, leading to mostly false alarms.",
       "The hiring manager uses personality tests without considering that most applicants are probably not good fits, regardless of test results.",
-      "I have overcome the Base Rate Fallacy by always considering both the accuracy of evidence and the prior probability of what I'm testing for.",
+      "I have overcome the Base Rate Paradox by always considering both the accuracy of evidence and the prior probability of what I'm testing for.",
       "The decision-maker learns that specific information feels more relevant than general statistics, but general statistics often matter more for accurate probability assessment.",
       "The Department of Probabilistic Reasoning trains professionals to automatically consider base rates alongside specific test or case information.",
       "The universe's most accurate diagnostic system is mostly wrong because it ignores base rates, demonstrating that accuracy without context can be misleading."
@@ -2805,7 +2805,7 @@
     "id": "73",
     "isFavorite": false,
     "isLearned": false,
-    "title": "Prosecutor's Fallacy Paradox",
+    "title": "Prosecutor's Paradox Paradox",
     "category": "Statistics & Data",
     "type": "statistical",
     "tier": "4",
@@ -2817,23 +2817,23 @@
     "prerequisites": "basic logic",
     "mind_blow_factor": "mind-bending",
     "resolution_difficulty": "requires explanation",
-    "related_paradoxes": ["Base Rate Fallacy", "False Positive Paradox"],
+    "related_paradoxes": ["Base Rate Paradox", "False Positive Paradox"],
     "historical_detail": [
-      "The Prosecutor's Fallacy was first identified in the 1990s during early applications of DNA evidence in criminal trials. Legal scholars and statisticians noticed that prosecutors and juries were systematically misinterpreting the meaning of statistical evidence, confusing conditional probabilities in ways that could lead to wrongful convictions.",
+      "The Prosecutor's Paradox was first identified in the 1990s during early applications of DNA evidence in criminal trials. Legal scholars and statisticians noticed that prosecutors and juries were systematically misinterpreting the meaning of statistical evidence, confusing conditional probabilities in ways that could lead to wrongful convictions.",
       "The fallacy became a significant concern in forensic science and legal practice, leading to increased attention to proper statistical reasoning in legal contexts. Several high-profile cases have involved incorrect applications of statistical evidence that exemplify the prosecutor's fallacy.",
-      "The Prosecutor's Fallacy has influenced legal education, expert witness testimony standards, and guidelines for presenting statistical evidence in court. It demonstrates the importance of understanding conditional probability and base rates in contexts where statistical reasoning affects life-and-death decisions."
+      "The Prosecutor's Paradox has influenced legal education, expert witness testimony standards, and guidelines for presenting statistical evidence in court. It demonstrates the importance of understanding conditional probability and base rates in contexts where statistical reasoning affects life-and-death decisions."
     ],
     "examples": [
       "The DNA match occurs in 1 in 10 million people, so the defendant must be guilty. But wait - if 10 million people live in the city, we'd expect one innocent match.",
       "What do you mean rare evidence doesn't prove guilt? One in a million odds seems pretty conclusive! This is exactly the kind of statistical reasoning that would confuse juries!",
-      "Why is the Prosecutor's Fallacy wrong? Because it confuses how rare the evidence is with how rare innocence is, ignoring how many people could have produced the evidence!",
+      "Why is the Prosecutor's Paradox wrong? Because it confuses how rare the evidence is with how rare innocence is, ignoring how many people could have produced the evidence!",
       "The prosecutor argues that forensic evidence with 1 in 100,000 odds proves guilt, not realizing this depends on how many suspects were possible.",
       "The jury is impressed by testimony about rare fiber evidence, not considering that hundreds of people might own similar clothing.",
       "The defense attorney has to explain why statistically rare evidence doesn't automatically mean statistically rare innocence.",
-      "I have studied the Prosecutor's Fallacy and understand how to properly interpret conditional probabilities in forensic evidence.",
+      "I have studied the Prosecutor's Paradox and understand how to properly interpret conditional probabilities in forensic evidence.",
       "The juror learns that evidence rarity must be weighed against the number of people who could have produced the evidence to assess guilt probability.",
-      "The Department of Forensic Statistics trains legal professionals to avoid the Prosecutor's Fallacy when interpreting statistical evidence in criminal cases.",
-      "The universe's most statistically sophisticated court system still convicts innocent people due to the Prosecutor's Fallacy, demonstrating how conditional probability confusion affects even experts."
+      "The Department of Forensic Statistics trains legal professionals to avoid the Prosecutor's Paradox when interpreting statistical evidence in criminal cases.",
+      "The universe's most statistically sophisticated court system still convicts innocent people due to the Prosecutor's Paradox, demonstrating how conditional probability confusion affects even experts."
     ],
     "emoji_unicode": "⚖️",
     "emoji_shortcode": ":balance_scale:",
@@ -2883,7 +2883,7 @@
     "id": "75",
     "isFavorite": false,
     "isLearned": false,
-    "title": "Ecological Fallacy Paradox",
+    "title": "Ecological Paradox Paradox",
     "category": "Statistics & Data",
     "type": "statistical",
     "tier": "4",
@@ -2897,14 +2897,14 @@
     "resolution_difficulty": "requires explanation",
     "related_paradoxes": ["Simpson's Paradox", "Robinson's Paradox"],
     "historical_detail": [
-      "The Ecological Fallacy was first formally described by sociologist William Robinson in 1950, though the underlying logical error had been recognized earlier. Robinson demonstrated using literacy and immigration data that correlations observed at the state level could be completely different from correlations at the individual level.",
+      "The Ecological Paradox was first formally described by sociologist William Robinson in 1950, though the underlying logical error had been recognized earlier. Robinson demonstrated using literacy and immigration data that correlations observed at the state level could be completely different from correlations at the individual level.",
       "The fallacy became crucial in sociology, epidemiology, and political science, where researchers often work with aggregate data but want to make inferences about individuals. It showed that conclusions drawn from group-level data could be completely wrong when applied to individuals within those groups.",
-      "The Ecological Fallacy has influenced research methodology in many fields, leading to increased emphasis on multilevel modeling and careful attention to the level of analysis. It has particular relevance in public health, where policies are often based on population-level correlations that may not hold for individuals."
+      "The Ecological Paradox has influenced research methodology in many fields, leading to increased emphasis on multilevel modeling and careful attention to the level of analysis. It has particular relevance in public health, where policies are often based on population-level correlations that may not hold for individuals."
     ],
     "examples": [
       "Rich neighborhoods have more heart disease, so wealth causes heart problems. But actually, within each neighborhood, richer people are healthier. The group pattern reverses at the individual level.",
       "What do you mean group trends don't apply to individuals? If it's true for the group, it should be true for people in the group! This is exactly the kind of statistical complication that would make me distrust social research!",
-      "Why does the Ecological Fallacy occur? Because group-level aggregation can mask or reverse individual-level relationships due to composition effects and confounding variables!",
+      "Why does the Ecological Paradox occur? Because group-level aggregation can mask or reverse individual-level relationships due to composition effects and confounding variables!",
       "The public health researcher finds that counties with more hospitals have higher death rates, initially concluding that hospitals are dangerous rather than recognizing confounding factors.",
       "The political analyst observes that districts with higher income vote for certain policies, but discovers that within districts, higher-income individuals vote differently.",
       "The education researcher finds that schools with more funding have worse outcomes, not realizing this reflects which schools receive extra funding rather than funding effects.",
@@ -4337,7 +4337,7 @@
     "prerequisites": "basic logic",
     "mind_blow_factor": "surprising",
     "resolution_difficulty": "requires explanation",
-    "related_paradoxes": ["Fallacy of Composition", "Collective Action Problem"],
+    "related_paradoxes": ["Paradox of Composition", "Collective Action Problem"],
     "historical_detail": [
       "The Paradox of Thrift was first formulated by economist John Maynard Keynes in 'The General Theory of Employment, Interest and Money' (1936), though similar ideas appeared earlier in the work of William Foster and Waddill Catchings in the 1920s. Keynes used this paradox to challenge classical economic assumptions about saving and to argue for the importance of aggregate demand in determining economic outcomes.",
       "The paradox became central to Keynesian economics and macroeconomic theory, providing a foundation for understanding recessions and the role of government intervention. It demonstrates how microeconomic virtues can become macroeconomic vices, challenging the classical belief that individual rational behavior automatically leads to optimal social outcomes.",

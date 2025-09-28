@@ -1513,7 +1513,7 @@
   },
   {
     "id": "27",
-    "title": "Genetic Fallacy",
+    "title": "Genetic Paradox",
     "type": "informal",
     "category": "irrelevant conclusion",
     "tier": "2",
@@ -1589,7 +1589,7 @@
     "related_falacies": [
       "Division",
       "Hasty Generalization",
-      "Ecological Fallacy"
+      "Ecological Paradox"
     ],
     "historical_detail": [
       "The composition fallacy was first formally identified by Aristotle in his logical works, where he noted that properties of individual elements don't necessarily transfer to the collective whole. This became a fundamental principle in understanding the relationship between parts and wholes.",
@@ -2059,7 +2059,7 @@
     "defensibility": "moderate",
     "related_falacies": [
       "Ad Hominem",
-      "Genetic Fallacy"
+      "Genetic Paradox"
     ],
     "historical_detail": [
       "The 'poisoning the well' metaphor comes from medieval warfare, where armies would literally poison enemy water supplies to weaken them before battle. This metaphor was applied to logical arguments to describe how someone might 'poison' the audience's mind against an opponent before they speak.",
@@ -2234,7 +2234,7 @@
     "severity": "mild",
     "defensibility": "easy",
     "related_falacies": [
-      "Naturalistic Fallacy"
+      "Naturalistic Paradox"
     ],
     "historical_detail": [
       "The appeal to nature fallacy has been recognized since ancient times, though it was often seen as legitimate reasoning in traditional societies. The distinction between what is natural and what is good became a major topic in moral philosophy, particularly during the Enlightenment.",
@@ -2276,7 +2276,7 @@
   },
   {
     "id": "40",
-    "title": "Naturalistic Fallacy",
+    "title": "Naturalistic Paradox",
     "type": "formal",
     "category": "presumption",
     "tier": "2",
@@ -2678,7 +2678,7 @@
   },
   {
     "id": "47",
-    "title": "Ecological Fallacy",
+    "title": "Ecological Paradox",
     "type": "formal",
     "category": "presumption",
     "tier": "3",
@@ -2912,7 +2912,7 @@
   },
   {
     "id": "51",
-    "title": "Gambler's Fallacy",
+    "title": "Gambler's Paradox",
     "type": "formal",
     "category": "weak induction",
     "tier": "3",
@@ -2927,7 +2927,7 @@
     "severity": "moderate",
     "defensibility": "moderate",
     "related_falacies": [
-      "Regression Fallacy"
+      "Regression Paradox"
     ],
     "historical_detail": [
       "The gambler's fallacy was first formally identified in the 18th century when mathematicians began studying probability theory. The famous incident at the Monte Carlo Casino in 1913, where a roulette wheel landed on black 26 times in a row, led to massive losses as gamblers bet increasingly large amounts on red.",
@@ -2971,7 +2971,7 @@
   },
   {
     "id": "52",
-    "title": "Hot-hand Fallacy",
+    "title": "Hot-hand Paradox",
     "type": "informal",
     "category": "weak induction",
     "tier": "3",
@@ -2986,7 +2986,7 @@
     "severity": "moderate",
     "defensibility": "moderate",
     "related_falacies": [
-      "Gambler's Fallacy",
+      "Gambler's Paradox",
       "Clustering Illusion"
     ],
     "historical_detail": [
@@ -3046,7 +3046,7 @@
     "defensibility": "difficult",
     "related_falacies": [
       "Representativeness Heuristic",
-      "Conjunction Fallacy"
+      "Conjunction Paradox"
     ],
     "historical_detail": [
       "Base rate neglect was first identified by psychologists studying how people make probability judgments. The famous 'cab problem' demonstrated how people ignore base rate information (85% of cabs are green, 15% are blue) when given specific but less reliable information.",
@@ -3089,7 +3089,7 @@
   },
   {
     "id": "54",
-    "title": "Conjunction Fallacy",
+    "title": "Conjunction Paradox",
     "type": "formal",
     "category": "weak induction",
     "tier": "3",
@@ -3265,7 +3265,7 @@
   },
   {
     "id": "57",
-    "title": "Planning Fallacy",
+    "title": "Planning Paradox",
     "type": "informal",
     "category": "weak induction",
     "tier": "3",
@@ -3338,7 +3338,7 @@
     "severity": "moderate",
     "defensibility": "moderate",
     "related_falacies": [
-      "Planning Fallacy"
+      "Planning Paradox"
     ],
     "historical_detail": [
       "Optimism bias was first studied systematically by psychologist Neil Weinstein in the 1980s, who found that people consistently believe they are less likely than others to experience negative events and more likely to experience positive ones.",
@@ -4694,7 +4694,7 @@
     ],
     "img_path": "full-thumb-test-img.jpg",
     "image_potentials": [
-      "The Logical Fallacy by Philosophy",
+      "The Logical Paradox by Philosophy",
       "Conditional Logic by Mathematics",
       "The Invalid Inference by Logic"
     ],
@@ -4754,7 +4754,7 @@
     "image_potentials": [
       "The Denial by Logic",
       "The Inverse Error by Philosophy",
-      "The Conditional Fallacy by Mathematics"
+      "The Conditional Paradox by Mathematics"
     ],
     "img_src_link": "https://google.com",
     "img_src_creator": "public domain",
@@ -4992,7 +4992,7 @@
   },
   {
     "id": "87",
-    "title": "Existential Fallacy",
+    "title": "Existential Paradox",
     "type": "formal",
     "category": "invalid inference",
     "tier": "5",
@@ -5121,7 +5121,7 @@
     "severity": "serious",
     "defensibility": "difficult",
     "related_falacies": [
-      "Intensional Fallacy"
+      "Intensional Paradox"
     ],
     "historical_detail": [
       "The masked man fallacy gets its name from a classic example: 'I know who my father is. I don't know who the masked man is. Therefore, the masked man is not my father.' This illustrates how different descriptions of the same person can lead to false conclusions.",
@@ -5164,7 +5164,7 @@
   },
   {
     "id": "90",
-    "title": "Intensional Fallacy",
+    "title": "Intensional Paradox",
     "type": "formal",
     "category": "invalid inference",
     "tier": "5",
@@ -5212,7 +5212,7 @@
     "image_potentials": [
       "The Intension and Extension by Philosophy",
       "Meaning vs Reference by Logic",
-      "The Semantic Fallacy by Formal Logic"
+      "The Semantic Paradox by Formal Logic"
     ],
     "img_src_link": "https://google.com",
     "img_src_creator": "public domain",
@@ -5334,7 +5334,7 @@
   },
   {
     "id": "93",
-    "title": "Temporal Fallacy",
+    "title": "Temporal Paradox",
     "type": "formal",
     "category": "invalid inference",
     "tier": "5",
@@ -6327,7 +6327,7 @@
     "severity": "serious",
     "defensibility": "difficult",
     "related_falacies": [
-      "Ecological Fallacy"
+      "Ecological Paradox"
     ],
     "historical_detail": [
       "Ecological inference became recognized as a statistical fallacy in the mid-20th century as social scientists developed more sophisticated methods for analyzing group versus individual data. The problem was particularly acute in voting studies and demographic research.",
@@ -6426,7 +6426,7 @@
   },
   {
     "id": "112",
-    "title": "McNamara Fallacy",
+    "title": "McNamara Paradox",
     "type": "informal",
     "category": "weak induction",
     "tier": "6",
@@ -6442,9 +6442,9 @@
     "defensibility": "moderate",
     "related_falacies": [],
     "historical_detail": [
-      "The McNamara Fallacy was named after Robert McNamara, U.S. Secretary of Defense during the Vietnam War, who was criticized for relying too heavily on quantifiable metrics like body counts while ignoring qualitative factors like morale and political support.",
+      "The McNamara Paradox was named after Robert McNamara, U.S. Secretary of Defense during the Vietnam War, who was criticized for relying too heavily on quantifiable metrics like body counts while ignoring qualitative factors like morale and political support.",
       "This fallacy became particularly relevant in the development of management science and operations research, where the emphasis on quantification sometimes led to overlooking important qualitative factors that couldn't be easily measured.",
-      "In contemporary business and policy-making, the McNamara Fallacy appears frequently in performance measurement systems, where organizations focus on easily quantifiable metrics while ignoring harder-to-measure but equally important factors."
+      "In contemporary business and policy-making, the McNamara Paradox appears frequently in performance measurement systems, where organizations focus on easily quantifiable metrics while ignoring harder-to-measure but equally important factors."
     ],
     "examples": [
       "This employee has the highest sales numbers, so they must be the best! (ignores teamwork, customer satisfaction, ethics)",
@@ -6540,7 +6540,7 @@
   },
   {
     "id": "114",
-    "title": "Prosecutor's Fallacy",
+    "title": "Prosecutor's Paradox",
     "type": "formal",
     "category": "weak induction",
     "tier": "6",
@@ -6586,7 +6586,7 @@
     ],
     "img_path": "full-thumb-test-img.jpg",
     "image_potentials": [
-      "The Prosecutor's Fallacy by Legal Statistics",
+      "The Prosecutor's Paradox by Legal Statistics",
       "Conditional Probability by Mathematics",
       "The Bayes Error by Probability Theory"
     ],
@@ -6598,7 +6598,7 @@
   },
   {
     "id": "115",
-    "title": "Defense Attorney's Fallacy",
+    "title": "Defense Attorney's Paradox",
     "type": "formal",
     "category": "weak induction",
     "tier": "6",
@@ -6613,7 +6613,7 @@
     "severity": "moderate",
     "defensibility": "difficult",
     "related_falacies": [
-      "Prosecutor's Fallacy",
+      "Prosecutor's Paradox",
       "Burden of Proof"
     ],
     "historical_detail": [
@@ -6645,7 +6645,7 @@
     ],
     "img_path": "full-thumb-test-img.jpg",
     "image_potentials": [
-      "The Defense Attorney's Fallacy by Legal Logic",
+      "The Defense Attorney's Paradox by Legal Logic",
       "Reasonable Doubt by Jurisprudence",
       "The Doubt Standard by Legal Philosophy"
     ],
@@ -6657,7 +6657,7 @@
   },
   {
     "id": "116",
-    "title": "Regression Fallacy",
+    "title": "Regression Paradox",
     "type": "formal",
     "category": "weak induction",
     "tier": "6",
@@ -6715,7 +6715,7 @@
   },
   {
     "id": "117",
-    "title": "Ludic Fallacy",
+    "title": "Ludic Paradox",
     "type": "informal",
     "category": "weak induction",
     "tier": "6",
@@ -6759,7 +6759,7 @@
     ],
     "img_path": "full-thumb-test-img.jpg",
     "image_potentials": [
-      "The Ludic Fallacy by Game Theory",
+      "The Ludic Paradox by Game Theory",
       "Games vs Reality by Philosophy",
       "The Model Limitation by Statistics"
     ],
@@ -6878,7 +6878,7 @@
     "image_potentials": [
       "The Normalcy Bias by Disaster Psychology",
       "The Stable Assumption by Risk Management",
-      "The Continuation Fallacy by Behavioral Economics"
+      "The Continuation Paradox by Behavioral Economics"
     ],
     "img_src_link": "https://google.com",
     "img_src_creator": "public domain",
@@ -9212,7 +9212,7 @@
   },
   {
     "id": "161",
-    "title": "Conjunction Fallacy",
+    "title": "Conjunction Paradox",
     "type": "informal",
     "category": "probability error",
     "tier": "9",
@@ -9270,7 +9270,7 @@
   },
   {
     "id": "162",
-    "title": "Disjunction Fallacy",
+    "title": "Disjunction Paradox",
     "type": "informal",
     "category": "probability error",
     "tier": "9",
@@ -9285,7 +9285,7 @@
     "severity": "moderate",
     "defensibility": "difficult",
     "related_falacies": [
-      "Conjunction Fallacy",
+      "Conjunction Paradox",
       "Base Rate Neglect",
       "Probability Weighting"
     ],
@@ -9328,7 +9328,7 @@
   },
   {
     "id": "163",
-    "title": "Conditional Probability Fallacy",
+    "title": "Conditional Probability Paradox",
     "type": "informal",
     "category": "probability error",
     "tier": "9",
@@ -9343,8 +9343,8 @@
     "severity": "serious",
     "defensibility": "difficult",
     "related_falacies": [
-      "Base Rate Fallacy",
-      "Prosecutor's Fallacy"
+      "Base Rate Paradox",
+      "Prosecutor's Paradox"
     ],
     "historical_detail": [
       "This fundamental confusion in conditional probability reasoning has been recognized since the early development of probability theory, though systematic study began in the 20th century.",
@@ -9385,7 +9385,7 @@
   },
   {
     "id": "164",
-    "title": "Base Rate Fallacy",
+    "title": "Base Rate Paradox",
     "type": "informal",
     "category": "probability error",
     "tier": "9",
@@ -9400,8 +9400,8 @@
     "severity": "serious",
     "defensibility": "difficult",
     "related_falacies": [
-      "Conditional Probability Fallacy",
-      "Prosecutor's Fallacy",
+      "Conditional Probability Paradox",
+      "Prosecutor's Paradox",
       "Representativeness Heuristic"
     ],
     "historical_detail": [
@@ -9443,7 +9443,7 @@
   },
   {
     "id": "165",
-    "title": "Regression to Mean Fallacy",
+    "title": "Regression to Mean Paradox",
     "type": "informal",
     "category": "statistical error",
     "tier": "9",
@@ -9458,8 +9458,8 @@
     "severity": "moderate",
     "defensibility": "moderate",
     "related_falacies": [
-      "Hot-hand Fallacy",
-      "Gambler's Fallacy",
+      "Hot-hand Paradox",
+      "Gambler's Paradox",
       "Survivorship Bias"
     ],
     "historical_detail": [
@@ -9501,7 +9501,7 @@
   },
   {
     "id": "166",
-    "title": "Ecological Correlation Fallacy",
+    "title": "Ecological Correlation Paradox",
     "type": "informal",
     "category": "statistical error",
     "tier": "9",
@@ -9516,7 +9516,7 @@
     "severity": "serious",
     "defensibility": "difficult",
     "related_falacies": [
-      "Ecological Fallacy",
+      "Ecological Paradox",
       "Composition",
       "Hasty Generalization"
     ],
@@ -9559,7 +9559,7 @@
   },
   {
     "id": "167",
-    "title": "Atomistic Fallacy",
+    "title": "Atomistic Paradox",
     "type": "informal",
     "category": "statistical error",
     "tier": "9",
@@ -9574,7 +9574,7 @@
     "severity": "serious",
     "defensibility": "difficult",
     "related_falacies": [
-      "Ecological Correlation Fallacy",
+      "Ecological Correlation Paradox",
       "Division",
       "Hasty Generalization"
     ],
@@ -9964,7 +9964,7 @@
   },
   {
     "id": "174",
-    "title": "Texas Sharp-Shooter Fallacy",
+    "title": "Texas Sharp-Shooter Paradox",
     "type": "informal",
     "category": "statistical error",
     "tier": "9",
@@ -10716,7 +10716,7 @@
     "defensibility": "difficult",
     "related_falacies": [
       "Temporal Discounting",
-      "Planning Fallacy"
+      "Planning Paradox"
     ],
     "historical_detail": [
       "Hyperbolic discounting was first formally described in the 1980s, showing that people discount future rewards more steeply in the near term than in the distant future.",
