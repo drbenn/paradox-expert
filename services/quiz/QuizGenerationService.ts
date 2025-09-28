@@ -1,12 +1,12 @@
 import quizQuestionService from '@/services/quiz/QuizQuestionService';
-import { Fallacy } from "@/types/app.types";
+import { Paradox } from "@/types/app.types";
 import { Quiz, QuizConfig, QuizSession, QuizSetup } from "@/types/quiz.types";
 
 class QuizGenerationService {
 
 
   public generateQuizSession(
-    fallacies: Fallacy[],
+    fallacies: Paradox[],
     quizSetup: QuizSetup
   ): QuizSession {
     try {
@@ -25,7 +25,7 @@ class QuizGenerationService {
           quiz = this.generateUnitTest(quizSetup.tier!, fallacies, quizSetup.quizConfig)
           break
         case 'daily_challenge':
-          quiz = this.generateDailyChallenge(quizSetup.quizConfig.targetFallacy!, fallacies, quizSetup.quizConfig) // you handle fallacy selection elsewhere
+          quiz = this.generateDailyChallenge(quizSetup.quizConfig.targetParadox!, fallacies, quizSetup.quizConfig) // you handle fallacy selection elsewhere
           break
         case 'custom':
           quiz = this.generateCustomQuiz(fallacies, quizSetup.quizConfig)
@@ -50,8 +50,8 @@ class QuizGenerationService {
     }
   }
 
-  private getFallaciesForTier(tier: number, allFallacies: Fallacy[]): Fallacy[] {
-    const tierFallacies = allFallacies.filter((fallacy: Fallacy) => 
+  private getFallaciesForTier(tier: number, allFallacies: Paradox[]): Paradox[] {
+    const tierFallacies = allFallacies.filter((fallacy: Paradox) => 
       Number(fallacy.tier) === tier
     )
     
@@ -63,10 +63,10 @@ class QuizGenerationService {
     logger.log(`📊 Found ${tierFallacies.length} fallacies for tier ${tier}`)
     
     // Sort by ID for consistent ordering
-    return tierFallacies.sort((a: Fallacy, b: Fallacy) => parseInt(a.id) - parseInt(b.id))
+    return tierFallacies.sort((a: Paradox, b: Paradox) => parseInt(a.id) - parseInt(b.id))
   }
 
-  private getFallaciesForQuiz(tierFallacies: Fallacy[], quizNumber: number, fallaciesPerQuiz: number): Fallacy[] {
+  private getFallaciesForQuiz(tierFallacies: Paradox[], quizNumber: number, fallaciesPerQuiz: number): Paradox[] {
     const startIndex = (quizNumber - 1) * fallaciesPerQuiz
     const endIndex = startIndex + fallaciesPerQuiz
     
@@ -91,7 +91,7 @@ class QuizGenerationService {
   private generateRegularQuiz(
     tier: number,
     quizNumber: number,
-    allFallacies: Fallacy[],
+    allFallacies: Paradox[],
     config: QuizConfig
   ): Quiz {
     // Get all fallacies for this tier (20 fallacies per tier)
@@ -124,8 +124,8 @@ class QuizGenerationService {
       tier,
       quizNumber,
       title: `Tier ${tier} - Quiz ${quizNumber}`,
-      description: `Test your knowledge on ${quizFallacies.map((f: Fallacy) => f.title).join(', ')}`,
-      fallacyIds: quizFallacies.map((f: Fallacy) => f.id),
+      description: `Test your knowledge on ${quizFallacies.map((f: Paradox) => f.title).join(', ')}`,
+      fallacyIds: quizFallacies.map((f: Paradox) => f.id),
       questions: shuffledQuestions,
       timeLimit: config.questionTimeLimitSeconds,
       passingScore: config.passingScorePercentage
@@ -137,7 +137,7 @@ class QuizGenerationService {
 
   private generateUnitTest(
     tier: number,
-    allFallacies: Fallacy[],
+    allFallacies: Paradox[],
     config: QuizConfig
   ): Quiz {
     logger.log(`🎯 Generating unit test for tier ${tier}`)
@@ -169,7 +169,7 @@ class QuizGenerationService {
       quizNumber: null, // Unit tests don't have quiz numbers
       title: `Tier ${tier} - Comprehensive Unit Test`,
       description: `Master ALL ${tierFallacies.length} fallacies in Tier ${tier}! This comprehensive test covers everything you've learned.`,
-      fallacyIds: tierFallacies.map((f: Fallacy) => f.id),
+      fallacyIds: tierFallacies.map((f: Paradox) => f.id),
       questions: shuffledQuestions,
       timeLimit: config.questionTimeLimitSeconds,
       passingScore: config.passingScorePercentage
@@ -181,57 +181,57 @@ class QuizGenerationService {
   }
 
   private generateDailyChallenge(
-    targetFallacy: Fallacy,
-    allFallacies: Fallacy[],
+    targetParadox: Paradox,
+    allFallacies: Paradox[],
     config: QuizConfig
   ): Quiz {
-    logger.log(`🎮 Generating daily challenge for "${targetFallacy.title}"`)
+    logger.log(`🎮 Generating daily challenge for "${targetParadox.title}"`)
     
-    if (!targetFallacy) {
+    if (!targetParadox) {
       logger.error(`❌ No target fallacy provided for daily challenge`)
       throw new Error(`Target fallacy is required for daily challenge`)
     }
 
     // Generate mixed questions all focused on the target fallacy
     const questions = quizQuestionService.generateDailyChallengeQuestions(
-      targetFallacy, 
+      targetParadox, 
       allFallacies, 
     )
 
     const shuffledQuestions = quizQuestionService.shuffleQuestions(questions)
 
     const quiz: Quiz = {
-      id: `daily-challenge-${targetFallacy.id}-${Date.now()}`,
+      id: `daily-challenge-${targetParadox.id}-${Date.now()}`,
       testType: 'daily_challenge',
       tier: null, // Daily challenges don't have tiers
       quizNumber: null, // Daily challenges don't have quiz numbers
-      title: `Daily Challenge - ${targetFallacy.title}`,
-      description: `Master the "${targetFallacy.title}" fallacy with 10 focused questions!`,
-      fallacyIds: [targetFallacy.id],
+      title: `Daily Challenge - ${targetParadox.title}`,
+      description: `Master the "${targetParadox.title}" fallacy with 10 focused questions!`,
+      fallacyIds: [targetParadox.id],
       questions: shuffledQuestions,
       timeLimit: config.questionTimeLimitSeconds,
       passingScore: config.passingScorePercentage
     }
 
-    logger.log(`✅ Generated daily challenge with ${quiz.questions.length} questions focused on "${targetFallacy.title}"`)
+    logger.log(`✅ Generated daily challenge with ${quiz.questions.length} questions focused on "${targetParadox.title}"`)
 
     return quiz
   }
 
   private generateCustomQuiz(
-    allFallacies: Fallacy[],
+    allFallacies: Paradox[],
     config: QuizConfig
   ): Quiz {
     logger.log(`🎨 Generating custom quiz`)
     
-    if (!config.selectedFallacyIds || config.selectedFallacyIds.length === 0) {
+    if (!config.selectedParadoxIds || config.selectedParadoxIds.length === 0) {
       logger.error(`❌ No fallacies selected for custom quiz`)
       throw new Error(`Selected fallacies are required for custom quiz`)
     }
 
     // Filter to get only the selected fallacies
-    const customFallacies = allFallacies.filter((fallacy: Fallacy) => 
-      config.selectedFallacyIds!.includes(fallacy.id)
+    const customFallacies = allFallacies.filter((fallacy: Paradox) => 
+      config.selectedParadoxIds!.includes(fallacy.id)
     )
 
     if (customFallacies.length === 0) {
@@ -258,7 +258,7 @@ class QuizGenerationService {
       quizNumber: null, // Custom quizzes don't have quiz numbers
       title: 'Custom Quiz',
       description: `Knowledge tested on ${customFallacies.length} fallacies`,
-      fallacyIds: customFallacies.map((f: Fallacy) => f.id),
+      fallacyIds: customFallacies.map((f: Paradox) => f.id),
       questions: shuffledQuestions,
       timeLimit: config.questionTimeLimitSeconds,
       passingScore: config.passingScorePercentage
@@ -270,7 +270,7 @@ class QuizGenerationService {
   }
 
   private generateWeeklyGauntlet(
-    allFallacies: Fallacy[],
+    allFallacies: Paradox[],
     config: QuizConfig
   ): Quiz {
     logger.log(`⚔️ Generating weekly gauntlet (placeholder implementation)`)
@@ -299,7 +299,7 @@ class QuizGenerationService {
       quizNumber: null,
       title: 'Weekly Gauntlet',
       description: `Marathon challenge across all ${allFallacies.length} unlocked fallacies`,
-      fallacyIds: allFallacies.map((f: Fallacy) => f.id),
+      fallacyIds: allFallacies.map((f: Paradox) => f.id),
       questions: shuffledQuestions,
       timeLimit: config.questionTimeLimitSeconds,
       passingScore: config.passingScorePercentage

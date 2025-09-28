@@ -1,14 +1,13 @@
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
-import React from 'react'
 import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
+    Dimensions,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native'
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
@@ -40,7 +39,7 @@ export default function DetailTutorialStage({
       {/* Header */}
       <View style={styles.header}>
         <Text style={[styles.title, { color: colors.text }]}>
-          Fallacy Details
+          Paradox Details
         </Text>
         <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
           Deep Learning Experience

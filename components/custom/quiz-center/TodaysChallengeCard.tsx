@@ -1,12 +1,11 @@
 import SHAPES from '@/constants/Shapes'
 import { useAppState } from '@/state/useAppState'
-import React from 'react'
 import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
+    ActivityIndicator,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native'
 import { useShallow } from 'zustand/shallow'
 
@@ -17,15 +16,15 @@ interface TodaysChallengeCardProps {
 
 const TodaysChallengeCard = ({ colors }: TodaysChallengeCardProps) => {
   // const [isLoading, setIsLoading] = useState(true)
-  // const [fallacy, setFallacy] = useState<Fallacy | null>(null)
+  // const [fallacy, setParadox] = useState<Paradox | null>(null)
   // const [isCompleted, setIsCompleted] = useState(false)
 
-  const navigateToDailyChallengeFallacy = useAppState((state) => state.navigateToDailyChallengeFallacy)
+  const navigateToDailyChallengeParadox = useAppState((state) => state.navigateToDailyChallengeParadox)
 
-  const { isCompleted, todaysFallacy, isLoading } = useAppState(
+  const { isCompleted, todaysParadox, isLoading } = useAppState(
     useShallow((state) => ({
       isCompleted: state.dailyChallengeStatus?.isCompleted || false,
-      todaysFallacy: state.dailyChallengeStatus?.todaysFallacy,
+      todaysParadox: state.dailyChallengeStatus?.todaysParadox,
       isLoading: state.dailyChallengeStatus?.isLoading || false // default if optional
     }))
   )
@@ -33,7 +32,7 @@ const TodaysChallengeCard = ({ colors }: TodaysChallengeCardProps) => {
   return (
     <TouchableOpacity
       style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}
-      onPress={navigateToDailyChallengeFallacy}
+      onPress={navigateToDailyChallengeParadox}
       activeOpacity={0.96}
       disabled={isLoading}
     >
@@ -68,21 +67,21 @@ const TodaysChallengeCard = ({ colors }: TodaysChallengeCardProps) => {
             
             <View style={styles.main}>
               <Text style={[styles.title, { color: colors.text }]}>
-                {todaysFallacy?.title || 'Loading...'}
+                {todaysParadox?.title || 'Loading...'}
               </Text>
               <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-                {todaysFallacy?.subtitle || 'Loading subtitle...'}
+                {todaysParadox?.subtitle || 'Loading subtitle...'}
               </Text>
             </View>
             
             <View style={styles.footer}>
               <View style={[styles.idBadge, { backgroundColor: colors.background }]}>
                 <Text style={[styles.idText, { color: colors.textSecondary }]}>
-                  #{todaysFallacy?.id || '...'}
+                  #{todaysParadox?.id || '...'}
                 </Text>
               </View>
               <Text style={[styles.cta, { color: colors.primary }]}>
-                Review Fallacy →
+                Review Paradox →
               </Text>
             </View>
           </>

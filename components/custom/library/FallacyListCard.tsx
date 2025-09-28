@@ -1,16 +1,16 @@
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
-import { Fallacy } from '@/types/app.types'
+import { Paradox } from '@/types/app.types'
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-interface FallacyCardProps {
-  fallacy: Fallacy
+interface ParadoxCardProps {
+  fallacy: Paradox
   onPress: () => void
 }
 
-const FallacyListCard: React.FC<FallacyCardProps> = ({ fallacy, onPress }) => {
+const ParadoxListCard: React.FC<ParadoxCardProps> = ({ fallacy, onPress }) => {
   const { colors } = useSystemTheme()
   return (
     <TouchableOpacity
@@ -106,4 +106,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default FallacyListCard
+export default ParadoxListCard

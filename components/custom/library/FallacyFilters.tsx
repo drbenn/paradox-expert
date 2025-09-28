@@ -3,11 +3,11 @@ import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native'
 
 // Filter types -  STYLE!
@@ -73,7 +73,7 @@ const CONTEXT_OPTIONS: { key: ContextFilter; label: string; emoji: string }[] = 
   { key: 'relationships', label: 'Relationships', emoji: '💕' }
 ]
 
-interface FallacyFiltersProps {
+interface ParadoxFiltersProps {
   selectedDifficulty: DifficultyFilter
   selectedUsage: UsageFilter | null
   selectedSubtlety: SubtletyFilter | null
@@ -101,7 +101,7 @@ interface FallacyFiltersProps {
   onToggleUnlearnedOnly: () => void
 }
 
-const FallacyFilters: React.FC<FallacyFiltersProps> = ({
+const ParadoxFilters: React.FC<ParadoxFiltersProps> = ({
   selectedDifficulty,
   selectedUsage,
   selectedSubtlety,
@@ -611,4 +611,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default FallacyFilters
+export default ParadoxFilters

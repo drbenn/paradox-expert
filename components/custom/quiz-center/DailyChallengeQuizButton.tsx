@@ -20,12 +20,12 @@ const DailyChallengeQuizButton: React.FC<DailyChallengeQuizButtonProps> = ({
   const { colors } = useSystemTheme()
   const params = useLocalSearchParams()
   
-  const smartFallacyId = fallacyId || (params.id as string) || null
+  const smartParadoxId = fallacyId || (params.id as string) || null
   
-  const { isCompleted, todaysFallacy, isLoading } = useAppState(
+  const { isCompleted, todaysParadox, isLoading } = useAppState(
     useShallow((state) => ({
       isCompleted: state.dailyChallengeStatus?.isCompleted ?? false,
-      todaysFallacy: state.dailyChallengeStatus?.todaysFallacy ?? null,
+      todaysParadox: state.dailyChallengeStatus?.todaysParadox ?? null,
       isLoading: state.dailyChallengeStatus?.isLoading ?? false
     }))
   )
@@ -36,9 +36,9 @@ const DailyChallengeQuizButton: React.FC<DailyChallengeQuizButtonProps> = ({
   const [shouldShow, setShouldShow] = useState(false)
 
   const navigateToDailyChallengeQuiz = () => {
-    if (todaysFallacy) {
+    if (todaysParadox) {
       try {
-        const quizSetup: QuizSetup = createDailyChallengeSetup(todaysFallacy) 
+        const quizSetup: QuizSetup = createDailyChallengeSetup(todaysParadox) 
         startQuiz(quizSetup)
         // No callbacks needed - state management handles everything
       } catch (error: any) {
@@ -51,26 +51,26 @@ const DailyChallengeQuizButton: React.FC<DailyChallengeQuizButtonProps> = ({
 
   // SHOW/HIDE LOGIC: Determine if button should be visible
   useEffect(() => {
-    if (!todaysFallacy?.id) {
+    if (!todaysParadox?.id) {
       setShouldShow(false)
       return
     }
     
-    const todaysFallacyId = todaysFallacy.id
+    const todaysParadoxId = todaysParadox.id
 
     let showButton = false
 
     if (mode === 'quiz-center') {
       showButton = true
     } else if (mode === 'fallacy-detail') {
-      showButton = smartFallacyId === todaysFallacyId
+      showButton = smartParadoxId === todaysParadoxId
     } else {
       // Auto mode
-      showButton = smartFallacyId ? smartFallacyId === todaysFallacyId : true
+      showButton = smartParadoxId ? smartParadoxId === todaysParadoxId : true
     }
 
     setShouldShow(showButton)
-  }, [mode, smartFallacyId, todaysFallacy])
+  }, [mode, smartParadoxId, todaysParadox])
 
   if (!shouldShow) {
     return null
@@ -79,7 +79,7 @@ const DailyChallengeQuizButton: React.FC<DailyChallengeQuizButtonProps> = ({
   const handlePress = () => {
     Alert.alert(
       '🌅 Ready for Today\'s Challenge?',
-      `Daily Fallacy Challenge\n\n🧠 Today's Focus: ${todaysFallacy?.title || 'Special Fallacy'}\n\n📝 10 Questions\n⏱️ 10 Minutes\n🎯 70% to Pass\n💰 15 Points + Streak Bonus\n\nStart your daily brain workout?`,
+      `Daily Paradox Challenge\n\n🧠 Today's Focus: ${todaysParadox?.title || 'Special Paradox'}\n\n📝 10 Questions\n⏱️ 10 Minutes\n🎯 70% to Pass\n💰 15 Points + Streak Bonus\n\nStart your daily brain workout?`,
       [
         { text: 'Maybe Later', style: 'cancel' },
         { text: 'Start Challenge!', onPress: () => navigateToDailyChallengeQuiz() }

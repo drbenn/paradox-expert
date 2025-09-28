@@ -1,47 +1,47 @@
-import { Fallacy, QuizLearnedFallacyStats } from '@/types/app.types'
+import { Paradox, QuizLearnedParadoxStats } from '@/types/app.types'
 import logger from '@/utils/logger'
 import { RelativePathString, router } from 'expo-router'
 import { StateCreator } from 'zustand'
 import fallaciesData from '../../assets/data/fallacies.json'
 
-export interface FallacySlice {
-  fallacies: Fallacy[]
+export interface ParadoxSlice {
+  fallacies: Paradox[]
   isFallaciesLoaded: boolean
-  learnedStats: QuizLearnedFallacyStats
+  learnedStats: QuizLearnedParadoxStats
   
-  // General Fallacy Actions
+  // General Paradox Actions
   loadFallacies: () => void
-  getAllFallacies: () => Fallacy[]
-  getFallacyById: (id: string) => Fallacy | undefined
-  getRandomFallacy: () => Fallacy
-  getFallacyByTitle: (title: string) => Fallacy | undefined
-  getFallacyCount: () => number
+  getAllFallacies: () => Paradox[]
+  getParadoxById: (id: string) => Paradox | undefined
+  getRandomParadox: () => Paradox
+  getParadoxByTitle: (title: string) => Paradox | undefined
+  getParadoxCount: () => number
 
   // Learned Actions
-  isFallacyLearned: (fallacyId: string) => boolean
-  toggleFallacyLearned: (fallacyId: string) => boolean
+  isParadoxLearned: (fallacyId: string) => boolean
+  toggleParadoxLearned: (fallacyId: string) => boolean
   markFallaciesLearned: (fallacyIds: string[]) => void
-  calculateLearnedFallacyStats: () => void
+  calculateLearnedParadoxStats: () => void
   clearAllLearned: () => void
 
   // Favorite Actions
-  isFallacyFavorite: (fallacyId: string) => boolean
-  toggleFavoriteFallacy: (fallacyId: string) => boolean
+  isParadoxFavorite: (fallacyId: string) => boolean
+  toggleFavoriteParadox: (fallacyId: string) => boolean
   getFavoriteStats: () => { totalFavorites: number, favoriteIds: string[] }
   clearAllFavorites: () => void
 
   // Navigation Actions
-  navigateToRandomFallacy: (method: string, currentId?: string) => void
-  navigateToNextFallacy: (method: string, currentId: string) => void
-  navigateToPreviousFallacy: (method: string, currentId: string) => void
-  navigateToRelatedFallacy: (fallacyTitle: string, method: string) => void
+  navigateToRandomParadox: (method: string, currentId?: string) => void
+  navigateToNextParadox: (method: string, currentId: string) => void
+  navigateToPreviousParadox: (method: string, currentId: string) => void
+  navigateToRelatedParadox: (fallacyTitle: string, method: string) => void
 }
 
 export const fallacySlice: StateCreator<
   any, // Full app state - avoid circular dependency
   [],
   [],
-  FallacySlice
+  ParadoxSlice
 > = (set, get) => ({
   // Initial state
   fallacies: [],
@@ -52,7 +52,7 @@ export const fallacySlice: StateCreator<
     totalFallacies: 0
   },
 
-  // General Fallacy Actions
+  // General Paradox Actions
   loadFallacies: () => {
     console.log('loading fallacies:')
     
@@ -66,7 +66,7 @@ export const fallacySlice: StateCreator<
     }
 
     try {
-      const fallacies = fallaciesData as Fallacy[]
+      const fallacies = fallaciesData as Paradox[]
       logger.log(`✅ : Loaded ${fallacies.length} fallacies from JSON`)
       // Load fresh data from JSON (only on first run or if persistence failed)
       const fallaciesWithDefaults = fallacies.map((fallacy: any) => ({
@@ -90,12 +90,12 @@ export const fallacySlice: StateCreator<
 
   getAllFallacies: () => get().fallacies,
 
-  getFallacyById: (id: string) => {
+  getParadoxById: (id: string) => {
     const fallacies = get().fallacies
-    return fallacies.find((fallacy: Fallacy) => fallacy.id === id)
+    return fallacies.find((fallacy: Paradox) => fallacy.id === id)
   },
   
-  getRandomFallacy: () => {
+  getRandomParadox: () => {
     const fallacies = get().fallacies
     if (fallacies.length === 0) {
       throw new Error('No fallacies loaded')
@@ -104,29 +104,29 @@ export const fallacySlice: StateCreator<
     return fallacies[randomIndex]
   },
 
-  getFallacyByTitle: (title: string) => {
+  getParadoxByTitle: (title: string) => {
     const fallacies = get().fallacies
-    return fallacies.find((fallacy: Fallacy) => fallacy.title === title)
+    return fallacies.find((fallacy: Paradox) => fallacy.title === title)
   },
 
-  getFallacyCount: () => {
+  getParadoxCount: () => {
     return get().fallacies.length
   },
 
 
   // Learned Actions
 
-  isFallacyLearned: (fallacyId: string) => {
-    const fallacy = get().getFallacyById(fallacyId)
+  isParadoxLearned: (fallacyId: string) => {
+    const fallacy = get().getParadoxById(fallacyId)
     return fallacy?.isLearned || false
   },
 
-  toggleFallacyLearned: (id: string) => {
+  toggleParadoxLearned: (id: string) => {
     const { fallacies } = get()
-    const fallacy = fallacies.find((f: Fallacy) => f.id === id)
+    const fallacy = fallacies.find((f: Paradox) => f.id === id)
     if (!fallacy) return false
     
-    const updatedFallacies = fallacies.map((fallacy: Fallacy) =>
+    const updatedFallacies = fallacies.map((fallacy: Paradox) =>
       fallacy.id === id
         ? { ...fallacy, isLearned: !fallacy.isLearned }
         : fallacy
@@ -137,21 +137,21 @@ export const fallacySlice: StateCreator<
 
   markFallaciesLearned: (fallacyIds: string[]) => {
     const { fallacies } = get()
-    const updatedFallacies = fallacies.map((fallacy: Fallacy) =>
+    const updatedFallacies = fallacies.map((fallacy: Paradox) =>
       fallacyIds.includes(fallacy.id)
         ? { ...fallacy, isLearned: true }
         : fallacy
     )
     set({ fallacies: updatedFallacies })
-    get().calculateLearnedFallacyStats()
+    get().calculateLearnedParadoxStats()
   },
 
-  calculateLearnedFallacyStats: () => {
+  calculateLearnedParadoxStats: () => {
     const { fallacies } = get()
-    const learnedFallacies = fallacies.filter((f: Fallacy) => f.isLearned)
-    const learnedStats: QuizLearnedFallacyStats = {
+    const learnedFallacies = fallacies.filter((f: Paradox) => f.isLearned)
+    const learnedStats: QuizLearnedParadoxStats = {
       totalLearned: learnedFallacies.length,
-      learnedIds: learnedFallacies.map((f: Fallacy) => f.id),
+      learnedIds: learnedFallacies.map((f: Paradox) => f.id),
       totalFallacies: fallacies.length
     }
     set({ learnedStats: learnedStats })
@@ -159,7 +159,7 @@ export const fallacySlice: StateCreator<
 
   clearAllLearned: () => {
     const { fallacies } = get()
-    const updatedFallacies = fallacies.map((fallacy: Fallacy) => ({
+    const updatedFallacies = fallacies.map((fallacy: Paradox) => ({
       ...fallacy,
       isLearned: false
     }))
@@ -169,17 +169,17 @@ export const fallacySlice: StateCreator<
 
   // Favorite Actions
 
-  isFallacyFavorite: (fallacyId: string) => {
-    const fallacy = get().getFallacyById(fallacyId)
+  isParadoxFavorite: (fallacyId: string) => {
+    const fallacy = get().getParadoxById(fallacyId)
     return fallacy?.isFavorite || false
   },
 
-  toggleFavoriteFallacy: (id: string) => {
+  toggleFavoriteParadox: (id: string) => {
     const { fallacies } = get()
-    const fallacy = fallacies.find((f: Fallacy) => f.id === id)
+    const fallacy = fallacies.find((f: Paradox) => f.id === id)
     if (!fallacy) return false
     
-    const updatedFallacies = fallacies.map((fallacy: Fallacy) =>
+    const updatedFallacies = fallacies.map((fallacy: Paradox) =>
       fallacy.id === id
         ? { ...fallacy, isFavorite: !fallacy.isFavorite }
         : fallacy
@@ -190,17 +190,17 @@ export const fallacySlice: StateCreator<
 
   getFavoriteStats: () => {
     const { fallacies } = get()
-    const favoriteFallacies = fallacies.filter((f: Fallacy) => f.isFavorite)
+    const favoriteFallacies = fallacies.filter((f: Paradox) => f.isFavorite)
     
     return {
       totalFavorites: favoriteFallacies.length,
-      favoriteIds: favoriteFallacies.map((f: Fallacy) => f.id)
+      favoriteIds: favoriteFallacies.map((f: Paradox) => f.id)
     }
   },
 
   clearAllFavorites: () => {
     const { fallacies } = get()
-    const updatedFallacies = fallacies.map((fallacy: Fallacy) => ({
+    const updatedFallacies = fallacies.map((fallacy: Paradox) => ({
       ...fallacy,
       isFavorite: false
     }))
@@ -209,48 +209,48 @@ export const fallacySlice: StateCreator<
 
 
   // 🧭 NAVIGATION ACTIONS!
-  navigateToRandomFallacy: (method: string, currentId?: string) => {
+  navigateToRandomParadox: (method: string, currentId?: string) => {
     const { fallacies } = get() 
     if (fallacies.length === 0) {
       // logger.warn('No fallacies loaded')
       return
     }
     
-    let randomFallacy: Fallacy
+    let randomParadox: Paradox
     
     if (currentId) {
-      const availableFallacies = fallacies.filter((f: Fallacy) => f.id !== currentId)
+      const availableFallacies = fallacies.filter((f: Paradox) => f.id !== currentId)
       if (availableFallacies.length === 0) {
-        randomFallacy = fallacies[0]
+        randomParadox = fallacies[0]
       } else {
         const randomIndex = Math.floor(Math.random() * availableFallacies.length)
-        randomFallacy = availableFallacies[randomIndex]
+        randomParadox = availableFallacies[randomIndex]
       }
     } else {
-      randomFallacy = get().getRandomFallacy()
+      randomParadox = get().getRandomParadox()
     }
     
     if (method === 'push') {
       router.push({
         pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
-        params: { id: randomFallacy.id }
+        params: { id: randomParadox.id }
       })
     } else {
       router.replace({
         pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
-        params: { id: randomFallacy.id }
+        params: { id: randomParadox.id }
       })
     }
   },
   
-  navigateToNextFallacy: (method: string, currentId: string) => {
+  navigateToNextParadox: (method: string, currentId: string) => {
     const { fallacies } = get() 
     if (fallacies.length === 0) {
       // logger.warn('No fallacies loaded')
       return
     }
     
-    const currentIndex = fallacies.findIndex((f: Fallacy) => f.id === currentId)
+    const currentIndex = fallacies.findIndex((f: Paradox) => f.id === currentId)
     let nextIndex
     
     if (currentIndex === -1 || currentIndex === fallacies.length - 1) {
@@ -259,29 +259,29 @@ export const fallacySlice: StateCreator<
       nextIndex = currentIndex + 1
     }
     
-    const nextFallacy = fallacies[nextIndex]
+    const nextParadox = fallacies[nextIndex]
 
     if (method === 'push') {
       router.push({
         pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
-        params: { id: nextFallacy.id }
+        params: { id: nextParadox.id }
       })
     } else {
       router.replace({
         pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
-        params: { id: nextFallacy.id }
+        params: { id: nextParadox.id }
       })
     }
   },
 
-  navigateToPreviousFallacy: (method: string, currentId: string) => {
+  navigateToPreviousParadox: (method: string, currentId: string) => {
     const { fallacies } = get()  
     if (fallacies.length === 0) {
       // logger.warn('No fallacies loaded')
       return
     }
     
-    const currentIndex = fallacies.findIndex((f: Fallacy) => f.id === currentId)
+    const currentIndex = fallacies.findIndex((f: Paradox) => f.id === currentId)
     let nextIndex
     
     if (currentIndex === -1 || currentIndex === 0) {
@@ -290,41 +290,41 @@ export const fallacySlice: StateCreator<
       nextIndex = currentIndex - 1
     }
     
-    const previousFallacy = fallacies[nextIndex]
+    const previousParadox = fallacies[nextIndex]
 
     if (method === 'push') {
       router.push({
         pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
-        params: { id: previousFallacy.id }
+        params: { id: previousParadox.id }
       })
     } else {
       router.replace({
         pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
-        params: { id: previousFallacy.id }
+        params: { id: previousParadox.id }
       })
     }
   },
 
-  navigateToRelatedFallacy: (fallacyTitle: string, method: string) => {
+  navigateToRelatedParadox: (fallacyTitle: string, method: string) => {
     // Get the fallacy by title from the fallacy state
-    const relatedFallacy = get().getFallacyByTitle(fallacyTitle)
+    const relatedParadox = get().getParadoxByTitle(fallacyTitle)
     
-    if (!relatedFallacy) {
+    if (!relatedParadox) {
       // logger.warn(`Related fallacy not found: ${fallacyTitle}`)
       return
     }
     
-    // logger.log(`Navigating to related fallacy: ${fallacyTitle} (ID: ${relatedFallacy.id})`)
+    // logger.log(`Navigating to related fallacy: ${fallacyTitle} (ID: ${relatedParadox.id})`)
     
     if (method === 'push') {
       router.push({
         pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
-        params: { id: relatedFallacy.id }
+        params: { id: relatedParadox.id }
       })
     } else {
       router.replace({
         pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
-        params: { id: relatedFallacy.id }
+        params: { id: relatedParadox.id }
       })
     }
   },

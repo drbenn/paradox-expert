@@ -1,4 +1,4 @@
-import { Fallacy } from "@/types/app.types"
+import { Paradox } from "@/types/app.types"
 import { QuizSetup } from "@/types/quiz.types"
 
 export function createRegularQuizSetup(tier: number, quizNumber: number): QuizSetup {
@@ -43,7 +43,7 @@ export function createRegularQuizSetup(tier: number, quizNumber: number): QuizSe
   }
   }
 
-  export function createDailyChallengeSetup(targetFallacy: Fallacy): QuizSetup {
+  export function createDailyChallengeSetup(targetParadox: Paradox): QuizSetup {
   return {
     quizType: 'daily_challenge',
     quizConfig: {
@@ -58,19 +58,19 @@ export function createRegularQuizSetup(tier: number, quizNumber: number): QuizSe
         scenario_identification: 0.25, // 25%
         binary_choice: 0.25        // 0%
       },
-      targetFallacy // Special property for daily challenge
+      targetParadox // Special property for daily challenge
     },
     tier: null,
     quizNumber: null
   }
   }
 
-  export function createCustomQuizSetup(selectedFallacyIds: string[], questionCount: number = 15): QuizSetup {
+  export function createCustomQuizSetup(selectedParadoxIds: string[], questionCount: number = 15): QuizSetup {
   return {
     quizType: 'custom',
     quizConfig: {
       questionsPerQuiz: questionCount,
-      fallaciesPerQuiz: selectedFallacyIds.length,
+      fallaciesPerQuiz: selectedParadoxIds.length,
       passingScorePercentage: 70,
       questionTimeLimitSeconds: 60,
       quizTimeLimitSeconds: questionCount * 60, // 1 minute per question
@@ -80,7 +80,7 @@ export function createRegularQuizSetup(tier: number, quizNumber: number): QuizSe
         scenario_identification: 0.2, // 20%
         binary_choice: 0.2         // 20%
       },
-      selectedFallacyIds // Special property for custom quiz
+      selectedParadoxIds // Special property for custom quiz
     },
     tier: null,
     quizNumber: null

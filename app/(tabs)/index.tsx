@@ -1,18 +1,18 @@
 import AnimatedTabWrapper, { TabAnimationPresets } from '@/components/custom/AnimatedTabWrapper'
 import ProgressCircle from '@/components/custom/home/ProgressCircle'
-import RandomFallacyButton from '@/components/custom/home/RandomFallacyButton'
+import RandomParadoxButton from '@/components/custom/home/RandomParadoxButton'
 import TodaysChallengeCard from '@/components/custom/quiz-center/TodaysChallengeCard'
 import APP_CONSTANTS from '@/constants/appConstants'
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import {
-  Animated,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
+    Animated,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -83,7 +83,7 @@ export default function HomeScreen() {
           </Animated.View>
 
           {/* 🏆 RANDOM FALLACY BUTTON */}
-          <RandomFallacyButton />
+          <RandomParadoxButton />
 
         </ScrollView>
       </AnimatedTabWrapper>

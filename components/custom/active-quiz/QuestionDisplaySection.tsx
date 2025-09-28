@@ -1,6 +1,5 @@
 import SHAPES from '@/constants/Shapes'
 import { QuizQuestion } from '@/types/quiz.types'
-import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 interface QuestionDisplaySectionProps {
@@ -26,7 +25,7 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
     ...question, // Spread first to get all properties
     questionType: question.questionType || 'default',
     questionText: question.questionText || 'Question loading...',
-    fallacyName: question.fallacyName || 'Unknown Fallacy'
+    fallacyName: question.fallacyName || 'Unknown Paradox'
   }
   
   // 🏆 : Render specialized question display based on type!

@@ -1,21 +1,21 @@
 import AnimatedTabWrapper, { TabAnimationPresets } from '@/components/custom/AnimatedTabWrapper'
-import FallacyFilters, { ContextFilter, DefensibilityFilter, DifficultyFilter, IntentFilter, SeverityFilter, SubtletyFilter, UsageFilter } from '@/components/custom/library/FallacyFilters'
-import FallacyFilterToggle from '@/components/custom/library/FallacyFilterToggle'
-import FallacyResults from '@/components/custom/library/FallacyResults'
-import FallacySearchBar from '@/components/custom/library/FallacySearchBarProps'
+import ParadoxFilters, { ContextFilter, DefensibilityFilter, DifficultyFilter, IntentFilter, SeverityFilter, SubtletyFilter, UsageFilter } from '@/components/custom/library/ParadoxFilters'
+import ParadoxFilterToggle from '@/components/custom/library/ParadoxFilterToggle'
+import ParadoxResults from '@/components/custom/library/ParadoxResults'
+import ParadoxSearchBar from '@/components/custom/library/ParadoxSearchBarProps'
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { useAppState } from '@/state/useAppState'
 
-import { Fallacy } from '@/types/app.types'
+import { Paradox } from '@/types/app.types'
 import { RelativePathString, router } from 'expo-router'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useShallow } from 'zustand/shallow'
@@ -36,8 +36,8 @@ export default function LibraryIndexScreen() {
 
   // all fallacies updated by state for use in automatic changes to favorite and learned fallacies
   const allFallacies = getAllFallacies()
-  const favoriteFallacies = allFallacies.filter((f: Fallacy) => f.isFavorite)
-  const learnedFallacies = allFallacies.filter((f: Fallacy) => f.isLearned)
+  const favoriteFallacies = allFallacies.filter((f: Paradox) => f.isFavorite)
+  const learnedFallacies = allFallacies.filter((f: Paradox) => f.isLearned)
   
   // 💪  STATE MANAGEMENT - NOW WITH PROGRESS MULTI-SELECT!
   const [searchText, setSearchText] = useState('')
@@ -55,7 +55,7 @@ export default function LibraryIndexScreen() {
   const [showUnlearnedOnly, setShowUnlearnedOnly] = useState(false)
   
   const [showFilters, setShowFilters] = useState(false)
-  const [displayedFallacies, setDisplayedFallacies] = useState<Fallacy[]>([])
+  const [displayedFallacies, setDisplayedFallacies] = useState<Paradox[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   
@@ -87,7 +87,7 @@ export default function LibraryIndexScreen() {
     
     // 🏆  FIX: Progress filters with OR logic!
     if (showFavoritesOnly) {
-      filtered = filtered.filter((fallacy: Fallacy) => favoriteFallacies?.some((fav: Fallacy) => fav.id=== fallacy.id) || false)
+      filtered = filtered.filter((fallacy: Paradox) => favoriteFallacies?.some((fav: Paradox) => fav.id=== fallacy.id) || false)
     }
 
     // 🚨 CHAMPIONSHIP OR LOGIC for learned/unlearned
@@ -96,10 +96,10 @@ export default function LibraryIndexScreen() {
       // Do nothing - show all fallacies regardless of learned status
     } else if (showLearnedOnly) {
       // Only learned selected
-      filtered = filtered.filter((fallacy: Fallacy) => learnedFallacies?.some((fav: Fallacy) => fav.id=== fallacy.id) || false)
+      filtered = filtered.filter((fallacy: Paradox) => learnedFallacies?.some((fav: Paradox) => fav.id=== fallacy.id) || false)
     } else if (showUnlearnedOnly) {
       // Only unlearned selected
-      filtered = filtered.filter((fallacy: Fallacy) => !(learnedFallacies?.some((fav: Fallacy) => fav.id=== fallacy.id) || false))
+      filtered = filtered.filter((fallacy: Paradox) => !(learnedFallacies?.some((fav: Paradox) => fav.id=== fallacy.id) || false))
     }
     
     // Apply all other filters (same as before)
@@ -212,7 +212,7 @@ export default function LibraryIndexScreen() {
       showUnlearnedOnly
   }
 
-  const handleFallacyPress = (fallacy: Fallacy) => {
+  const handleParadoxPress = (fallacy: Paradox) => {
     router.push({
       pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
       params: { id: fallacy.id }
@@ -267,13 +267,13 @@ export default function LibraryIndexScreen() {
           </View>
 
           {/* 🔍 SEARCH BAR COMPONENT */}
-          <FallacySearchBar
+          <ParadoxSearchBar
             searchText={searchText}
             onSearchChange={handleSearchChange}
           />
 
           {/* 🎯 FILTER TOGGLE COMPONENT */}
-          <FallacyFilterToggle
+          <ParadoxFilterToggle
             showFilters={showFilters}
             hasActiveFilters={hasActiveFilters()}
             hasSearchText={searchText.length > 0}
@@ -284,7 +284,7 @@ export default function LibraryIndexScreen() {
           {/* 🔥 FILTERS COMPONENT - NOW WITH PROGRESS MULTI-SELECT! */}
           {showFilters && (
             <View style={[{marginHorizontal: SHAPES.standardVerticalMargin }]}>
-              <FallacyFilters
+              <ParadoxFilters
                 selectedDifficulty={selectedDifficulty}
                 selectedUsage={selectedUsage}
                 selectedSubtlety={selectedSubtlety}
@@ -316,12 +316,12 @@ export default function LibraryIndexScreen() {
 
           {/* 📋 RESULTS COMPONENT */}
           <View style={[{marginHorizontal: SHAPES.standardVerticalMargin }]}>
-            <FallacyResults
+            <ParadoxResults
               filteredFallacies={filteredFallacies}
               displayedFallacies={displayedFallacies}
               isLoading={isLoading}
               fallaciesLoaded={isFallaciesLoaded}
-              onFallacyPress={handleFallacyPress}
+              onParadoxPress={handleParadoxPress}
               onLoadMore={handleLoadMore}
             />
           </View>

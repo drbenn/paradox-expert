@@ -1,14 +1,14 @@
 // 🏆 CUSTOM QUIZ CONFIG INTERFACE & TYPES - CHAMPIONSHIP EDITION!
 // Add to quiz.types.ts or create new custom-quiz.types.ts
 
-import { Fallacy } from '@/types/app.types'
+import { Paradox } from '@/types/app.types'
 import { Quiz } from './quiz.types'
 
 // 🎯 CUSTOM QUIZ CONFIGURATION INTERFACE
 export interface CustomQuizConfig {
   // Basic Quiz Settings
   questionCount: number              // 5-30 questions (user selectable)
-  selectedFallacies: Fallacy[]      // Fallacies chosen by user via filters
+  selectedFallacies: Paradox[]      // Fallacies chosen by user via filters
   
   // Quiz Metadata
   title?: string                    // Optional custom title
@@ -48,7 +48,7 @@ export interface CustomQuizFilters {
   // Tier Selection (always available)
   selectedTiers: Set<number>        // Which tiers user has selected
   
-  // Fallacy Property Filters (using existing FallacyFilters component)
+  // Paradox Property Filters (using existing ParadoxFilters component)
   selectedDifficulty: 'all' | 'beginner' | 'intermediate' | 'advanced' | 'expert'
   selectedUsage: 'ubiquitous' | 'common' | 'moderate' | 'occasional' | 'rare' | null
   selectedSubtlety: 'blatant' | 'obvious' | 'subtle' | 'very-subtle' | null
@@ -164,7 +164,7 @@ export const CUSTOM_QUIZ_DEFAULTS = {
 /**
  * 🏆 : Calculate estimated difficulty based on selected fallacies
  */
-export function calculateEstimatedDifficulty(fallacies: Fallacy[]): 'easy' | 'moderate' | 'hard' | 'expert' {
+export function calculateEstimatedDifficulty(fallacies: Paradox[]): 'easy' | 'moderate' | 'hard' | 'expert' {
   if (fallacies.length === 0) return 'easy'
   
   // Calculate average difficulty score
@@ -233,7 +233,7 @@ export function countActiveFilters(filters: CustomQuizFilters): number {
 // /**
 //  * 🏆 : Apply filters to available fallacies
 //  */
-// export function applyFiltersToFallacies(fallacies: Fallacy[], filters: CustomQuizFilters): Fallacy[] {
+// export function applyFiltersToFallacies(fallacies: Paradox[], filters: CustomQuizFilters): Paradox[] {
 //   return fallacies.filter(fallacy => {
 //     // Tier filter
 //     if (filters.selectedTiers.size > 0) {
@@ -288,7 +288,7 @@ export function countActiveFilters(filters: CustomQuizFilters): number {
 /**
  * 🏆 : Create default custom quiz config
  */
-export function createDefaultCustomQuizConfig(availableFallacies: Fallacy[]): CustomQuizConfig {
+export function createDefaultCustomQuizConfig(availableFallacies: Paradox[]): CustomQuizConfig {
   return {
     questionCount: CUSTOM_QUIZ_DEFAULTS.questionCount,
     selectedFallacies: availableFallacies.slice(0, 10), // First 10 available

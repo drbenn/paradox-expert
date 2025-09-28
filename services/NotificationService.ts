@@ -36,7 +36,7 @@ class NotificationService {
   // 🧠 STATIC: Simple daily fallacy notification content
   static getStaticNotificationContent(): { title: string; body: string } {
     return {
-      title: '🧠 Daily Fallacy Challenge',
+      title: '🧠 Daily Paradox Challenge',
       body: 'Check out today\'s fallacy of the day and sharpen your critical thinking skills!'
     };
   }

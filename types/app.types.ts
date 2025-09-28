@@ -1,4 +1,4 @@
-// export interface Fallacy {
+// export interface Paradox {
 //   id: string,
 //   isFavorite?: boolean,
 //   isLearned?: boolean,
@@ -28,7 +28,7 @@
 //   emoji_literal: string,
 // }
 
-export interface QuizLearnedFallacyStats {
+export interface QuizLearnedParadoxStats {
   totalLearned: number
   learnedIds: string[]
   totalFallacies: number

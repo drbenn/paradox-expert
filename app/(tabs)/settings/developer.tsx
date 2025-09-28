@@ -4,15 +4,15 @@ import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { useAppState } from '@/state/useAppState'
 import { router } from 'expo-router'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
-  Alert,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
+    Alert,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -264,7 +264,7 @@ export default function DeveloperSettingsScreen() {
 
   // const markFallaciesAsLearned = async (targetTier: number) => {
   //   try {
-  //     const allFallacies = useFallacyState.getState().fallacies
+  //     const allFallacies = useParadoxState.getState().fallacies
   //     const userProgressState = useUserProgressState.getState()
       
   //     for (let tier = 1; tier <= targetTier; tier++) {

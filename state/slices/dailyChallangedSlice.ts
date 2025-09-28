@@ -1,7 +1,7 @@
 import APP_CONSTANTS from '@/constants/appConstants';
 import { DateService } from '@/services/DateService';
 import dailyChallangeQuizService from '@/services/quiz/DailyChallengeQuizService';
-import { Fallacy } from '@/types/app.types';
+import { Paradox } from '@/types/app.types';
 import { DailyChallengeStatus, DailyResetTimerInfo } from '@/types/quiz.types';
 import { formatResetTime, getNextDailyResetTime, getTimeUntilReset } from '@/utils/dailyResetUtils';
 import { router } from 'expo-router';
@@ -18,8 +18,8 @@ export interface DailyChallengeSlice {
   
   // // Actions
   // loadDailyChallengeStatus: () => void
-  navigateToDailyChallengeFallacy: () => void
-  getNewFallacyForDailyChallenge: () => void
+  navigateToDailyChallengeParadox: () => void
+  getNewParadoxForDailyChallenge: () => void
   markDailyChallengeStatusCompleteAfterPassingDailyQuiz: () => void
 
 
@@ -47,8 +47,8 @@ export const dailyChallengeSlice: StateCreator<
   },
 
   // // Actions
-  navigateToDailyChallengeFallacy: () => {
-    const todaysChallenge = get().dailyChallengeStatus.todaysFallacy
+  navigateToDailyChallengeParadox: () => {
+    const todaysChallenge = get().dailyChallengeStatus.todaysParadox
     const fallacyId = todaysChallenge?.id
     if (fallacyId) {
       router.push({
@@ -58,20 +58,20 @@ export const dailyChallengeSlice: StateCreator<
     }
   },
 
-  getNewFallacyForDailyChallenge: () => {
+  getNewParadoxForDailyChallenge: () => {
     const { quizHistory, fallacies, dailyChallengeStatus } = get()
 
     set({dailyChallengeStatus: { ...dailyChallengeStatus, isDailyChallengeLoading: true }})
 
-    const newDailyFallacy: Fallacy = dailyChallangeQuizService.determineNewDailyChallengeFallacy(quizHistory, fallacies)
+    const newDailyParadox: Paradox = dailyChallangeQuizService.determineNewDailyChallengeParadox(quizHistory, fallacies)
     const nowDateTime: string = DateService.getLocalISOString()
 
     set({
       dailyChallengeStatus: {
           isCompleted: false,
-          todaysFallacy: newDailyFallacy,
+          todaysParadox: newDailyParadox,
           isLoading: false,
-          lastFallacyChangeDateTime: nowDateTime
+          lastParadoxChangeDateTime: nowDateTime
       }
     })
   },
@@ -123,25 +123,25 @@ export const dailyChallengeSlice: StateCreator<
 
       if (!dailyChallengeStatus) {
         logger.log('⚠️ DAILY TIMER: No daily challenge status, triggering load')
-        get().getNewFallacyForDailyChallenge()
+        get().getNewParadoxForDailyChallenge()
         return
       }
 
-      const lastChangeTime = new Date(dailyChallengeStatus.lastFallacyChangeDateTime)
+      const lastChangeTime = new Date(dailyChallengeStatus.lastParadoxChangeDateTime)
       const todaysResetTime = new Date()
       todaysResetTime.setHours(APP_CONSTANTS.DAILY_RESET_CONFIG.RESET_HOUR, APP_CONSTANTS.DAILY_RESET_CONFIG.RESET_MINUTE, 0, 0)
 
-      const needsReset = !dailyChallengeStatus.lastFallacyChangeDateTime ||
+      const needsReset = !dailyChallengeStatus.lastParadoxChangeDateTime ||
                         (now >= todaysResetTime && lastChangeTime < todaysResetTime)
 
         logger.log('🔍 RESET CHECK DEBUG:', {
-          hasLastChangeTime: !!dailyChallengeStatus.lastFallacyChangeDateTime,
-          lastChangeTime: dailyChallengeStatus.lastFallacyChangeDateTime,
+          hasLastChangeTime: !!dailyChallengeStatus.lastParadoxChangeDateTime,
+          lastChangeTime: dailyChallengeStatus.lastParadoxChangeDateTime,
           currentTime: now.toISOString(),
           nextResetTime: nextReset.toISOString(),
           nowGreaterThanNextReset: now >= nextReset,
-          lastChangeBeforeNextReset: dailyChallengeStatus.lastFallacyChangeDateTime ? 
-            new Date(dailyChallengeStatus.lastFallacyChangeDateTime) < nextReset : 'N/A',
+          lastChangeBeforeNextReset: dailyChallengeStatus.lastParadoxChangeDateTime ? 
+            new Date(dailyChallengeStatus.lastParadoxChangeDateTime) < nextReset : 'N/A',
           needsReset
         })
       if (needsReset) {
@@ -152,7 +152,7 @@ export const dailyChallengeSlice: StateCreator<
         logger.log('🌅 DAILY RESET: Loading daily challenge -', reason)
         
         try {
-          get().getNewFallacyForDailyChallenge()
+          get().getNewParadoxForDailyChallenge()
           logger.log('✅ DAILY RESET: Daily challenge updated successfully')
         } catch (error) {
           logger.error('❌ DAILY RESET: Failed to update daily challenge:', error)

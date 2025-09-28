@@ -1,12 +1,11 @@
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { useAppState } from '@/state/useAppState'
-import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
-export default function RandomFallacyButton() {
+export default function RandomParadoxButton() {
   const { colors } = useSystemTheme()
-  const navigateToRandomFallacy = useAppState((state) => state.navigateToRandomFallacy)
+  const navigateToRandomParadox = useAppState((state) => state.navigateToRandomParadox)
 
   return (
     <TouchableOpacity
@@ -19,7 +18,7 @@ export default function RandomFallacyButton() {
         borderWidth: SHAPES.buttonBorderWidth,
         borderColor: colors.primary,
       }}
-      onPress={() => navigateToRandomFallacy('push')}
+      onPress={() => navigateToRandomParadox('push')}
     >
       <View style={{
         width: 48,
@@ -34,7 +33,7 @@ export default function RandomFallacyButton() {
       </View>
       <View style={{ flex: 1 }}>
         <Text style={{ fontSize: 18, fontWeight: '700', color: colors.text, marginBottom: 2 }}>
-          Random Fallacy
+          Random Paradox
         </Text>
         <Text style={{ fontSize: 14, fontWeight: '500', color: colors.textSecondary }}>
           Surprise me

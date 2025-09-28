@@ -1,25 +1,25 @@
-import FallacyFilters from '@/components/custom/library/FallacyFilters'
-import FallacyResults from '@/components/custom/library/FallacyResults'
+import ParadoxFilters from '@/components/custom/library/ParadoxFilters'
+import ParadoxResults from '@/components/custom/library/ParadoxResults'
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import customQuizService from '@/services/quiz/CustomQuizService'
 import { useAppState } from '@/state/useAppState'
-import { Fallacy } from '@/types/app.types'
+import { Paradox } from '@/types/app.types'
 import { CustomQuizFilters } from '@/types/custom-quiz.types'
 import { QuizSetup } from '@/types/quiz.types'
 import { createCustomQuizSetup } from '@/utils/quizConfigGeneratorUtils'
 
 import { Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
-  Alert,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
+    Alert,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -33,8 +33,8 @@ export default function CustomQuizBuilderScreen() {
   const startQuiz = useAppState((state) => state.startQuiz)
 
   // 🎯 DIRECT ARRAY FILTERING - No more Sets!
-  const favoriteFallacies: Fallacy[] = fallacies.filter((f: Fallacy) => f.isFavorite)
-  const learnedFallacies: Fallacy[] = fallacies.filter((f: Fallacy) => f.isLearned)
+  const favoriteFallacies: Paradox[] = fallacies.filter((f: Paradox) => f.isFavorite)
+  const learnedFallacies: Paradox[] = fallacies.filter((f: Paradox) => f.isLearned)
 
   // 🎯 FILTER STATE MANAGEMENT
   const [filters, setFilters] = useState<CustomQuizFilters>({
@@ -56,10 +56,10 @@ export default function CustomQuizBuilderScreen() {
 
   // 🎯 QUIZ CONFIGURATION STATE
   const [questionCount, setQuestionCount] = useState(10)
-  const [selectedFallacies, setSelectedFallacies] = useState<Fallacy[]>([])
+  const [selectedFallacies, setSelectedFallacies] = useState<Paradox[]>([])
   
   // 🎯 UI STATE
-  const [displayedFallacies, setDisplayedFallacies] = useState<Fallacy[]>([])
+  const [displayedFallacies, setDisplayedFallacies] = useState<Paradox[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   // 🏆 ALL FALLACIES AVAILABLE - No restrictions!
@@ -76,7 +76,7 @@ export default function CustomQuizBuilderScreen() {
 
     // Apply favorites filter first
     if (showFavoritesOnly) {
-      filtered = filtered.filter((fallacy: Fallacy) => fallacy.isFavorite || false)
+      filtered = filtered.filter((fallacy: Paradox) => fallacy.isFavorite || false)
     }
 
     // 🚨 CHAMPIONSHIP OR LOGIC for learned/unlearned
@@ -85,10 +85,10 @@ export default function CustomQuizBuilderScreen() {
       // Do nothing - show all fallacies regardless of learned status
     } else if (showLearnedOnly) {
       // Only learned selected
-      filtered = filtered.filter((fallacy: Fallacy) => fallacy.isLearned || false)
+      filtered = filtered.filter((fallacy: Paradox) => fallacy.isLearned || false)
     } else if (showUnlearnedOnly) {
       // Only unlearned selected
-      filtered = filtered.filter((fallacy: Fallacy) => !(fallacy.isLearned || false))
+      filtered = filtered.filter((fallacy: Paradox) => !(fallacy.isLearned || false))
     }
 
     return filtered
@@ -116,12 +116,12 @@ export default function CustomQuizBuilderScreen() {
 
   // 🏆 Calculate how many selected fallacies are still visible after filtering
   const visibleSelectedCount = useMemo(() => {
-    return selectedFallacies.filter((selectedFallacy: Fallacy) => 
-      filteredFallacies.some((filteredFallacy: Fallacy) => filteredFallacy.id === selectedFallacy.id)
+    return selectedFallacies.filter((selectedParadox: Paradox) => 
+      filteredFallacies.some((filteredParadox: Paradox) => filteredParadox.id === selectedParadox.id)
     ).length
   }, [selectedFallacies, filteredFallacies])
 
-  // 🎯 PAGINATION LOGIC - Reuse from FallacyResults pattern
+  // 🎯 PAGINATION LOGIC - Reuse from ParadoxResults pattern
   const FALLACIES_PER_LOAD = 20
   
   useEffect(() => {
@@ -134,18 +134,18 @@ export default function CustomQuizBuilderScreen() {
     setTimeout(() => {
       const currentLength = displayedFallacies.length
       const nextBatch = filteredFallacies.slice(currentLength, currentLength + FALLACIES_PER_LOAD)
-      setDisplayedFallacies((prev: Fallacy[]) => [...prev, ...nextBatch])
+      setDisplayedFallacies((prev: Paradox[]) => [...prev, ...nextBatch])
       setIsLoading(false)
     }, 300)
   }
 
   // 🎯 FALLACY SELECTION LOGIC
-  const handleFallacyPress = (fallacy: Fallacy) => {
-    setSelectedFallacies((prev: Fallacy[]) => {
-      const isSelected = prev.some((f: Fallacy) => f.id === fallacy.id)
+  const handleParadoxPress = (fallacy: Paradox) => {
+    setSelectedFallacies((prev: Paradox[]) => {
+      const isSelected = prev.some((f: Paradox) => f.id === fallacy.id)
       if (isSelected) {
         // Remove from selection
-        return prev.filter((f: Fallacy) => f.id !== fallacy.id)
+        return prev.filter((f: Paradox) => f.id !== fallacy.id)
       } else {
         // Add to selection
         return [...prev, fallacy]
@@ -153,8 +153,8 @@ export default function CustomQuizBuilderScreen() {
     })
   }
 
-  const isSelected = (fallacy: Fallacy) => {
-    return selectedFallacies.some((f: Fallacy) => f.id === fallacy.id)
+  const isSelected = (fallacy: Paradox) => {
+    return selectedFallacies.some((f: Paradox) => f.id === fallacy.id)
   }
 
   // 🏆 FILTER HANDLERS
@@ -254,8 +254,8 @@ export default function CustomQuizBuilderScreen() {
         { 
           text: 'Start Quiz', 
           onPress: () => {
-            const selectedFallacyIds: string[] = selectedFallacies.map((f: Fallacy) => f.id) 
-            const quizSetup: QuizSetup = createCustomQuizSetup(selectedFallacyIds, questionCount)
+            const selectedParadoxIds: string[] = selectedFallacies.map((f: Paradox) => f.id) 
+            const quizSetup: QuizSetup = createCustomQuizSetup(selectedParadoxIds, questionCount)
             startQuiz(quizSetup)
           }
         }
@@ -360,7 +360,7 @@ export default function CustomQuizBuilderScreen() {
 
         {/* 🏆 FALLACY FILTERS WITH PROGRESS SUPPORT */}
         <View style={[{marginTop: SHAPES.standardVerticalMargin}]}>
-          <FallacyFilters
+          <ParadoxFilters
             selectedDifficulty={filters.selectedDifficulty}
             selectedUsage={filters.selectedUsage}
             selectedSubtlety={filters.selectedSubtlety}
@@ -388,14 +388,14 @@ export default function CustomQuizBuilderScreen() {
         </View>
 
         
-        {/* Fallacy Results - REUSING EXISTING COMPONENT WITH SELECTION LOGIC */}
+        {/* Paradox Results - REUSING EXISTING COMPONENT WITH SELECTION LOGIC */}
         <View style={{paddingBottom: insets.bottom + 120}}>
-          <FallacyResults
+          <ParadoxResults
             filteredFallacies={filteredFallacies}
             displayedFallacies={displayedFallacies}
             isLoading={isLoading}
             fallaciesLoaded={isFallaciesLoaded}
-            onFallacyPress={handleFallacyPress}
+            onParadoxPress={handleParadoxPress}
             onLoadMore={handleLoadMore}
           />
         </View>

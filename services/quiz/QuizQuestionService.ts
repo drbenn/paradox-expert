@@ -1,5 +1,5 @@
 import APP_CONSTANTS from '@/constants/appConstants'
-import { Fallacy } from '@/types/app.types'
+import { Paradox } from '@/types/app.types'
 import { QuizConfig, QuizOption, QuizQuestion } from '@/types/quiz.types'
 
 // 🏆 QUIZ QUESTION SERVICE - THE ULTIMATE QUESTION GENERATION FACTORY!
@@ -8,8 +8,8 @@ class QuizQuestionService {
 
   // 🎯 : Generate mixed question types based on distribution!
   generateMixedQuestions(
-    quizFallacies: Fallacy[], 
-    allFallacies: Fallacy[], 
+    quizFallacies: Paradox[], 
+    allFallacies: Paradox[], 
     totalQuestions: number,
     config: QuizConfig
   ): QuizQuestion[] {
@@ -51,29 +51,29 @@ class QuizQuestionService {
   // 🏆 MAIN QUESTION GENERATORS - The bread and butter!
 
   generateExampleSelectionQuestion(
-    targetFallacy: Fallacy, 
-    allFallacies: Fallacy[], 
+    targetParadox: Paradox, 
+    allFallacies: Paradox[], 
     questionNumber: number,
     config: QuizConfig
   ): QuizQuestion {
-    const targetExamples = targetFallacy.examples || []
+    const targetExamples = targetParadox.examples || []
     
     if (targetExamples.length === 0) {
-      throw new Error(`Fallacy ${targetFallacy.title} has no examples`)
+      throw new Error(`Paradox ${targetParadox.title} has no examples`)
     }
 
     const correctExample = this.getRandomItem(targetExamples)
-    const incorrectExamples = this.getIncorrectExamples(targetFallacy, allFallacies, 3)
+    const incorrectExamples = this.getIncorrectExamples(targetParadox, allFallacies, 3)
     
     // 🏆 : Options should be EXAMPLES, not fallacy names!
     const correctOption: QuizOption = {
-      id: `option-${targetFallacy.id}-correct`,
+      id: `option-${targetParadox.id}-correct`,
       text: correctExample, // ← THE ACTUAL EXAMPLE TEXT
-      fallacyId: targetFallacy.id
+      fallacyId: targetParadox.id
     }
     
     const incorrectOptions: QuizOption[] = incorrectExamples.map((example, index) => ({
-      id: `option-${targetFallacy.id}-incorrect-${index}`,
+      id: `option-${targetParadox.id}-incorrect-${index}`,
       text: example.text, // ← OTHER FALLACY EXAMPLES
       fallacyId: example.fallacyId
     }))
@@ -81,12 +81,12 @@ class QuizQuestionService {
     const allOptions = this.shuffleArray([correctOption, ...incorrectOptions])
     
     return {
-      id: `question-example-${targetFallacy.id}-${questionNumber}-${Date.now()}`,
+      id: `question-example-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'example_selection',
-      fallacyId: targetFallacy.id,
-      fallacyName: targetFallacy.title,
-      questionText: `Pick the example that demonstrates the following fallacy: "${targetFallacy.title}"`,
+      fallacyId: targetParadox.id,
+      fallacyName: targetParadox.title,
+      questionText: `Pick the example that demonstrates the following fallacy: "${targetParadox.title}"`,
       options: allOptions,
       correctAnswer: correctOption.id,
       timeLimit: config.questionTimeLimitSeconds || APP_CONSTANTS.QUIZ.QUESTION_TIME_LIMIT_SECONDS
@@ -94,15 +94,15 @@ class QuizQuestionService {
   }
 
   generateTrueFalseQuestion(
-    targetFallacy: Fallacy,
-    quizFallacies: Fallacy[],
+    targetParadox: Paradox,
+    quizFallacies: Paradox[],
     questionNumber: number,
     config: QuizConfig
   ): QuizQuestion {
-    const targetExamples = targetFallacy.examples || []
+    const targetExamples = targetParadox.examples || []
     
     if (targetExamples.length === 0) {
-      throw new Error(`Fallacy ${targetFallacy.title} has no examples`)
+      throw new Error(`Paradox ${targetParadox.title} has no examples`)
     }
 
     // 50/50 chance of true or false question
@@ -114,10 +114,10 @@ class QuizQuestionService {
       example = this.getRandomItem(targetExamples)
     } else {
       // False case: Use an example from a different fallacy in the quiz
-      const otherFallacies = quizFallacies.filter(f => f.id !== targetFallacy.id)
+      const otherFallacies = quizFallacies.filter(f => f.id !== targetParadox.id)
       if (otherFallacies.length > 0) {
-        const wrongFallacy = this.getRandomItem(otherFallacies)
-        const wrongExamples = wrongFallacy.examples || []
+        const wrongParadox = this.getRandomItem(otherFallacies)
+        const wrongExamples = wrongParadox.examples || []
         
         if (wrongExamples.length > 0) {
           example = this.getRandomItem(wrongExamples)
@@ -137,13 +137,13 @@ class QuizQuestionService {
     const falseOption: QuizOption = { id: 'false', text: 'False' }
     
     return {
-      id: `question-tf-${targetFallacy.id}-${questionNumber}-${Date.now()}`,
+      id: `question-tf-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'true_false',
-      fallacyId: targetFallacy.id,
-      fallacyName: targetFallacy.title,
+      fallacyId: targetParadox.id,
+      fallacyName: targetParadox.title,
       // 🏆 MACHO MAN: Show the EXAMPLE and ask if it demonstrates the fallacy!
-      questionText: `True or False: The following example demonstrates the "${targetFallacy.title}" fallacy:\n\n"${example}"`,
+      questionText: `True or False: The following example demonstrates the "${targetParadox.title}" fallacy:\n\n"${example}"`,
       options: [trueOption, falseOption],
       correctAnswer: isTrue ? 'true' : 'false',
       timeLimit: config.questionTimeLimitSeconds || APP_CONSTANTS.QUIZ.QUESTION_TIME_LIMIT_SECONDS
@@ -151,41 +151,41 @@ class QuizQuestionService {
   }
 
   generateScenarioIdentificationQuestion(
-    targetFallacy: Fallacy,
-    quizFallacies: Fallacy[],
+    targetParadox: Paradox,
+    quizFallacies: Paradox[],
     questionNumber: number,
     config: QuizConfig
   ): QuizQuestion {
     // 🏆 : Use the fallacy DESCRIPTION, not examples!
-    const description = targetFallacy.description || targetFallacy.title
+    const description = targetParadox.description || targetParadox.title
     
     if (!description || description.trim().length === 0) {
-      throw new Error(`Fallacy ${targetFallacy.title} has no description`)
+      throw new Error(`Paradox ${targetParadox.title} has no description`)
     }
     
     // Get 3 other fallacies from the quiz for incorrect options
-    const otherFallacies = quizFallacies.filter(f => f.id !== targetFallacy.id)
+    const otherFallacies = quizFallacies.filter(f => f.id !== targetParadox.id)
     const incorrectFallacies = this.shuffleArray(otherFallacies).slice(0, 3)
     
     // 🏆 MACHO MAN: Options should be FALLACY NAMES, not examples!
     const correctOption: QuizOption = {
-      id: `option-${targetFallacy.id}-correct`,
-      text: targetFallacy.title // ← THE FALLACY NAME
+      id: `option-${targetParadox.id}-correct`,
+      text: targetParadox.title // ← THE FALLACY NAME
     }
     
     const incorrectOptions: QuizOption[] = incorrectFallacies.map((fallacy, index) => ({
-      id: `option-${targetFallacy.id}-incorrect-${index}`,
+      id: `option-${targetParadox.id}-incorrect-${index}`,
       text: fallacy.title // ← OTHER FALLACY NAMES
     }))
     
     const allOptions = this.shuffleArray([correctOption, ...incorrectOptions])
     
     return {
-      id: `question-scenario-${targetFallacy.id}-${questionNumber}-${Date.now()}`,
+      id: `question-scenario-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'scenario_identification',
-      fallacyId: targetFallacy.id,
-      fallacyName: targetFallacy.title,
+      fallacyId: targetParadox.id,
+      fallacyName: targetParadox.title,
       // 🏆 RICK RUDE STYLE: Show the DESCRIPTION and ask which fallacy it is!
       questionText: `Which fallacy is described below?\n\n"${description}"`,
       options: allOptions,
@@ -195,46 +195,46 @@ class QuizQuestionService {
   }
 
   generateBinaryChoiceQuestion(
-    targetFallacy: Fallacy,
-    quizFallacies: Fallacy[],
+    targetParadox: Paradox,
+    quizFallacies: Paradox[],
     questionNumber: number,
     config: QuizConfig
   ): QuizQuestion {
-    const targetExamples = targetFallacy.examples || []
+    const targetExamples = targetParadox.examples || []
     
     if (targetExamples.length === 0) {
-      throw new Error(`Fallacy ${targetFallacy.title} has no examples`)
+      throw new Error(`Paradox ${targetParadox.title} has no examples`)
     }
 
     // 🏆 : Show an EXAMPLE and ask which fallacy it demonstrates
     const example = this.getRandomItem(targetExamples)
     
     // Get one other fallacy for the incorrect option
-    const otherFallacies = quizFallacies.filter(f => f.id !== targetFallacy.id)
+    const otherFallacies = quizFallacies.filter(f => f.id !== targetParadox.id)
     if (otherFallacies.length === 0) {
       throw new Error('Need at least 2 fallacies for binary choice question')
     }
-    const incorrectFallacy = this.getRandomItem(otherFallacies)
+    const incorrectParadox = this.getRandomItem(otherFallacies)
     
     // 🏆 MACHO MAN: Options should be FALLACY NAMES!
     const correctOption: QuizOption = {
-      id: `option-${targetFallacy.id}-correct`,
-      text: targetFallacy.title // ← THE CORRECT FALLACY NAME
+      id: `option-${targetParadox.id}-correct`,
+      text: targetParadox.title // ← THE CORRECT FALLACY NAME
     }
     
     const incorrectOption: QuizOption = {
-      id: `option-${targetFallacy.id}-incorrect`,
-      text: incorrectFallacy.title // ← THE WRONG FALLACY NAME
+      id: `option-${targetParadox.id}-incorrect`,
+      text: incorrectParadox.title // ← THE WRONG FALLACY NAME
     }
     
     const allOptions = this.shuffleArray([correctOption, incorrectOption])
     
     return {
-      id: `question-binary-${targetFallacy.id}-${questionNumber}-${Date.now()}`,
+      id: `question-binary-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'binary_choice',
-      fallacyId: targetFallacy.id,
-      fallacyName: targetFallacy.title,
+      fallacyId: targetParadox.id,
+      fallacyName: targetParadox.title,
       // 🏆 RICK RUDE STYLE: Show the EXAMPLE and ask which fallacy it demonstrates!
       questionText: `Which fallacy does this example demonstrate?\n\n"${example}"`,
       options: allOptions,
@@ -245,24 +245,24 @@ class QuizQuestionService {
 
   // 🆕 SPECIAL QUESTION GENERATION METHODS - For Daily Challenges (focused on single fallacy)
 
-  generateDailyTrueFalseQuestion(targetFallacy: Fallacy, allFallacies: Fallacy[], questionNumber: number): QuizQuestion {
-    const examples = targetFallacy.examples || []
+  generateDailyTrueFalseQuestion(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
+    const examples = targetParadox.examples || []
     if (examples.length === 0) {
-      throw new Error(`Fallacy ${targetFallacy.title} has no examples`)
+      throw new Error(`Paradox ${targetParadox.title} has no examples`)
     }
     
     const isTrue = Math.random() < 0.7 // 70% chance true for engagement
     const example = isTrue 
       ? examples[Math.floor(Math.random() * examples.length)]
-      : this.getIncorrectExamples(targetFallacy, allFallacies, 1)[0]?.text || examples[0]
+      : this.getIncorrectExamples(targetParadox, allFallacies, 1)[0]?.text || examples[0]
     
     return {
-      id: `daily-tf-${targetFallacy.id}-${questionNumber}-${Date.now()}`,
+      id: `daily-tf-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'true_false' as const,
-      fallacyId: targetFallacy.id,
-      fallacyName: targetFallacy.title,
-      questionText: `True or False: This example demonstrates "${targetFallacy.title}":\n\n"${example}"`,
+      fallacyId: targetParadox.id,
+      fallacyName: targetParadox.title,
+      questionText: `True or False: This example demonstrates "${targetParadox.title}":\n\n"${example}"`,
       options: [
         { id: 'true', text: 'True' },
         { id: 'false', text: 'False' }
@@ -272,24 +272,24 @@ class QuizQuestionService {
     }
   }
 
-  generateDailyScenarioQuestion(targetFallacy: Fallacy, allFallacies: Fallacy[], questionNumber: number): QuizQuestion {
-    const description = targetFallacy.description || targetFallacy.subtitle || targetFallacy.title
+  generateDailyScenarioQuestion(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
+    const description = targetParadox.description || targetParadox.subtitle || targetParadox.title
     
     // Get 3 other fallacies for incorrect options
     const otherFallacies = allFallacies
-      .filter(f => f.id !== targetFallacy.id)
+      .filter(f => f.id !== targetParadox.id)
       .sort(() => Math.random() - 0.5)
       .slice(0, 3)
     
     return {
-      id: `daily-scenario-${targetFallacy.id}-${questionNumber}-${Date.now()}`,
+      id: `daily-scenario-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'scenario_identification' as const,
-      fallacyId: targetFallacy.id,
-      fallacyName: targetFallacy.title,
+      fallacyId: targetParadox.id,
+      fallacyName: targetParadox.title,
       questionText: `Which fallacy is described below?\n\n"${description}"`,
       options: this.shuffleArray([
-        { id: 'correct', text: targetFallacy.title },
+        { id: 'correct', text: targetParadox.title },
         ...otherFallacies.map((f, i) => ({ id: `incorrect-${i}`, text: f.title }))
       ]),
       correctAnswer: 'correct',
@@ -297,27 +297,27 @@ class QuizQuestionService {
     }
   }
 
-  generateDailyBinaryChoiceQuestion(targetFallacy: Fallacy, allFallacies: Fallacy[], questionNumber: number): QuizQuestion {
-    const examples = targetFallacy.examples || []
+  generateDailyBinaryChoiceQuestion(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
+    const examples = targetParadox.examples || []
     if (examples.length === 0) {
-      throw new Error(`Fallacy ${targetFallacy.title} has no examples`)
+      throw new Error(`Paradox ${targetParadox.title} has no examples`)
     }
     
     const example = examples[Math.floor(Math.random() * examples.length)]
-    const otherFallacy = allFallacies
-      .filter(f => f.id !== targetFallacy.id)
+    const otherParadox = allFallacies
+      .filter(f => f.id !== targetParadox.id)
       .sort(() => Math.random() - 0.5)[0]
     
     return {
-      id: `daily-binary-${targetFallacy.id}-${questionNumber}-${Date.now()}`,
+      id: `daily-binary-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'binary_choice' as const,
-      fallacyId: targetFallacy.id,
-      fallacyName: targetFallacy.title,
+      fallacyId: targetParadox.id,
+      fallacyName: targetParadox.title,
       questionText: `Which fallacy does this example demonstrate?\n\n"${example}"`,
       options: this.shuffleArray([
-        { id: 'correct', text: targetFallacy.title },
-        { id: 'incorrect', text: otherFallacy.title }
+        { id: 'correct', text: targetParadox.title },
+        { id: 'incorrect', text: otherParadox.title }
       ]),
       correctAnswer: 'correct',
       timeLimit: 60
@@ -326,62 +326,62 @@ class QuizQuestionService {
 
   // 🆕 WEEKLY GAUNTLET QUESTION GENERATION - For random variety
   // generateGauntletQuestion(
-  //   targetFallacy: Fallacy, 
-  //   allFallacies: Fallacy[], 
+  //   targetParadox: Paradox, 
+  //   allFallacies: Paradox[], 
   //   questionNumber: number, 
   //   questionType: string
   // ): QuizQuestion {
   //   try {
   //     switch (questionType) {
   //       case 'example_selection':
-  //         return this.generateGauntletExampleSelection(targetFallacy, allFallacies, questionNumber)
+  //         return this.generateGauntletExampleSelection(targetParadox, allFallacies, questionNumber)
   //       case 'true_false':
-  //         return this.generateGauntletTrueFalse(targetFallacy, allFallacies, questionNumber)
+  //         return this.generateGauntletTrueFalse(targetParadox, allFallacies, questionNumber)
   //       case 'scenario_identification':
-  //         return this.generateGauntletScenario(targetFallacy, allFallacies, questionNumber)
+  //         return this.generateGauntletScenario(targetParadox, allFallacies, questionNumber)
   //       case 'binary_choice':
-  //         return this.generateGauntletBinaryChoice(targetFallacy, allFallacies, questionNumber)
+  //         return this.generateGauntletBinaryChoice(targetParadox, allFallacies, questionNumber)
   //       default:
   //         // Fallback to example selection
-  //         return this.generateGauntletExampleSelection(targetFallacy, allFallacies, questionNumber)
+  //         return this.generateGauntletExampleSelection(targetParadox, allFallacies, questionNumber)
   //     }
   //   } catch (error) {
-  //     // logger.warn(`⚠️ Failed to generate ${questionType} question for ${targetFallacy.title}, using fallback`)
+  //     // logger.warn(`⚠️ Failed to generate ${questionType} question for ${targetParadox.title}, using fallback`)
   //     // Ultimate fallback to example selection with minimal requirements
-  //     return this.generateGauntletExampleSelection(targetFallacy, allFallacies, questionNumber)
+  //     return this.generateGauntletExampleSelection(targetParadox, allFallacies, questionNumber)
   //   }
   // }
 
   // // 🔄 GAUNTLET-SPECIFIC QUESTION GENERATORS (with gauntlet-specific settings)
 
-  // private generateGauntletExampleSelection(targetFallacy: Fallacy, allFallacies: Fallacy[], questionNumber: number): QuizQuestion {
+  // private generateGauntletExampleSelection(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
   //   const config = { questionTimeLimitSeconds: APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT }
-  //   const question = this.generateExampleSelectionQuestion(targetFallacy, allFallacies, questionNumber, config as QuizConfig)
-  //   question.id = `gauntlet-example-${targetFallacy.id}-${questionNumber}-${Date.now()}`
+  //   const question = this.generateExampleSelectionQuestion(targetParadox, allFallacies, questionNumber, config as QuizConfig)
+  //   question.id = `gauntlet-example-${targetParadox.id}-${questionNumber}-${Date.now()}`
   //   question.timeLimit = APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT
   //   return question
   // }
 
-  // private generateGauntletTrueFalse(targetFallacy: Fallacy, allFallacies: Fallacy[], questionNumber: number): QuizQuestion {
+  // private generateGauntletTrueFalse(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
   //   const config = { questionTimeLimitSeconds: APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT }
-  //   const question = this.generateTrueFalseQuestion(targetFallacy, allFallacies, questionNumber, config as QuizConfig)
-  //   question.id = `gauntlet-tf-${targetFallacy.id}-${questionNumber}-${Date.now()}`
+  //   const question = this.generateTrueFalseQuestion(targetParadox, allFallacies, questionNumber, config as QuizConfig)
+  //   question.id = `gauntlet-tf-${targetParadox.id}-${questionNumber}-${Date.now()}`
   //   question.timeLimit = APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT
   //   return question
   // }
 
-  // private generateGauntletScenario(targetFallacy: Fallacy, allFallacies: Fallacy[], questionNumber: number): QuizQuestion {
+  // private generateGauntletScenario(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
   //   const config = { questionTimeLimitSeconds: APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT }
-  //   const question = this.generateScenarioIdentificationQuestion(targetFallacy, allFallacies, questionNumber, config as QuizConfig)
-  //   question.id = `gauntlet-scenario-${targetFallacy.id}-${questionNumber}-${Date.now()}`
+  //   const question = this.generateScenarioIdentificationQuestion(targetParadox, allFallacies, questionNumber, config as QuizConfig)
+  //   question.id = `gauntlet-scenario-${targetParadox.id}-${questionNumber}-${Date.now()}`
   //   question.timeLimit = APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT
   //   return question
   // }
 
-  // private generateGauntletBinaryChoice(targetFallacy: Fallacy, allFallacies: Fallacy[], questionNumber: number): QuizQuestion {
+  // private generateGauntletBinaryChoice(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
   //   const config = { questionTimeLimitSeconds: APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT }
-  //   const question = this.generateBinaryChoiceQuestion(targetFallacy, allFallacies, questionNumber, config as QuizConfig)
-  //   question.id = `gauntlet-binary-${targetFallacy.id}-${questionNumber}-${Date.now()}`
+  //   const question = this.generateBinaryChoiceQuestion(targetParadox, allFallacies, questionNumber, config as QuizConfig)
+  //   question.id = `gauntlet-binary-${targetParadox.id}-${questionNumber}-${Date.now()}`
   //   question.timeLimit = APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT
   //   return question
   // }
@@ -390,11 +390,11 @@ class QuizQuestionService {
 
   // Get incorrect examples from other fallacies
   private getIncorrectExamples(
-    targetFallacy: Fallacy, 
-    allFallacies: Fallacy[], 
+    targetParadox: Paradox, 
+    allFallacies: Paradox[], 
     count: number
   ): { text: string; fallacyId: string }[] {
-    const otherFallacies = allFallacies.filter(f => f.id !== targetFallacy.id)
+    const otherFallacies = allFallacies.filter(f => f.id !== targetParadox.id)
     const incorrectExamples: { text: string; fallacyId: string }[] = []
     
     const availableExamples: { text: string; fallacyId: string }[] = []
@@ -527,8 +527,8 @@ class QuizQuestionService {
   }
 
   // Generate questions for daily challenge (convenience method)
-  generateDailyChallengeQuestions(targetFallacy: Fallacy, allFallacies: Fallacy[]): QuizQuestion[] {
-    // logger.log(`🎮 : Generating 10-question daily challenge for "${targetFallacy.title}"`)
+  generateDailyChallengeQuestions(targetParadox: Paradox, allFallacies: Paradox[]): QuizQuestion[] {
+    // logger.log(`🎮 : Generating 10-question daily challenge for "${targetParadox.title}"`)
     
     const questions = []
     const questionTypes = ['example_selection', 'true_false', 'scenario_identification', 'binary_choice']
@@ -541,30 +541,30 @@ class QuizQuestionService {
       switch (questionType) {
         case 'example_selection':
           const config = { questionTimeLimitSeconds: 60 } as QuizConfig
-          question = this.generateExampleSelectionQuestion(targetFallacy, allFallacies, i + 1, config)
+          question = this.generateExampleSelectionQuestion(targetParadox, allFallacies, i + 1, config)
           break
         case 'true_false':
-          question = this.generateDailyTrueFalseQuestion(targetFallacy, allFallacies, i + 1)
+          question = this.generateDailyTrueFalseQuestion(targetParadox, allFallacies, i + 1)
           break
         case 'scenario_identification':
-          question = this.generateDailyScenarioQuestion(targetFallacy, allFallacies, i + 1)
+          question = this.generateDailyScenarioQuestion(targetParadox, allFallacies, i + 1)
           break
         case 'binary_choice':
-          question = this.generateDailyBinaryChoiceQuestion(targetFallacy, allFallacies, i + 1)
+          question = this.generateDailyBinaryChoiceQuestion(targetParadox, allFallacies, i + 1)
           break
         default:
           const defaultConfig = { questionTimeLimitSeconds: 60 } as QuizConfig
-          question = this.generateExampleSelectionQuestion(targetFallacy, allFallacies, i + 1, defaultConfig)
+          question = this.generateExampleSelectionQuestion(targetParadox, allFallacies, i + 1, defaultConfig)
       }
       
       // Customize for daily challenge
-      question.id = `daily-${questionType}-${targetFallacy.id}-${i + 1}-${Date.now()}`
+      question.id = `daily-${questionType}-${targetParadox.id}-${i + 1}-${Date.now()}`
       question.timeLimit = 60
       
       questions.push(question)
     }
     
-    // logger.log(`✅ MEGA POWERS: Generated Fallacy of the Day quiz with ${questions.length} questions`)
+    // logger.log(`✅ MEGA POWERS: Generated Paradox of the Day quiz with ${questions.length} questions`)
     return questions
   }
 }

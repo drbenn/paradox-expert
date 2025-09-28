@@ -1,31 +1,31 @@
 
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
-import { Fallacy } from '@/types/app.types'
+import { Paradox } from '@/types/app.types'
 import React from 'react'
 import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native'
-import FallacyListCard from './FallacyListCard'
+import ParadoxListCard from './ParadoxListCard'
 
-interface FallacyResultsProps {
-  filteredFallacies: Fallacy[]
-  displayedFallacies: Fallacy[]
+interface ParadoxResultsProps {
+  filteredFallacies: Paradox[]
+  displayedFallacies: Paradox[]
   isLoading: boolean
   fallaciesLoaded: boolean
-  onFallacyPress: (fallacy: Fallacy) => void
+  onParadoxPress: (fallacy: Paradox) => void
   onLoadMore: () => void
 }
 
-const FallacyResults: React.FC<FallacyResultsProps> = ({
+const ParadoxResults: React.FC<ParadoxResultsProps> = ({
   filteredFallacies,
   displayedFallacies,
   isLoading,
   fallaciesLoaded,
-  onFallacyPress,
+  onParadoxPress,
   onLoadMore
 }) => {
   const { colors } = useSystemTheme()
@@ -58,9 +58,9 @@ const FallacyResults: React.FC<FallacyResultsProps> = ({
         <View style={styles.resultsListContainer}>
           {displayedFallacies.map((item) => (
             <View key={item.id}>
-              <FallacyListCard
+              <ParadoxListCard
                 fallacy={item}
-                onPress={() => onFallacyPress(item)}
+                onPress={() => onParadoxPress(item)}
               />
             </View>
           ))}
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default FallacyResults
+export default ParadoxResults

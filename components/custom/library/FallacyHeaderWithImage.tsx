@@ -1,9 +1,8 @@
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
-import React from 'react'
 import { ImageBackground, ImageSourcePropType, StyleSheet, Text, View } from 'react-native'
 
-interface FallacyHeaderWithImageProps {
+interface ParadoxHeaderWithImageProps {
   id: string,
   title: string
   subtitle: string,
@@ -34,7 +33,7 @@ const getEmojiWithFallback = (emoji: string, fallback: string = '🧠'): string 
   return emoji
 }
 
-const FallacyHeaderWithImage = ({ 
+const ParadoxHeaderWithImage = ({ 
   id,
   title,
   subtitle,
@@ -42,7 +41,7 @@ const FallacyHeaderWithImage = ({
   emoji_literal,
   backgroundColor,
   imagePath = null, // Pass image path to use image instead of icon
-}: FallacyHeaderWithImageProps) => {
+}: ParadoxHeaderWithImageProps) => {
     const { colors } = useSystemTheme()
     
     // 🧠 GET EMOJI WITH BRAIN FALLBACK!
@@ -166,4 +165,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default FallacyHeaderWithImage
+export default ParadoxHeaderWithImage

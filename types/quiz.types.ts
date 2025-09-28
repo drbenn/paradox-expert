@@ -1,5 +1,5 @@
 import { EarnedAchievement } from "./achievement.types"
-import { Fallacy } from "./app.types"
+import { Paradox } from "./app.types"
 
 export type TestType = 'regular' | 'unit_test' | 'daily_challenge' | 'weekly_gauntlet' | 'custom'
 export type QuestionType = 'example_selection' | 'true_false' | 'scenario_identification' | 'binary_choice'
@@ -47,8 +47,8 @@ export interface QuizConfig {
     scenario_identification: number
     binary_choice: number
   }
-  targetFallacy?: Fallacy,      // for use with daily challange only!
-  selectedFallacyIds?: string[] // for use in custom quiz only!
+  targetParadox?: Paradox,      // for use with daily challange only!
+  selectedParadoxIds?: string[] // for use in custom quiz only!
 }
 export interface QuizQuestion {
   id: string
@@ -133,11 +133,11 @@ export interface QuizQuickStats {
 export interface DailyChallengeStatus {
   // for UI usage
   isCompleted: boolean,
-  todaysFallacy: Fallacy | null
+  todaysParadox: Paradox | null
   isLoading?: boolean
 
   // use in state only., only updated by timer on when daily challenge fallacy changes based off reset timess
-  lastFallacyChangeDateTime: string | null
+  lastParadoxChangeDateTime: string | null
 }
 
 export interface DailyResetTimerInfo {

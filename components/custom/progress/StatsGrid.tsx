@@ -1,14 +1,13 @@
 import Card from '@/components/custom/Card'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { useAppState } from '@/state/useAppState'
-import { QuizLearnedFallacyStats } from '@/types/app.types'
-import React from 'react'
+import { QuizLearnedParadoxStats } from '@/types/app.types'
 import { StyleSheet, Text, View } from 'react-native'
 import { useShallow } from 'zustand/shallow'
 
 export default function StatsGrid() {
   const { colors } = useSystemTheme()
-  const learnedStats: QuizLearnedFallacyStats = useAppState(
+  const learnedStats: QuizLearnedParadoxStats = useAppState(
     useShallow((state) => state.learnedStats)
   )
 

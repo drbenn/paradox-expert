@@ -3,13 +3,13 @@ import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native'
 
-interface FallacyFilterToggleProps {
+interface ParadoxFilterToggleProps {
   showFilters: boolean
   hasActiveFilters: boolean
   hasSearchText: boolean
@@ -17,7 +17,7 @@ interface FallacyFilterToggleProps {
   onClearAll: () => void
 }
 
-const FallacyFilterToggle: React.FC<FallacyFilterToggleProps> = ({
+const ParadoxFilterToggle: React.FC<ParadoxFilterToggleProps> = ({
   showFilters,
   hasActiveFilters,
   hasSearchText,
@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default FallacyFilterToggle
+export default ParadoxFilterToggle

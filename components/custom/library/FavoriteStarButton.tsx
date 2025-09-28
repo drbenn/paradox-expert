@@ -2,7 +2,7 @@ import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { useAppState } from '@/state/useAppState'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Animated, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { useShallow } from 'zustand/shallow'
 
@@ -18,17 +18,17 @@ export default function FavoriteStarButton({
   const { colors, colorScheme } = useSystemTheme()
 
   // zustand shallow state listeners
-  const { isFallacyFavorite, toggleFavoriteFallacy } = useAppState(
+  const { isParadoxFavorite, toggleFavoriteParadox } = useAppState(
     useShallow((state) => ({ 
-      isFallacyFavorite: state.isFallacyFavorite, 
-      toggleFavoriteFallacy: state.toggleFavoriteFallacy 
+      isParadoxFavorite: state.isParadoxFavorite, 
+      toggleFavoriteParadox: state.toggleFavoriteParadox 
     }))
   )
   const [scaleAnim] = useState(new Animated.Value(1))
   const [isToggling, setIsToggling] = useState(false)
 
   // Get current favorite status from global state (instant lookup)
-  const currentlyFavorite = isFallacyFavorite(fallacyId)
+  const currentlyFavorite = isParadoxFavorite(fallacyId)
 
   const handleToggle = async () => {
 
@@ -55,7 +55,7 @@ export default function FavoriteStarButton({
       ]).start()
 
       // Toggle in global state (which updates database)
-      const newStatus = await toggleFavoriteFallacy(fallacyId)      
+      const newStatus = await toggleFavoriteParadox(fallacyId)      
       
       // Call callback if provided
       onToggle?.(fallacyId, newStatus)

@@ -3,19 +3,19 @@ import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import {
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native'
 
-interface FallacySearchBarProps {
+interface ParadoxSearchBarProps {
   searchText: string
   onSearchChange: (text: string) => void
   placeholder?: string
 }
 
-const FallacySearchBar: React.FC<FallacySearchBarProps> = ({
+const ParadoxSearchBar: React.FC<ParadoxSearchBarProps> = ({
   searchText,
   onSearchChange,
   placeholder = "Search fallacies"
@@ -63,4 +63,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default FallacySearchBar
+export default ParadoxSearchBar

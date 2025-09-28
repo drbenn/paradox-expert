@@ -3,14 +3,14 @@ import Card from '@/components/custom/Card'
 import ExpandablePreviewListCard from '@/components/custom/ExpandablePreviewListCard'
 import AttributesCard from '@/components/custom/library/AttributesCard'
 import ExpandableParagraphPreview from '@/components/custom/library/ExpandableParagraphPreview'
-import FallacyHeaderWithImage from '@/components/custom/library/FallacyHeaderWithImage'
+import ParadoxHeaderWithImage from '@/components/custom/library/ParadoxHeaderWithImage'
 import DailyChallengeQuizButton from '@/components/custom/quiz-center/DailyChallengeQuizButton'
 import APP_CONSTANTS from '@/constants/appConstants'
 import SHAPES from '@/constants/Shapes'
 import useSwipeGesture from '@/hooks/useSwipingGesture'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { useAppState } from '@/state/useAppState'
-import { Fallacy } from '@/types/app.types'
+import { Paradox } from '@/types/app.types'
 import { Ionicons } from '@expo/vector-icons'
 import { RelativePathString, router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
@@ -26,7 +26,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useShallow } from 'zustand/shallow'
 
-const FallacyIdScreen: React.FC = () => {
+const ParadoxIdScreen: React.FC = () => {
   const { id } = useLocalSearchParams<{ id: string }>()  
   const insets = useSafeAreaInsets()
   const { colors } = useSystemTheme()
@@ -40,9 +40,9 @@ const FallacyIdScreen: React.FC = () => {
   )
 
   // zustand passive state listeners
-  const getFallacyById = useAppState((state) => state.getFallacyById)
-  const navigateToPreviousFallacy = useAppState((state) => state.navigateToPreviousFallacy)
-  const navigateToNextFallacy = useAppState((state) => state.navigateToNextFallacy)
+  const getParadoxById = useAppState((state) => state.getParadoxById)
+  const navigateToPreviousParadox = useAppState((state) => state.navigateToPreviousParadox)
+  const navigateToNextParadox = useAppState((state) => state.navigateToNextParadox)
 
   /**
    * only used for advanced swipe component SwipeableContainer that is commented out. Just using useSwipeGesture
@@ -55,41 +55,41 @@ const FallacyIdScreen: React.FC = () => {
   // logger.log('🔍 DEBUG - Total fallacies:', fallacies.length) // Debug log
 
   // Convert string ID to number and get the specific fallacy from state
-  const fallacy = id ? getFallacyById(id) : undefined
+  const fallacy = id ? getParadoxById(id) : undefined
 
   // Navigation handlers
   const handleBackPress = () => {
     router.back()
   }
 
-  const handleNextFallacy = () => {
+  const handleNextParadox = () => {
     if (id) {
-      navigateToNextFallacy('replace', id)
+      navigateToNextParadox('replace', id)
     }
   }
 
-  const handlePreviousFallacy = () => {
+  const handlePreviousParadox = () => {
     if (id) {
-      navigateToPreviousFallacy('replace', id)
+      navigateToPreviousParadox('replace', id)
     }
   }
 
   const { panHandlers } = useSwipeGesture({
-    onSwipeLeft: () => handleNextFallacy(),   // ← Swipe LEFT = Next
-    onSwipeRight: () => handlePreviousFallacy(),      // → Swipe RIGHT = Previous
+    onSwipeLeft: () => handleNextParadox(),   // ← Swipe LEFT = Next
+    onSwipeRight: () => handlePreviousParadox(),      // → Swipe RIGHT = Previous
     swipeThreshold: 0.25,
   })
 
     // 🔗 RELATED FALLACIES NAVIGATION HANDLER - NOW WORKING!
-  const handleRelatedFallacyPress = (fallacyTitle: string) => {
+  const handleRelatedParadoxPress = (fallacyTitle: string) => {
     // Find the fallacy by title first
     const allFallacies = getAllFallacies()
-    const relatedFallacy = allFallacies.find((f: Fallacy) => f.title === fallacyTitle)
+    const relatedParadox = allFallacies.find((f: Paradox) => f.title === fallacyTitle)
     
-    if (relatedFallacy) {
+    if (relatedParadox) {
       router.push({
         pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
-        params: { id: relatedFallacy.id.toString() }
+        params: { id: relatedParadox.id.toString() }
       })
       // logger.log(`Navigated to related fallacy: ${fallacyTitle}`)
     } else {
@@ -98,7 +98,7 @@ const FallacyIdScreen: React.FC = () => {
   }
 
     // 📤 SHARE FUNCTIONALITY
-  const handleShareFallacy = async () => {
+  const handleShareParadox = async () => {
     if (!fallacy) return
     
     try {
@@ -127,7 +127,7 @@ const FallacyIdScreen: React.FC = () => {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.errorContainer}>
-          <Text style={[styles.errorText, {color: colors.text}]}>Fallacy not found!</Text>
+          <Text style={[styles.errorText, {color: colors.text}]}>Paradox not found!</Text>
           <Button 
             title="Go Back"
             onPress={() => handleBackPress()}
@@ -150,7 +150,7 @@ const FallacyIdScreen: React.FC = () => {
           <Ionicons name="chevron-back" size={24} color={colors.primary} />
           <Text style={[styles.backText, {color: colors.primary}]}>Back</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleShareFallacy} style={styles.headerButton}>
+        <TouchableOpacity onPress={handleShareParadox} style={styles.headerButton}>
           <Ionicons name="share-outline" size={24} color={colors.primary} />
         </TouchableOpacity>
 
@@ -158,8 +158,8 @@ const FallacyIdScreen: React.FC = () => {
 
       {/* 👈👉 SWIPE GESTURE CONTAINER */}
       {/* <SwipeableContainer
-        onSwipeLeft={handlePreviousFallacy}   // ← Swipe LEFT = Previous
-        onSwipeRight={handleNextFallacy}      // → Swipe RIGHT = Next  
+        onSwipeLeft={handlePreviousParadox}   // ← Swipe LEFT = Previous
+        onSwipeRight={handleNextParadox}      // → Swipe RIGHT = Next  
         onSwipeStart={() => setScrollEnabled(false)}
         onSwipeEnd={() => setScrollEnabled(true)}
         leftLabel="← Previous"     // Shows when swiping LEFT
@@ -172,7 +172,7 @@ const FallacyIdScreen: React.FC = () => {
           // scrollEnabled={scrollEnabled} // Disable scroll during swipe IF USING SwipeableContainer Wrapper Component
           
         >
-          <FallacyHeaderWithImage
+          <ParadoxHeaderWithImage
             id={fallacy.id}
             title={fallacy.title}
             subtitle={fallacy.subtitle}
@@ -228,11 +228,11 @@ const FallacyIdScreen: React.FC = () => {
                 {fallacy.related_falacies.map((relatedTitle: string, index: number) => (
                   <TouchableOpacity
                     key={index}
-                    style={[styles.relatedFallacyChip, { backgroundColor: colors.background, borderColor: colors.border }]}
-                    onPress={() => handleRelatedFallacyPress(relatedTitle)}
+                    style={[styles.relatedParadoxChip, { backgroundColor: colors.background, borderColor: colors.border }]}
+                    onPress={() => handleRelatedParadoxPress(relatedTitle)}
                     activeOpacity={0.7}
                   >
-                    <Text style={[styles.relatedFallacyText, { color: colors.primary }]}>
+                    <Text style={[styles.relatedParadoxText, { color: colors.primary }]}>
                       {relatedTitle}
                     </Text>
                     <Ionicons name="arrow-forward" size={16} color={colors.primary} />
@@ -264,7 +264,7 @@ const FallacyIdScreen: React.FC = () => {
                   borderWidth: SHAPES.buttonBorderWidth,
                   borderColor: colors.primary,
                 }}
-                onPress={handlePreviousFallacy}
+                onPress={handlePreviousParadox}
               >
 
                 <View style={{ alignItems: 'center' }}>
@@ -287,7 +287,7 @@ const FallacyIdScreen: React.FC = () => {
                   borderWidth: SHAPES.buttonBorderWidth,
                   borderColor: colors.primary,
                 }}
-                onPress={handleNextFallacy}
+                onPress={handleNextParadox}
               >
                 <View style={{ alignItems: 'center' }}>
                   <Text style={{ fontSize: 16, fontWeight: '700', color: colors.text, marginBottom: 2 }}>
@@ -364,7 +364,7 @@ const styles = StyleSheet.create({
   relatedFallaciesGrid: {
     gap: 12,
   },
-  relatedFallacyChip: {
+  relatedParadoxChip: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
     borderRadius: SHAPES.borderRadius,
     borderWidth: SHAPES.buttonBorderWidth,
   },
-  relatedFallacyText: {
+  relatedParadoxText: {
     fontSize: 16,
     fontWeight: '600',
     flex: 1,
@@ -414,4 +414,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default FallacyIdScreen
+export default ParadoxIdScreen

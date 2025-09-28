@@ -2,7 +2,7 @@ import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { useAppState } from '@/state/useAppState'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Animated, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { useShallow } from 'zustand/shallow'
 
@@ -18,10 +18,10 @@ export default function LearnedStarButton({
   const { colors, colorScheme } = useSystemTheme()
 
   // zustand shallow state listeners
-  const { isFallacyLearned, toggleFallacyLearned } = useAppState(
+  const { isParadoxLearned, toggleParadoxLearned } = useAppState(
     useShallow((state) => ({ 
-      isFallacyLearned: state.isFallacyLearned, 
-      toggleFallacyLearned: state.toggleFallacyLearned 
+      isParadoxLearned: state.isParadoxLearned, 
+      toggleParadoxLearned: state.toggleParadoxLearned 
     }))
   )
 
@@ -29,7 +29,7 @@ export default function LearnedStarButton({
   const [isToggling, setIsToggling] = useState(false)
 
   // Get current learned status from global state (instant lookup)
-  const currentlyLearned = isFallacyLearned(fallacyId)
+  const currentlyLearned = isParadoxLearned(fallacyId)
 
   const handleToggle = async () => {
     // if (!learnedFallaciesLoaded || isToggling) return
@@ -57,7 +57,7 @@ export default function LearnedStarButton({
       ]).start()
 
       // Toggle in global state (which updates database)
-      const newStatus = await toggleFallacyLearned(fallacyId)
+      const newStatus = await toggleParadoxLearned(fallacyId)
 
       // Call callback if provided
       onToggle?.(fallacyId, newStatus)

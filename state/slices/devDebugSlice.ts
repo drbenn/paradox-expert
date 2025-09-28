@@ -38,10 +38,10 @@ export const devDebugSliceSlice: StateCreator<
   },
   resetAppData: () => {
     // fallacy slice
-    const { clearAllLearned, clearAllFavorites, calculateLearnedFallacyStats } =  get()
+    const { clearAllLearned, clearAllFavorites, calculateLearnedParadoxStats } =  get()
     clearAllLearned()
     clearAllFavorites()
-    calculateLearnedFallacyStats()
+    calculateLearnedParadoxStats()
 
     // quiz slice
     set({
@@ -80,13 +80,13 @@ export const devDebugSliceSlice: StateCreator<
     set({
       dailyChallengeStatus: {
         isCompleted: false,
-        todaysFallacy: null,
+        todaysParadox: null,
         isLoading: false,
-        lastFallacyChangeDateTime: null
+        lastParadoxChangeDateTime: null
       }
     })
-    const { getNewFallacyForDailyChallenge } = get()
-    getNewFallacyForDailyChallenge()
+    const { getNewParadoxForDailyChallenge } = get()
+    getNewParadoxForDailyChallenge()
   }
 });
 

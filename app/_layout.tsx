@@ -7,7 +7,7 @@ import { useFonts } from 'expo-font'
 import * as Notifications from 'expo-notifications'
 import { router, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { LogBox, View } from 'react-native'
 import 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -49,10 +49,10 @@ export default function RootLayout() {
 
   const isBadgesLoaded = useAppState((state) => state.isBadgesLoaded)
   const loadAllBadges = useAppState((state) => state.loadAllBadges)
-  const calculateLearnedFallacyStats = useAppState((state) => state.calculateLearnedFallacyStats)
+  const calculateLearnedParadoxStats = useAppState((state) => state.calculateLearnedParadoxStats)
   const calculatePointsOnStartup = useAppState((state) => state.calculatePointsOnStartup)
   const dailyChallengeStatus = useAppState((state) => state.dailyChallengeStatus)
-  const getNewFallacyForDailyChallenge = useAppState((state) => state.getNewFallacyForDailyChallenge)
+  const getNewParadoxForDailyChallenge = useAppState((state) => state.getNewParadoxForDailyChallenge)
   const startDailyResetTimer = useAppState((state) => state.startDailyResetTimer)
   const isInitOnboardingcComplete = useAppState((state) => state.isInitOnboardingcComplete)
 
@@ -85,11 +85,11 @@ export default function RootLayout() {
 
       if (!dailyChallengeStatus) {
         logger.log('🚀 Get new daily challange on first use!')
-        getNewFallacyForDailyChallenge()
+        getNewParadoxForDailyChallenge()
       }
 
       setNextQuizOrTest()
-      calculateLearnedFallacyStats()
+      calculateLearnedParadoxStats()
       calculatePointsOnStartup()
       startDailyResetTimer()
       

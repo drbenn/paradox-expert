@@ -2,14 +2,13 @@ import Card from '@/components/custom/Card'
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { useAppState } from '@/state/useAppState'
-import { QuizLearnedFallacyStats } from '@/types/app.types'
+import { QuizLearnedParadoxStats } from '@/types/app.types'
 import { LinearGradient } from 'expo-linear-gradient'
-import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 export default function OverallProgressCard() {
   const { colors } = useSystemTheme()
-  const learnedStats: QuizLearnedFallacyStats = useAppState((state) => state.learnedStats)
+  const learnedStats: QuizLearnedParadoxStats = useAppState((state) => state.learnedStats)
   const percentMastered = (learnedStats.totalLearned / learnedStats.totalFallacies) * 100 || 0
 
   return (

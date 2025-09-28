@@ -1,4 +1,4 @@
-import { Fallacy } from "@/types/app.types"
+import { Paradox } from "@/types/app.types"
 import { CustomQuizFilters } from "@/types/custom-quiz.types"
 
 class CustomQuizService {
@@ -6,7 +6,7 @@ class CustomQuizService {
   /**
    * 🏆 : Apply filters to available fallacies
    */
-  applyFiltersToFallacies(fallacies: Fallacy[], filters: CustomQuizFilters): Fallacy[] {
+  applyFiltersToFallacies(fallacies: Paradox[], filters: CustomQuizFilters): Paradox[] {
     return fallacies.filter(fallacy => {
       // Tier filter
       if (filters.selectedTiers.size > 0) {

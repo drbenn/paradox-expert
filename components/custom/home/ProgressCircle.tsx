@@ -1,13 +1,12 @@
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { useAppState } from '@/state/useAppState'
-import { QuizLearnedFallacyStats } from '@/types/app.types'
+import { QuizLearnedParadoxStats } from '@/types/app.types'
 import { router } from 'expo-router'
-import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 
 export default function ProgressCircle() {
   const { colors } = useSystemTheme()
-  const learnedStats: QuizLearnedFallacyStats = useAppState((state) => state.learnedStats)
+  const learnedStats: QuizLearnedParadoxStats = useAppState((state) => state.learnedStats)
   const cumulativePoints: number = useAppState((state) => state.cumulativePoints)
   const progressPercentage = (learnedStats.totalLearned / learnedStats.totalFallacies) * 100
 
