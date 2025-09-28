@@ -27,48 +27,46 @@ export default function CustomQuizBuilderScreen() {
   const { colors } = useSystemTheme()
   const insets = useSafeAreaInsets()
 
-  // 🏆 STATE-FIRST DATA SOURCING - Clean and Simple!
+  // STATE-FIRST DATA SOURCING
   const isParadoxesLoaded = useAppState((state) => state.isParadoxesLoaded)
   const paradoxes = useAppState((state) => state.paradoxes)
   const startQuiz = useAppState((state) => state.startQuiz)
 
-  // 🎯 DIRECT ARRAY FILTERING - No more Sets!
-  const favoriteParadoxes: Paradox[] = paradoxes.filter((f: Paradox) => f.isFavorite)
-  const learnedParadoxes: Paradox[] = paradoxes.filter((f: Paradox) => f.isLearned)
+  // DIRECT ARRAY FILTERING
+  const favoriteParadoxes: Paradox[] = paradoxes.filter((p: Paradox) => p.isFavorite)
+  const learnedParadoxes: Paradox[] = paradoxes.filter((p: Paradox) => p.isLearned)
 
-  // 🎯 FILTER STATE MANAGEMENT
+  // FILTER STATE MANAGEMENT - Updated for Paradoxes
   const [filters, setFilters] = useState<CustomQuizFilters>({
     selectedTiers: new Set<number>(),
     selectedDifficulty: 'all',
-    selectedUsage: null,
-    selectedSubtlety: null,
-    selectedSeverity: null,
-    selectedIntent: null,
-    selectedDefensibility: null,
-    selectedContexts: new Set(),
-    selectedMediums: new Set()
+    selectedMindBlowFactor: null,
+    selectedResolutionDifficulty: null,
+    selectedDomains: new Set(),
+    selectedPresentations: new Set(),
+    selectedPrerequisites: new Set()
   })
 
-  // 🏆 PROGRESS FILTER STATE
+  // PROGRESS FILTER STATE
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
   const [showLearnedOnly, setShowLearnedOnly] = useState(false)
   const [showUnlearnedOnly, setShowUnlearnedOnly] = useState(false)
 
-  // 🎯 QUIZ CONFIGURATION STATE
+  // QUIZ CONFIGURATION STATE
   const [questionCount, setQuestionCount] = useState(10)
   const [selectedParadoxes, setSelectedParadoxes] = useState<Paradox[]>([])
   
-  // 🎯 UI STATE
+  // UI STATE
   const [displayedParadoxes, setDisplayedParadoxes] = useState<Paradox[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
-  // 🏆 ALL FALLACIES AVAILABLE - No restrictions!
+  // ALL PARADOXES AVAILABLE
   const availableParadoxes = useMemo(() => {
     if (!isParadoxesLoaded || paradoxes.length === 0) return []
-    return paradoxes // All paradoxes are now available for custom quizzes
+    return paradoxes
   }, [paradoxes, isParadoxesLoaded])
 
-  // 🏆 PROGRESS FILTER APPLICATION WITH OR LOGIC
+  // PROGRESS FILTER APPLICATION WITH OR LOGIC
   const progressFilteredParadoxes = useMemo(() => {
     if (!isParadoxesLoaded) return []
 
@@ -79,10 +77,9 @@ export default function CustomQuizBuilderScreen() {
       filtered = filtered.filter((paradox: Paradox) => paradox.isFavorite || false)
     }
 
-    // 🚨 CHAMPIONSHIP OR LOGIC for learned/unlearned
+    // OR LOGIC for learned/unlearned
     if (showLearnedOnly && showUnlearnedOnly) {
       // Both selected = show all (no additional filtering)
-      // Do nothing - show all paradoxes regardless of learned status
     } else if (showLearnedOnly) {
       // Only learned selected
       filtered = filtered.filter((paradox: Paradox) => paradox.isLearned || false)
@@ -94,14 +91,14 @@ export default function CustomQuizBuilderScreen() {
     return filtered
   }, [availableParadoxes, showFavoritesOnly, showLearnedOnly, showUnlearnedOnly, isParadoxesLoaded])
 
-  // 🏆 FILTER APPLICATION - Now uses CustomQuizService!
+  // FILTER APPLICATION - Uses CustomQuizService
   const filteredParadoxes = useMemo(() => {
     if (progressFilteredParadoxes.length === 0) return []
     
     return customQuizService.applyFiltersToParadoxes(progressFilteredParadoxes, filters)
   }, [progressFilteredParadoxes, filters])
 
-  // 🏆 PROGRESS COUNTS - Direct array counting!
+  // PROGRESS COUNTS
   const progressCounts = useMemo(() => {
     if (!isParadoxesLoaded) {
       return { favoritesCount: 0, learnedCount: 0, unlearnedCount: 0 }
@@ -114,38 +111,38 @@ export default function CustomQuizBuilderScreen() {
     return { favoritesCount, learnedCount, unlearnedCount }
   }, [favoriteParadoxes, learnedParadoxes, availableParadoxes, isParadoxesLoaded])
 
-  // 🏆 Calculate how many selected paradoxes are still visible after filtering
+  // Calculate how many selected paradoxes are still visible after filtering
   const visibleSelectedCount = useMemo(() => {
     return selectedParadoxes.filter((selectedParadox: Paradox) => 
       filteredParadoxes.some((filteredParadox: Paradox) => filteredParadox.id === selectedParadox.id)
     ).length
   }, [selectedParadoxes, filteredParadoxes])
 
-  // 🎯 PAGINATION LOGIC - Reuse from ParadoxResults pattern
-  const FALLACIES_PER_LOAD = 20
+  // PAGINATION LOGIC
+  const PARADOXES_PER_LOAD = 20
   
   useEffect(() => {
     // Reset displayed paradoxes when filters change
-    setDisplayedParadoxes(filteredParadoxes.slice(0, FALLACIES_PER_LOAD))
+    setDisplayedParadoxes(filteredParadoxes.slice(0, PARADOXES_PER_LOAD))
   }, [filteredParadoxes])
 
   const handleLoadMore = () => {
     setIsLoading(true)
     setTimeout(() => {
       const currentLength = displayedParadoxes.length
-      const nextBatch = filteredParadoxes.slice(currentLength, currentLength + FALLACIES_PER_LOAD)
+      const nextBatch = filteredParadoxes.slice(currentLength, currentLength + PARADOXES_PER_LOAD)
       setDisplayedParadoxes((prev: Paradox[]) => [...prev, ...nextBatch])
       setIsLoading(false)
     }, 300)
   }
 
-  // 🎯 FALLACY SELECTION LOGIC
+  // PARADOX SELECTION LOGIC
   const handleParadoxPress = (paradox: Paradox) => {
     setSelectedParadoxes((prev: Paradox[]) => {
-      const isSelected = prev.some((f: Paradox) => f.id === paradox.id)
+      const isSelected = prev.some((p: Paradox) => p.id === paradox.id)
       if (isSelected) {
         // Remove from selection
-        return prev.filter((f: Paradox) => f.id !== paradox.id)
+        return prev.filter((p: Paradox) => p.id !== paradox.id)
       } else {
         // Add to selection
         return [...prev, paradox]
@@ -154,47 +151,59 @@ export default function CustomQuizBuilderScreen() {
   }
 
   const isSelected = (paradox: Paradox) => {
-    return selectedParadoxes.some((f: Paradox) => f.id === paradox.id)
+    return selectedParadoxes.some((p: Paradox) => p.id === paradox.id)
   }
 
-  // 🏆 FILTER HANDLERS
+  // FILTER HANDLERS - Updated for Paradox attributes
   const handleDifficultyChange = (difficulty: typeof filters.selectedDifficulty) => {
     setFilters((prev: CustomQuizFilters) => ({ ...prev, selectedDifficulty: difficulty }))
   }
 
-  const handleUsageChange = (usage: typeof filters.selectedUsage) => {
-    setFilters((prev: CustomQuizFilters) => ({ ...prev, selectedUsage: usage }))
+  const handleMindBlowFactorChange = (mindBlowFactor: typeof filters.selectedMindBlowFactor) => {
+    setFilters((prev: CustomQuizFilters) => ({ ...prev, selectedMindBlowFactor: mindBlowFactor }))
   }
 
-  const handleSubtletyChange = (subtlety: typeof filters.selectedSubtlety) => {
-    setFilters((prev: CustomQuizFilters) => ({ ...prev, selectedSubtlety: subtlety }))
+  const handleResolutionDifficultyChange = (resolutionDifficulty: typeof filters.selectedResolutionDifficulty) => {
+    setFilters((prev: CustomQuizFilters) => ({ ...prev, selectedResolutionDifficulty: resolutionDifficulty }))
   }
 
-  const handleSeverityChange = (severity: typeof filters.selectedSeverity) => {
-    setFilters((prev: CustomQuizFilters) => ({ ...prev, selectedSeverity: severity }))
-  }
-
-  const handleIntentChange = (intent: typeof filters.selectedIntent) => {
-    setFilters((prev: CustomQuizFilters) => ({ ...prev, selectedIntent: intent }))
-  }
-
-  const handleDefensibilityChange = (defensibility: typeof filters.selectedDefensibility) => {
-    setFilters((prev: CustomQuizFilters) => ({ ...prev, selectedDefensibility: defensibility }))
-  }
-
-  const handleContextToggle = (context: string) => {
+  const handleDomainToggle = (domain: string) => {
     setFilters((prev: CustomQuizFilters) => {
-      const newContexts = new Set(prev.selectedContexts)
-      if (newContexts.has(context as any)) {
-        newContexts.delete(context as any)
+      const newDomains = new Set(prev.selectedDomains)
+      if (newDomains.has(domain as any)) {
+        newDomains.delete(domain as any)
       } else {
-        newContexts.add(context as any)
+        newDomains.add(domain as any)
       }
-      return { ...prev, selectedContexts: newContexts }
+      return { ...prev, selectedDomains: newDomains }
     })
   }
 
-  // 🏆 PROGRESS FILTER HANDLERS
+  const handlePresentationToggle = (presentation: string) => {
+    setFilters((prev: CustomQuizFilters) => {
+      const newPresentations = new Set(prev.selectedPresentations)
+      if (newPresentations.has(presentation as any)) {
+        newPresentations.delete(presentation as any)
+      } else {
+        newPresentations.add(presentation as any)
+      }
+      return { ...prev, selectedPresentations: newPresentations }
+    })
+  }
+
+  const handlePrerequisitesToggle = (prerequisites: string) => {
+    setFilters((prev: CustomQuizFilters) => {
+      const newPrerequisites = new Set(prev.selectedPrerequisites)
+      if (newPrerequisites.has(prerequisites as any)) {
+        newPrerequisites.delete(prerequisites as any)
+      } else {
+        newPrerequisites.add(prerequisites as any)
+      }
+      return { ...prev, selectedPrerequisites: newPrerequisites }
+    })
+  }
+
+  // PROGRESS FILTER HANDLERS
   const handleToggleFavoritesOnly = () => {
     setShowFavoritesOnly(!showFavoritesOnly)
   }
@@ -207,7 +216,7 @@ export default function CustomQuizBuilderScreen() {
     setShowUnlearnedOnly(!showUnlearnedOnly)
   }
 
-  // 🎯 QUIZ CONTROL HANDLERS
+  // QUIZ CONTROL HANDLERS
   const handleQuestionCountChange = (delta: number) => {
     setQuestionCount((prev: number) => {
       const newCount = prev + delta
@@ -239,13 +248,13 @@ export default function CustomQuizBuilderScreen() {
       return
     }
 
-    // 🏆 Simple random slice to max 30 paradoxes
+    // Simple random slice to max 30 paradoxes
     const paradoxesNeeded = Math.min(questionCount, selectedParadoxes.length, 30)
     const selectedParadoxesForQuiz = selectedParadoxes.length > paradoxesNeeded
       ? selectedParadoxes.sort(() => Math.random() - 0.5).slice(0, paradoxesNeeded)
       : selectedParadoxes
 
-    // 🏆 Start the custom quiz
+    // Start the custom quiz
     Alert.alert(
       'Start Custom Quiz', 
       `Ready to start a ${questionCount}-question quiz created from ${selectedParadoxes.length} selected paradoxes?`,
@@ -254,7 +263,7 @@ export default function CustomQuizBuilderScreen() {
         { 
           text: 'Start Quiz', 
           onPress: () => {
-            const selectedParadoxIds: string[] = selectedParadoxes.map((f: Paradox) => f.id) 
+            const selectedParadoxIds: string[] = selectedParadoxes.map((p: Paradox) => p.id) 
             const quizSetup: QuizSetup = createCustomQuizSetup(selectedParadoxIds, questionCount)
             startQuiz(quizSetup)
           }
@@ -265,7 +274,7 @@ export default function CustomQuizBuilderScreen() {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background, paddingTop: insets.top }]}>
-      {/* 🔙 BACK BUTTON */}
+      {/* BACK BUTTON */}
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => router.back()}
@@ -283,7 +292,7 @@ export default function CustomQuizBuilderScreen() {
 
         {/* Quiz Configuration Card */}
         <View style={[styles.configCard, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>🎯 Quiz Settings</Text>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>Quiz Settings</Text>
           
           {/* Question Count Selector */}
           <View style={styles.questionCountContainer}>
@@ -314,7 +323,7 @@ export default function CustomQuizBuilderScreen() {
           {/* Selection Summary */}
           <View style={styles.selectionSummary}>
             <Text style={[styles.summaryText, { color: colors.textSecondary }]}>
-              {visibleSelectedCount} of {selectedParadoxes.length} selected fallac{selectedParadoxes.length === 1 ? 'y' : 'ies'} visible • {filteredParadoxes.length} available
+              {visibleSelectedCount} of {selectedParadoxes.length} selected paradox{selectedParadoxes.length === 1 ? '' : 'es'} visible • {filteredParadoxes.length} available
             </Text>
             
             <View style={styles.selectionControls}>
@@ -349,25 +358,24 @@ export default function CustomQuizBuilderScreen() {
               onPress={handleStartQuiz}
             >
               <Text style={styles.startQuizButtonText}>
-                🚀 Start {questionCount}-Question Quiz
+                Start {questionCount}-Question Quiz
               </Text>
               <Text style={styles.startQuizSubtext}>
-                {visibleSelectedCount} of {selectedParadoxes.length} selected fallac{selectedParadoxes.length === 1 ? 'y' : 'ies'} visible
+                {visibleSelectedCount} of {selectedParadoxes.length} selected paradox{selectedParadoxes.length === 1 ? '' : 'es'} visible
               </Text>
             </TouchableOpacity>
           </View>
         )}
 
-        {/* 🏆 FALLACY FILTERS WITH PROGRESS SUPPORT */}
+        {/* PARADOX FILTERS WITH PROGRESS SUPPORT */}
         <View style={[{marginTop: SHAPES.standardVerticalMargin}]}>
           <ParadoxFilters
             selectedDifficulty={filters.selectedDifficulty}
-            selectedUsage={filters.selectedUsage}
-            selectedSubtlety={filters.selectedSubtlety}
-            selectedSeverity={filters.selectedSeverity}
-            selectedIntent={filters.selectedIntent}
-            selectedDefensibility={filters.selectedDefensibility}
-            selectedContexts={filters.selectedContexts}
+            selectedMindBlowFactor={filters.selectedMindBlowFactor}
+            selectedResolutionDifficulty={filters.selectedResolutionDifficulty}
+            selectedDomains={filters.selectedDomains}
+            selectedPresentations={filters.selectedPresentations}
+            selectedPrerequisites={filters.selectedPrerequisites}
             showFavoritesOnly={showFavoritesOnly}
             showLearnedOnly={showLearnedOnly}
             showUnlearnedOnly={showUnlearnedOnly}
@@ -375,20 +383,18 @@ export default function CustomQuizBuilderScreen() {
             learnedCount={progressCounts.learnedCount}
             unlearnedCount={progressCounts.unlearnedCount}
             onDifficultyChange={handleDifficultyChange}
-            onUsageChange={handleUsageChange}
-            onSubtletyChange={handleSubtletyChange}
-            onSeverityChange={handleSeverityChange}
-            onIntentChange={handleIntentChange}
-            onDefensibilityChange={handleDefensibilityChange}
-            onContextToggle={handleContextToggle}
+            onMindBlowFactorChange={handleMindBlowFactorChange}
+            onResolutionDifficultyChange={handleResolutionDifficultyChange}
+            onDomainToggle={handleDomainToggle}
+            onPresentationToggle={handlePresentationToggle}
+            onPrerequisitesToggle={handlePrerequisitesToggle}
             onToggleFavoritesOnly={handleToggleFavoritesOnly}
             onToggleLearnedOnly={handleToggleLearnedOnly}
             onToggleUnlearnedOnly={handleToggleUnlearnedOnly}
           />
         </View>
 
-        
-        {/* Paradox Results - REUSING EXISTING COMPONENT WITH SELECTION LOGIC */}
+        {/* Paradox Results - with selection logic */}
         <View style={{paddingBottom: insets.bottom + 120}}>
           <ParadoxResults
             filteredParadoxes={filteredParadoxes}

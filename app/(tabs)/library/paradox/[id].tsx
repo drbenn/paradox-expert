@@ -190,9 +190,11 @@ const ParadoxIdScreen: React.FC = () => {
               difficulty={paradox.difficulty}
               type={paradox.type}
               category={paradox.category}
-              usage={paradox.usage}
-              subtlety={paradox.subtlety}
-              severity={paradox.severity}
+              domain={paradox.domain}
+              presentation={paradox.presentation}
+              mindBlowFactor={paradox.mind_blow_factor}
+              resolutionDifficulty={paradox.resolution_difficulty}
+              prerequisites={paradox.prerequisites}
             />
           </View>
 
@@ -216,7 +218,7 @@ const ParadoxIdScreen: React.FC = () => {
           </View>
 
           {/* 🔗 RELATED FALLACIES SECTION -  STYLE! */}
-          {paradox.related_falacies && paradox.related_falacies.length > 0 && (
+          {paradox.related_paradoxes && paradox.related_paradoxes.length > 0 && (
             <Card>
               <Text style={[styles.relatedParadoxesTitle, { color: colors.text }]}>
                 🔗 Related Paradoxes
@@ -225,7 +227,7 @@ const ParadoxIdScreen: React.FC = () => {
                 Tap to explore similar logical paradoxes
               </Text>
               <View style={styles.relatedParadoxesGrid}>
-                {paradox.related_falacies.map((relatedTitle: string, index: number) => (
+                {paradox.related_paradoxes.map((relatedTitle: string, index: number) => (
                   <TouchableOpacity
                     key={index}
                     style={[styles.relatedParadoxChip, { backgroundColor: colors.background, borderColor: colors.border }]}

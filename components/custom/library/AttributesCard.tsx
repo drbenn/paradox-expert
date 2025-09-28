@@ -6,13 +6,15 @@ import FavoriteStarButton from './FavoriteStarButton'
 import LearnedStarButton from './LearnedStarButton'
 
 interface AttributesCardProps {
-  id: string,
-  difficulty: string,
-  type: string,
-  category: string,
-  usage: string,
-  subtlety: string,
-  severity: string,
+  id: string
+  difficulty: string
+  type: string
+  category: string
+  domain: string
+  presentation: string
+  mindBlowFactor: string
+  resolutionDifficulty: string
+  prerequisites: string
 }
 
 const AttributesCard = ({ 
@@ -20,15 +22,25 @@ const AttributesCard = ({
   difficulty,
   type,
   category,
-  usage,
-  subtlety,
-  severity,
+  domain,
+  presentation,
+  mindBlowFactor,
+  resolutionDifficulty,
+  prerequisites,
 }: AttributesCardProps) => {
   const { colors } = useSystemTheme()
+
+  // Helper function to format attribute values for display
+  const formatAttributeValue = (value: string) => {
+    return value
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
   
   return (
     <Card>
-      {/* 🏆 FLOATING ACTIONS - CHAMPIONSHIP BUTTON TEAM! */}
+      {/* Floating Actions */}
       <View style={styles.floatingActions}>
         <FavoriteStarButton
           paradoxId={id}
@@ -42,7 +54,7 @@ const AttributesCard = ({
         Attributes
       </Text>
 
-      {/* 📊 2 COLUMNS x 3 ROWS LAYOUT FOR PORTRAIT PERFECTION! */}
+      {/* 3 Columns x 3 Rows Layout for Paradox Attributes */}
       <View style={styles.attributesGrid}>
         <View style={styles.gridColumn}>
           <View style={styles.attributeItem}>
@@ -50,25 +62,25 @@ const AttributesCard = ({
               Difficulty
             </Text>
             <Text style={[styles.attributeValue, {color: colors.text}]}>
-              {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+              {formatAttributeValue(difficulty)}
             </Text>
           </View>
           
           <View style={styles.attributeItem}>
             <Text style={[styles.attributeLabel, {color: colors.textSecondary}]}>
-              Type
+              Domain
             </Text>
             <Text style={[styles.attributeValue, {color: colors.text}]}>
-              {type.charAt(0).toUpperCase() + type.slice(1)}
+              {formatAttributeValue(domain)}
             </Text>
           </View>
           
           <View style={styles.attributeItem}>
             <Text style={[styles.attributeLabel, {color: colors.textSecondary}]}>
-              Category
+              Prerequisites
             </Text>
             <Text style={[styles.attributeValue, {color: colors.text}]}>
-              {category.charAt(0).toUpperCase() + category.slice(1)}
+              {formatAttributeValue(prerequisites)}
             </Text>
           </View>
         </View>
@@ -76,28 +88,48 @@ const AttributesCard = ({
         <View style={styles.gridColumn}>
           <View style={styles.attributeItem}>
             <Text style={[styles.attributeLabel, {color: colors.textSecondary}]}>
-              Usage
+              Type
             </Text>
             <Text style={[styles.attributeValue, {color: colors.text}]}>
-              {usage.charAt(0).toUpperCase() + usage.slice(1)}
+              {formatAttributeValue(type)}
             </Text>
           </View>
           
           <View style={styles.attributeItem}>
             <Text style={[styles.attributeLabel, {color: colors.textSecondary}]}>
-              Subtlety
+              Presentation
             </Text>
             <Text style={[styles.attributeValue, {color: colors.text}]}>
-              {subtlety.charAt(0).toUpperCase() + subtlety.slice(1)}
+              {formatAttributeValue(presentation)}
             </Text>
           </View>
           
           <View style={styles.attributeItem}>
             <Text style={[styles.attributeLabel, {color: colors.textSecondary}]}>
-              Severity
+              Mind Blow Factor
             </Text>
             <Text style={[styles.attributeValue, {color: colors.text}]}>
-              {severity.charAt(0).toUpperCase() + severity.slice(1)}
+              {formatAttributeValue(mindBlowFactor)}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.gridColumn}>
+          <View style={styles.attributeItem}>
+            <Text style={[styles.attributeLabel, {color: colors.textSecondary}]}>
+              Category
+            </Text>
+            <Text style={[styles.attributeValue, {color: colors.text}]}>
+              {formatAttributeValue(category)}
+            </Text>
+          </View>
+          
+          <View style={styles.attributeItem}>
+            <Text style={[styles.attributeLabel, {color: colors.textSecondary}]}>
+              Resolution
+            </Text>
+            <Text style={[styles.attributeValue, {color: colors.text}]}>
+              {formatAttributeValue(resolutionDifficulty)}
             </Text>
           </View>
         </View>
@@ -113,7 +145,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   
-  // 🏆 FLOATING ACTIONS CHAMPIONSHIP LAYOUT
+  // Floating Actions Layout
   floatingActions: {
     position: 'absolute',
     top: -16,
@@ -123,10 +155,10 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   
-  // 📊 2x3 GRID LAYOUT FOR PORTRAIT PERFECTION
+  // 3-Column Grid Layout for Paradox Attributes
   attributesGrid: {
     flexDirection: 'row',
-    gap: 20,
+    gap: 16,
   },
   
   gridColumn: {

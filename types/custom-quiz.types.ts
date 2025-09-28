@@ -1,10 +1,17 @@
-// 🏆 CUSTOM QUIZ CONFIG INTERFACE & TYPES - CHAMPIONSHIP EDITION!
-// Add to quiz.types.ts or create new custom-quiz.types.ts
+// CUSTOM QUIZ CONFIG INTERFACE & TYPES - PARADOX EDITION
 
 import { Paradox } from '@/types/app.types'
 import { Quiz } from './quiz.types'
 
-// 🎯 CUSTOM QUIZ CONFIGURATION INTERFACE
+// Filter types for paradoxes
+export type DifficultyFilter = 'all' | 'beginner' | 'intermediate' | 'advanced' | 'expert'
+export type MindBlowFactorFilter = 'amusing' | 'surprising' | 'mind-bending' | 'reality-questioning'
+export type ResolutionDifficultyFilter = 'intuitive' | 'requires-explanation' | 'academic-debate' | 'unresolved'
+export type DomainFilter = 'everyday-life' | 'mathematics' | 'physics' | 'philosophy' | 'economics' | 'psychology' | 'logic' | 'probability'
+export type PresentationFilter = 'word-problem' | 'thought-experiment' | 'mathematical' | 'visual' | 'interactive' | 'scenario'
+export type PrerequisitesFilter = 'none' | 'basic-logic' | 'high-school-math' | 'college-math' | 'specialized-knowledge'
+
+// CUSTOM QUIZ CONFIGURATION INTERFACE
 export interface CustomQuizConfig {
   // Basic Quiz Settings
   questionCount: number              // 5-30 questions (user selectable)
@@ -33,33 +40,29 @@ export interface CustomQuizConfig {
   filtersUsed: {
     tier: boolean
     difficulty: boolean
-    usage: boolean
-    context: boolean
-    medium: boolean
-    subtlety: boolean
-    intent: boolean
-    severity: boolean
-    defensibility: boolean
+    mindBlowFactor: boolean
+    resolutionDifficulty: boolean
+    domain: boolean
+    presentation: boolean
+    prerequisites: boolean
   }
 }
 
-// 🎯 CUSTOM QUIZ FILTER STATE
+// CUSTOM QUIZ FILTER STATE - Updated for Paradoxes
 export interface CustomQuizFilters {
   // Tier Selection (always available)
   selectedTiers: Set<number>        // Which tiers user has selected
   
-  // Paradox Property Filters (using existing ParadoxFilters component)
-  selectedDifficulty: 'all' | 'beginner' | 'intermediate' | 'advanced' | 'expert'
-  selectedUsage: 'ubiquitous' | 'common' | 'moderate' | 'occasional' | 'rare' | null
-  selectedSubtlety: 'blatant' | 'obvious' | 'subtle' | 'very-subtle' | null
-  selectedSeverity: 'mild' | 'moderate' | 'serious' | 'toxic' | null
-  selectedIntent: 'defensive' | 'offensive' | 'persuasive' | 'deflective' | 'emotional' | null
-  selectedDefensibility: 'easy' | 'moderate' | 'difficult' | null
-  selectedContexts: Set<'social-media' | 'politics' | 'workplace' | 'family' | 'academic' | 'marketing' | 'relationships'>
-  selectedMediums: Set<'text' | 'verbal' | 'visual' | 'video' | 'memes'>
+  // Paradox Property Filters
+  selectedDifficulty: DifficultyFilter
+  selectedMindBlowFactor: MindBlowFactorFilter | null
+  selectedResolutionDifficulty: ResolutionDifficultyFilter | null
+  selectedDomains: Set<DomainFilter>
+  selectedPresentations: Set<PresentationFilter>
+  selectedPrerequisites: Set<PrerequisitesFilter>
 }
 
-// 🎯 CUSTOM QUIZ CREATION RESULT
+// CUSTOM QUIZ CREATION RESULT
 export interface CustomQuizCreationResult {
   isValid: boolean
   quiz?: Quiz
@@ -70,12 +73,12 @@ export interface CustomQuizCreationResult {
   estimatedTime: number             // Minutes
 }
 
-// 🎯 CUSTOM QUIZ VALIDATION RULES
+// CUSTOM QUIZ VALIDATION RULES
 export const CUSTOM_QUIZ_VALIDATION = {
   MIN_QUESTIONS: 5,
   MAX_QUESTIONS: 30,
-  MIN_FALLACIES: 3,                // Need at least 3 paradoxes for good variety
-  MAX_FALLACIES: 50,               // Reasonable upper limit
+  MIN_PARADOXES: 3,                // Need at least 3 paradoxes for good variety
+  MAX_PARADOXES: 50,               // Reasonable upper limit
   DEFAULT_QUESTION_TIME_LIMIT: 60, // 60 seconds per question
   DEFAULT_PASSING_SCORE: 70,       // 70% to pass
   MAX_FILTERS_FOR_BADGE: 3,        // 3+ filters = "Filter Master" badge
@@ -90,7 +93,7 @@ export const CUSTOM_QUIZ_VALIDATION = {
   }
 } as const
 
-// 🎯 CUSTOM QUIZ DEFAULTS
+// CUSTOM QUIZ DEFAULTS
 export const CUSTOM_QUIZ_DEFAULTS = {
   questionCount: 10,
   questionTypeDistribution: {
@@ -105,64 +108,8 @@ export const CUSTOM_QUIZ_DEFAULTS = {
   description: 'A personalized quiz based on your selected paradoxes'
 } as const
 
-// 🎯 HELPER FUNCTIONS FOR CUSTOM QUIZ LOGIC
-
 /**
- * 🏆 : Validate custom quiz configuration
- */
-// export function validateCustomQuizConfig(config: CustomQuizConfig): CustomQuizCreationResult {
-//   const errors: string[] = []
-//   const warnings: string[] = []
-  
-//   // Validate question count
-//   if (config.questionCount < CUSTOM_QUIZ_VALIDATION.MIN_QUESTIONS) {
-//     errors.push(`Minimum ${CUSTOM_QUIZ_VALIDATION.MIN_QUESTIONS} questions required`)
-//   }
-//   if (config.questionCount > CUSTOM_QUIZ_VALIDATION.MAX_QUESTIONS) {
-//     errors.push(`Maximum ${CUSTOM_QUIZ_VALIDATION.MAX_QUESTIONS} questions allowed`)
-//   }
-  
-//   // Validate paradox selection
-//   if (config.selectedParadoxes.length < CUSTOM_QUIZ_VALIDATION.MIN_FALLACIES) {
-//     errors.push(`Minimum ${CUSTOM_QUIZ_VALIDATION.MIN_FALLACIES} paradoxes required for good variety`)
-//   }
-//   if (config.selectedParadoxes.length > CUSTOM_QUIZ_VALIDATION.MAX_FALLACIES) {
-//     errors.push(`Maximum ${CUSTOM_QUIZ_VALIDATION.MAX_FALLACIES} paradoxes allowed`)
-//   }
-  
-//   // Validate question type distribution
-//   if (config.questionTypeDistribution) {
-//     const total = Object.values(config.questionTypeDistribution).reduce((sum, val) => sum + val, 0)
-//     if (Math.abs(total - 1.0) > 0.01) {
-//       errors.push('Question type distribution must total 100%')
-//     }
-//   }
-  
-//   // Generate warnings
-//   if (config.selectedParadoxes.length < 5 && config.questionCount > 15) {
-//     warnings.push('Few paradoxes with many questions may result in repetitive content')
-//   }
-  
-//   if (config.questionCount > 20) {
-//     warnings.push('Long quizzes may be challenging to complete in one session')
-//   }
-  
-//   // Calculate estimated difficulty and time
-//   const estimatedDifficulty = calculateEstimatedDifficulty(config.selectedParadoxes)
-//   const estimatedTime = Math.ceil(config.questionCount * 1.5) // 1.5 minutes per question estimate
-  
-//   return {
-//     isValid: errors.length === 0,
-//     errors,
-//     warnings,
-//     selectedParadoxesCount: config.selectedParadoxes.length,
-//     estimatedDifficulty,
-//     estimatedTime
-//   }
-// }
-
-/**
- * 🏆 : Calculate estimated difficulty based on selected paradoxes
+ * Calculate estimated difficulty based on selected paradoxes
  */
 export function calculateEstimatedDifficulty(paradoxes: Paradox[]): 'easy' | 'moderate' | 'hard' | 'expert' {
   if (paradoxes.length === 0) return 'easy'
@@ -187,7 +134,7 @@ export function calculateEstimatedDifficulty(paradoxes: Paradox[]): 'easy' | 'mo
 }
 
 /**
- * 🏆 : Calculate custom quiz points based on configuration
+ * Calculate custom quiz points based on configuration
  */
 export function calculateCustomQuizPoints(config: CustomQuizConfig, score: number): {
   basePoints: number
@@ -209,7 +156,7 @@ export function calculateCustomQuizPoints(config: CustomQuizConfig, score: numbe
 }
 
 /**
- * 🏆 : Count active filters for badge evaluation
+ * Count active filters for badge evaluation
  */
 export function countActiveFilters(filters: CustomQuizFilters): number {
   let count = 0
@@ -219,74 +166,17 @@ export function countActiveFilters(filters: CustomQuizFilters): number {
   
   // Count property filters
   if (filters.selectedDifficulty !== 'all') count++
-  if (filters.selectedUsage !== null) count++
-  if (filters.selectedSubtlety !== null) count++
-  if (filters.selectedSeverity !== null) count++
-  if (filters.selectedIntent !== null) count++
-  if (filters.selectedDefensibility !== null) count++
-  if (filters.selectedContexts.size > 0) count++
-  if (filters.selectedMediums.size > 0) count++
+  if (filters.selectedMindBlowFactor !== null) count++
+  if (filters.selectedResolutionDifficulty !== null) count++
+  if (filters.selectedDomains.size > 0) count++
+  if (filters.selectedPresentations.size > 0) count++
+  if (filters.selectedPrerequisites.size > 0) count++
   
   return count
 }
 
-// /**
-//  * 🏆 : Apply filters to available paradoxes
-//  */
-// export function applyFiltersToParadoxes(paradoxes: Paradox[], filters: CustomQuizFilters): Paradox[] {
-//   return paradoxes.filter(paradox => {
-//     // Tier filter
-//     if (filters.selectedTiers.size > 0) {
-//       const paradoxTier = parseInt(paradox.tier?.toString() || '1')
-//       if (!filters.selectedTiers.has(paradoxTier)) return false
-//     }
-    
-//     // Difficulty filter
-//     if (filters.selectedDifficulty !== 'all' && paradox.difficulty !== filters.selectedDifficulty) {
-//       return false
-//     }
-    
-//     // Usage filter
-//     if (filters.selectedUsage !== null && paradox.usage !== filters.selectedUsage) {
-//       return false
-//     }
-    
-//     // Subtlety filter
-//     if (filters.selectedSubtlety !== null && paradox.subtlety !== filters.selectedSubtlety) {
-//       return false
-//     }
-    
-//     // Severity filter
-//     if (filters.selectedSeverity !== null && paradox.severity !== filters.selectedSeverity) {
-//       return false
-//     }
-    
-//     // Intent filter
-//     if (filters.selectedIntent !== null && paradox.intent !== filters.selectedIntent) {
-//       return false
-//     }
-    
-//     // Defensibility filter
-//     if (filters.selectedDefensibility !== null && paradox.defensibility !== filters.selectedDefensibility) {
-//       return false
-//     }
-    
-//     // Context filter
-//     if (filters.selectedContexts.size > 0 && !filters.selectedContexts.has(paradox.context)) {
-//       return false
-//     }
-    
-//     // Medium filter
-//     if (filters.selectedMediums.size > 0 && !filters.selectedMediums.has(paradox.medium)) {
-//       return false
-//     }
-    
-//     return true
-//   })
-// }
-
 /**
- * 🏆 : Create default custom quiz config
+ * Create default custom quiz config
  */
 export function createDefaultCustomQuizConfig(availableParadoxes: Paradox[]): CustomQuizConfig {
   return {
@@ -300,13 +190,11 @@ export function createDefaultCustomQuizConfig(availableParadoxes: Paradox[]): Cu
     filtersUsed: {
       tier: false,
       difficulty: false,
-      usage: false,
-      context: false,
-      medium: false,
-      subtlety: false,
-      intent: false,
-      severity: false,
-      defensibility: false
+      mindBlowFactor: false,
+      resolutionDifficulty: false,
+      domain: false,
+      presentation: false,
+      prerequisites: false
     }
   }
 }

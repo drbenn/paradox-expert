@@ -4,7 +4,7 @@ import { CustomQuizFilters } from "@/types/custom-quiz.types"
 class CustomQuizService {
 
   /**
-   * 🏆 : Apply filters to available paradoxes
+   * Apply filters to available paradoxes
    */
   applyFiltersToParadoxes(paradoxes: Paradox[], filters: CustomQuizFilters): Paradox[] {
     return paradoxes.filter(paradox => {
@@ -19,38 +19,28 @@ class CustomQuizService {
         return false
       }
       
-      // Usage filter
-      if (filters.selectedUsage !== null && paradox.usage !== filters.selectedUsage) {
+      // Mind blow factor filter (was severity)
+      if (filters.selectedMindBlowFactor !== null && paradox.mind_blow_factor !== filters.selectedMindBlowFactor) {
         return false
       }
       
-      // Subtlety filter
-      if (filters.selectedSubtlety !== null && paradox.subtlety !== filters.selectedSubtlety) {
+      // Resolution difficulty filter (was defensibility)
+      if (filters.selectedResolutionDifficulty !== null && paradox.resolution_difficulty !== filters.selectedResolutionDifficulty) {
         return false
       }
       
-      // Severity filter
-      if (filters.selectedSeverity !== null && paradox.severity !== filters.selectedSeverity) {
+      // Domain filter (was context)
+      if (filters.selectedDomains.size > 0 && !filters.selectedDomains.has(paradox.domain)) {
         return false
       }
       
-      // Intent filter
-      if (filters.selectedIntent !== null && paradox.intent !== filters.selectedIntent) {
+      // Presentation filter (was medium)
+      if (filters.selectedPresentations.size > 0 && !filters.selectedPresentations.has(paradox.presentation)) {
         return false
       }
       
-      // Defensibility filter
-      if (filters.selectedDefensibility !== null && paradox.defensibility !== filters.selectedDefensibility) {
-        return false
-      }
-      
-      // Context filter
-      if (filters.selectedContexts.size > 0 && !filters.selectedContexts.has(paradox.context)) {
-        return false
-      }
-      
-      // Medium filter
-      if (filters.selectedMediums.size > 0 && !filters.selectedMediums.has(paradox.medium)) {
+      // Prerequisites filter (new for paradoxes)
+      if (filters.selectedPrerequisites.size > 0 && !filters.selectedPrerequisites.has(paradox.prerequisites)) {
         return false
       }
       
@@ -58,13 +48,8 @@ class CustomQuizService {
   })
 }
 
-
-
 }
 
-
-
-
-// 🏆 EXPORT THE CLEAN ORCHESTRATOR QUIZ SERVICE!
+// Export the service
 const customQuizService = new CustomQuizService()
 export default customQuizService

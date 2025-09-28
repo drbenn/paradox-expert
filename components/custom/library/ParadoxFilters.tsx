@@ -3,21 +3,20 @@ import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native'
 
-// Filter types -  STYLE!
+// Filter types for paradoxes
 export type DifficultyFilter = 'all' | 'beginner' | 'intermediate' | 'advanced' | 'expert'
-export type UsageFilter = 'ubiquitous' | 'common' | 'moderate' | 'occasional' | 'rare'
-export type SubtletyFilter = 'blatant' | 'obvious' | 'subtle' | 'very-subtle'
-export type SeverityFilter = 'mild' | 'moderate' | 'serious' | 'toxic'
-export type IntentFilter = 'defensive' | 'offensive' | 'persuasive' | 'deflective' | 'emotional'
-export type DefensibilityFilter = 'easy' | 'moderate' | 'difficult'
-export type ContextFilter = 'social-media' | 'politics' | 'workplace' | 'family' | 'academic' | 'marketing' | 'relationships'
+export type MindBlowFactorFilter = 'amusing' | 'surprising' | 'mind-bending' | 'reality-questioning'
+export type ResolutionDifficultyFilter = 'intuitive' | 'requires-explanation' | 'academic-debate' | 'unresolved'
+export type DomainFilter = 'everyday-life' | 'mathematics' | 'physics' | 'philosophy' | 'economics' | 'psychology' | 'logic' | 'probability'
+export type PresentationFilter = 'word-problem' | 'thought-experiment' | 'mathematical' | 'visual' | 'interactive' | 'scenario'
+export type PrerequisitesFilter = 'none' | 'basic-logic' | 'high-school-math' | 'college-math' | 'specialized-knowledge'
 
 const DIFFICULTY_OPTIONS: { key: DifficultyFilter; label: string }[] = [
   { key: 'all', label: 'All' },
@@ -27,75 +26,70 @@ const DIFFICULTY_OPTIONS: { key: DifficultyFilter; label: string }[] = [
   { key: 'expert', label: 'Expert' }
 ]
 
-const USAGE_OPTIONS: { key: UsageFilter; label: string }[] = [
-  { key: 'ubiquitous', label: 'Ubiquitous' },
-  { key: 'common', label: 'Common' },
-  { key: 'moderate', label: 'Moderate' },
-  { key: 'occasional', label: 'Occasional' },
-  { key: 'rare', label: 'Rare' }
+const MIND_BLOW_FACTOR_OPTIONS: { key: MindBlowFactorFilter; label: string }[] = [
+  { key: 'amusing', label: 'Amusing' },
+  { key: 'surprising', label: 'Surprising' },
+  { key: 'mind-bending', label: 'Mind-Bending' },
+  { key: 'reality-questioning', label: 'Reality-Questioning' }
 ]
 
-const SUBTLETY_OPTIONS: { key: SubtletyFilter; label: string }[] = [
-  { key: 'blatant', label: 'Blatant' },
-  { key: 'obvious', label: 'Obvious' },
-  { key: 'subtle', label: 'Subtle' },
-  { key: 'very-subtle', label: 'Very Subtle' }
+const RESOLUTION_DIFFICULTY_OPTIONS: { key: ResolutionDifficultyFilter; label: string }[] = [
+  { key: 'intuitive', label: 'Intuitive' },
+  { key: 'requires-explanation', label: 'Requires Explanation' },
+  { key: 'academic-debate', label: 'Academic Debate' },
+  { key: 'unresolved', label: 'Unresolved' }
 ]
 
-const SEVERITY_OPTIONS: { key: SeverityFilter; label: string }[] = [
-  { key: 'mild', label: 'Mild' },
-  { key: 'moderate', label: 'Moderate' },
-  { key: 'serious', label: 'Serious' },
-  { key: 'toxic', label: 'Toxic' }
+const DOMAIN_OPTIONS: { key: DomainFilter; label: string; emoji: string }[] = [
+  { key: 'everyday-life', label: 'Everyday Life', emoji: '🏠' },
+  { key: 'mathematics', label: 'Mathematics', emoji: '🔢' },
+  { key: 'physics', label: 'Physics', emoji: '⚛️' },
+  { key: 'philosophy', label: 'Philosophy', emoji: '🤔' },
+  { key: 'economics', label: 'Economics', emoji: '💰' },
+  { key: 'psychology', label: 'Psychology', emoji: '🧠' },
+  { key: 'logic', label: 'Logic', emoji: '🔬' },
+  { key: 'probability', label: 'Probability', emoji: '🎲' }
 ]
 
-const INTENT_OPTIONS: { key: IntentFilter; label: string }[] = [
-  { key: 'defensive', label: 'Defensive' },
-  { key: 'offensive', label: 'Offensive' },
-  { key: 'persuasive', label: 'Persuasive' },
-  { key: 'deflective', label: 'Deflective' },
-  { key: 'emotional', label: 'Emotional' }
+const PRESENTATION_OPTIONS: { key: PresentationFilter; label: string; emoji: string }[] = [
+  { key: 'word-problem', label: 'Word Problem', emoji: '📝' },
+  { key: 'thought-experiment', label: 'Thought Experiment', emoji: '💭' },
+  { key: 'mathematical', label: 'Mathematical', emoji: '📊' },
+  { key: 'visual', label: 'Visual', emoji: '🎨' },
+  { key: 'interactive', label: 'Interactive', emoji: '🎮' },
+  { key: 'scenario', label: 'Scenario', emoji: '🎭' }
 ]
 
-const DEFENSIBILITY_OPTIONS: { key: DefensibilityFilter; label: string }[] = [
-  { key: 'easy', label: 'Easy' },
-  { key: 'moderate', label: 'Moderate' },
-  { key: 'difficult', label: 'Difficult' }
-]
-
-const CONTEXT_OPTIONS: { key: ContextFilter; label: string; emoji: string }[] = [
-  { key: 'social-media', label: 'Social Media', emoji: '📱' },
-  { key: 'politics', label: 'Politics', emoji: '🗳️' },
-  { key: 'workplace', label: 'Workplace', emoji: '💼' },
-  { key: 'family', label: 'Family', emoji: '👨‍👩‍👧‍👦' },
-  { key: 'academic', label: 'Academic', emoji: '🎓' },
-  { key: 'marketing', label: 'Marketing', emoji: '📈' },
-  { key: 'relationships', label: 'Relationships', emoji: '💕' }
+const PREREQUISITES_OPTIONS: { key: PrerequisitesFilter; label: string }[] = [
+  { key: 'none', label: 'None' },
+  { key: 'basic-logic', label: 'Basic Logic' },
+  { key: 'high-school-math', label: 'High School Math' },
+  { key: 'college-math', label: 'College Math' },
+  { key: 'specialized-knowledge', label: 'Specialized Knowledge' }
 ]
 
 interface ParadoxFiltersProps {
   selectedDifficulty: DifficultyFilter
-  selectedUsage: UsageFilter | null
-  selectedSubtlety: SubtletyFilter | null
-  selectedSeverity: SeverityFilter | null
-  selectedIntent: IntentFilter | null
-  selectedDefensibility: DefensibilityFilter | null
-  selectedContexts: Set<ContextFilter>
-  // 🚨 : New progress filter props - MULTI-SELECT CHAMPION!
+  selectedMindBlowFactor: MindBlowFactorFilter | null
+  selectedResolutionDifficulty: ResolutionDifficultyFilter | null
+  selectedDomains: Set<DomainFilter>
+  selectedPresentations: Set<PresentationFilter>
+  selectedPrerequisites: Set<PrerequisitesFilter>
+  // Progress filter props
   showFavoritesOnly: boolean
   showLearnedOnly: boolean
   showUnlearnedOnly: boolean
   favoritesCount: number
   learnedCount: number
   unlearnedCount: number
+  // Handlers
   onDifficultyChange: (difficulty: DifficultyFilter) => void
-  onUsageChange: (usage: UsageFilter | null) => void
-  onSubtletyChange: (subtlety: SubtletyFilter | null) => void
-  onSeverityChange: (severity: SeverityFilter | null) => void
-  onIntentChange: (intent: IntentFilter | null) => void
-  onDefensibilityChange: (defensibility: DefensibilityFilter | null) => void
-  onContextToggle: (context: ContextFilter) => void
-  // 🚨 : New progress handlers - MULTI-SELECT STYLE!
+  onMindBlowFactorChange: (mindBlowFactor: MindBlowFactorFilter | null) => void
+  onResolutionDifficultyChange: (resolutionDifficulty: ResolutionDifficultyFilter | null) => void
+  onDomainToggle: (domain: string) => void
+  onPresentationToggle: (presentation: string) => void
+  onPrerequisitesToggle: (prerequisites: string) => void
+  // Progress handlers
   onToggleFavoritesOnly: () => void
   onToggleLearnedOnly: () => void
   onToggleUnlearnedOnly: () => void
@@ -103,12 +97,11 @@ interface ParadoxFiltersProps {
 
 const ParadoxFilters: React.FC<ParadoxFiltersProps> = ({
   selectedDifficulty,
-  selectedUsage,
-  selectedSubtlety,
-  selectedSeverity,
-  selectedIntent,
-  selectedDefensibility,
-  selectedContexts,
+  selectedMindBlowFactor,
+  selectedResolutionDifficulty,
+  selectedDomains,
+  selectedPresentations,
+  selectedPrerequisites,
   showFavoritesOnly,
   showLearnedOnly,
   showUnlearnedOnly,
@@ -116,12 +109,11 @@ const ParadoxFilters: React.FC<ParadoxFiltersProps> = ({
   learnedCount,
   unlearnedCount,
   onDifficultyChange,
-  onUsageChange,
-  onSubtletyChange,
-  onSeverityChange,
-  onIntentChange,
-  onDefensibilityChange,
-  onContextToggle,
+  onMindBlowFactorChange,
+  onResolutionDifficultyChange,
+  onDomainToggle,
+  onPresentationToggle,
+  onPrerequisitesToggle,
   onToggleFavoritesOnly,
   onToggleLearnedOnly,
   onToggleUnlearnedOnly
@@ -137,7 +129,7 @@ const ParadoxFilters: React.FC<ParadoxFiltersProps> = ({
     onChange(currentValue === newValue ? null : newValue)
   }
 
-  // 🏆 : Helper to show active progress filters
+  // Helper to show active progress filters
   const getActiveProgressFilters = () => {
     const active = []
     if (showFavoritesOnly) active.push('Favorites')
@@ -150,7 +142,7 @@ const ParadoxFilters: React.FC<ParadoxFiltersProps> = ({
 
   return (
     <View style={[styles.filtersContainer, { backgroundColor: colors.surface, borderColor: colors.border }]}>
-      {/* Difficulty Filter - HORIZONTAL SCROLL CHAMPION! */}
+      {/* Difficulty Filter */}
       <View style={styles.filterSection}>
         <Text style={[styles.filterTitle, { color: colors.text }]}>💪 Difficulty Level</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.difficultyScroll}>
@@ -194,10 +186,10 @@ const ParadoxFilters: React.FC<ParadoxFiltersProps> = ({
         />
       </TouchableOpacity>
 
-      {/* Advanced Filters Section - THE HEAVYWEIGHT DIVISION! */}
+      {/* Advanced Filters Section */}
       {showAdvancedFilters && (
         <>
-          {/* 🌟  VIP SECTION: Your Progress - MULTI-SELECT CHAMPION! */}
+          {/* Your Progress Section */}
           <View style={styles.filterSection}>
             <Text style={[styles.filterTitle, { color: colors.text }]}>📚 Your Progress</Text>
             
@@ -299,31 +291,31 @@ const ParadoxFilters: React.FC<ParadoxFiltersProps> = ({
               </TouchableOpacity>
             </View>
             
-            {/* 🚨 : Helper text for multi-select */}
+            {/* Helper text for multi-select */}
             <Text style={[styles.progressHelpText, { color: colors.textSecondary }]}>
               💡 Mix and match filters! Try &quot;Favorites + Unlearned&quot; for focused study.
             </Text>
           </View>
 
-          {/* Usage Filter */}
+          {/* Mind Blow Factor Filter */}
           <View style={styles.filterSection}>
-            <Text style={[styles.filterTitle, { color: colors.text }]}>📊 Usage Frequency</Text>
+            <Text style={[styles.filterTitle, { color: colors.text }]}>🤯 Mind Blow Factor</Text>
             <View style={styles.advancedFilterContainer}>
-              {USAGE_OPTIONS.map(option => (
+              {MIND_BLOW_FACTOR_OPTIONS.map(option => (
                 <TouchableOpacity
                   key={option.key}
                   style={[
                     styles.advancedFilterChip,
                     {
-                      backgroundColor: selectedUsage === option.key ? colors.primary : colors.background,
-                      borderColor: selectedUsage === option.key ? colors.primary : colors.border,
+                      backgroundColor: selectedMindBlowFactor === option.key ? colors.primary : colors.background,
+                      borderColor: selectedMindBlowFactor === option.key ? colors.primary : colors.border,
                     }
                   ]}
-                  onPress={() => handleAdvancedFilterToggle(selectedUsage, option.key, onUsageChange)}
+                  onPress={() => handleAdvancedFilterToggle(selectedMindBlowFactor, option.key, onMindBlowFactorChange)}
                 >
                   <Text style={[
                     styles.advancedFilterText,
-                    { color: selectedUsage === option.key ? 'white' : colors.text }
+                    { color: selectedMindBlowFactor === option.key ? 'white' : colors.text }
                   ]}>
                     {option.label}
                   </Text>
@@ -332,25 +324,25 @@ const ParadoxFilters: React.FC<ParadoxFiltersProps> = ({
             </View>
           </View>
 
-          {/* Subtlety Filter */}
+          {/* Resolution Difficulty Filter */}
           <View style={styles.filterSection}>
-            <Text style={[styles.filterTitle, { color: colors.text }]}>🎭 Subtlety Level</Text>
+            <Text style={[styles.filterTitle, { color: colors.text }]}>🧩 Resolution Difficulty</Text>
             <View style={styles.advancedFilterContainer}>
-              {SUBTLETY_OPTIONS.map(option => (
+              {RESOLUTION_DIFFICULTY_OPTIONS.map(option => (
                 <TouchableOpacity
                   key={option.key}
                   style={[
                     styles.advancedFilterChip,
                     {
-                      backgroundColor: selectedSubtlety === option.key ? colors.primary : colors.background,
-                      borderColor: selectedSubtlety === option.key ? colors.primary : colors.border,
+                      backgroundColor: selectedResolutionDifficulty === option.key ? colors.primary : colors.background,
+                      borderColor: selectedResolutionDifficulty === option.key ? colors.primary : colors.border,
                     }
                   ]}
-                  onPress={() => handleAdvancedFilterToggle(selectedSubtlety, option.key, onSubtletyChange)}
+                  onPress={() => handleAdvancedFilterToggle(selectedResolutionDifficulty, option.key, onResolutionDifficultyChange)}
                 >
                   <Text style={[
                     styles.advancedFilterText,
-                    { color: selectedSubtlety === option.key ? 'white' : colors.text }
+                    { color: selectedResolutionDifficulty === option.key ? 'white' : colors.text }
                   ]}>
                     {option.label}
                   </Text>
@@ -359,25 +351,25 @@ const ParadoxFilters: React.FC<ParadoxFiltersProps> = ({
             </View>
           </View>
 
-          {/* Severity Filter */}
+          {/* Prerequisites Filter */}
           <View style={styles.filterSection}>
-            <Text style={[styles.filterTitle, { color: colors.text }]}>⚠️ Severity Level</Text>
+            <Text style={[styles.filterTitle, { color: colors.text }]}>🎓 Prerequisites</Text>
             <View style={styles.advancedFilterContainer}>
-              {SEVERITY_OPTIONS.map(option => (
+              {PREREQUISITES_OPTIONS.map(option => (
                 <TouchableOpacity
                   key={option.key}
                   style={[
                     styles.advancedFilterChip,
                     {
-                      backgroundColor: selectedSeverity === option.key ? colors.primary : colors.background,
-                      borderColor: selectedSeverity === option.key ? colors.primary : colors.border,
+                      backgroundColor: selectedPrerequisites.has(option.key) ? colors.primary : colors.background,
+                      borderColor: selectedPrerequisites.has(option.key) ? colors.primary : colors.border,
                     }
                   ]}
-                  onPress={() => handleAdvancedFilterToggle(selectedSeverity, option.key, onSeverityChange)}
+                  onPress={() => onPrerequisitesToggle(option.key)}
                 >
                   <Text style={[
                     styles.advancedFilterText,
-                    { color: selectedSeverity === option.key ? 'white' : colors.text }
+                    { color: selectedPrerequisites.has(option.key) ? 'white' : colors.text }
                   ]}>
                     {option.label}
                   </Text>
@@ -386,80 +378,54 @@ const ParadoxFilters: React.FC<ParadoxFiltersProps> = ({
             </View>
           </View>
 
-          {/* Intent Filter */}
+          {/* Domain Filter */}
           <View style={styles.filterSection}>
-            <Text style={[styles.filterTitle, { color: colors.text }]}>🎯 Intent Type</Text>
-            <View style={styles.advancedFilterContainer}>
-              {INTENT_OPTIONS.map(option => (
-                <TouchableOpacity
-                  key={option.key}
-                  style={[
-                    styles.advancedFilterChip,
-                    {
-                      backgroundColor: selectedIntent === option.key ? colors.primary : colors.background,
-                      borderColor: selectedIntent === option.key ? colors.primary : colors.border,
-                    }
-                  ]}
-                  onPress={() => handleAdvancedFilterToggle(selectedIntent, option.key, onIntentChange)}
-                >
-                  <Text style={[
-                    styles.advancedFilterText,
-                    { color: selectedIntent === option.key ? 'white' : colors.text }
-                  ]}>
-                    {option.label}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-
-          {/* Defensibility Filter */}
-          <View style={styles.filterSection}>
-            <Text style={[styles.filterTitle, { color: colors.text }]}>🛡️ Defensibility</Text>
-            <View style={styles.advancedFilterContainer}>
-              {DEFENSIBILITY_OPTIONS.map(option => (
-                <TouchableOpacity
-                  key={option.key}
-                  style={[
-                    styles.advancedFilterChip,
-                    {
-                      backgroundColor: selectedDefensibility === option.key ? colors.primary : colors.background,
-                      borderColor: selectedDefensibility === option.key ? colors.primary : colors.border,
-                    }
-                  ]}
-                  onPress={() => handleAdvancedFilterToggle(selectedDefensibility, option.key, onDefensibilityChange)}
-                >
-                  <Text style={[
-                    styles.advancedFilterText,
-                    { color: selectedDefensibility === option.key ? 'white' : colors.text }
-                  ]}>
-                    {option.label}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-
-          {/* Context Filter */}
-          <View style={styles.filterSection}>
-            <Text style={[styles.filterTitle, { color: colors.text }]}>🌍 Context Areas</Text>
+            <Text style={[styles.filterTitle, { color: colors.text }]}>🌍 Domain Areas</Text>
             <View style={styles.contextContainer}>
-              {CONTEXT_OPTIONS.map(option => (
+              {DOMAIN_OPTIONS.map(option => (
                 <TouchableOpacity
                   key={option.key}
                   style={[
                     styles.contextChip,
                     {
-                      backgroundColor: selectedContexts.has(option.key) ? colors.primary : colors.background,
-                      borderColor: selectedContexts.has(option.key) ? colors.primary : colors.border,
+                      backgroundColor: selectedDomains.has(option.key) ? colors.primary : colors.background,
+                      borderColor: selectedDomains.has(option.key) ? colors.primary : colors.border,
                     }
                   ]}
-                  onPress={() => onContextToggle(option.key)}
+                  onPress={() => onDomainToggle(option.key)}
                 >
                   <Text style={styles.contextEmoji}>{option.emoji}</Text>
                   <Text style={[
                     styles.contextText,
-                    { color: selectedContexts.has(option.key) ? 'white' : colors.text }
+                    { color: selectedDomains.has(option.key) ? 'white' : colors.text }
+                  ]}>
+                    {option.label}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          {/* Presentation Filter */}
+          <View style={styles.filterSection}>
+            <Text style={[styles.filterTitle, { color: colors.text }]}>📋 Presentation Style</Text>
+            <View style={styles.contextContainer}>
+              {PRESENTATION_OPTIONS.map(option => (
+                <TouchableOpacity
+                  key={option.key}
+                  style={[
+                    styles.contextChip,
+                    {
+                      backgroundColor: selectedPresentations.has(option.key) ? colors.primary : colors.background,
+                      borderColor: selectedPresentations.has(option.key) ? colors.primary : colors.border,
+                    }
+                  ]}
+                  onPress={() => onPresentationToggle(option.key)}
+                >
+                  <Text style={styles.contextEmoji}>{option.emoji}</Text>
+                  <Text style={[
+                    styles.contextText,
+                    { color: selectedPresentations.has(option.key) ? 'white' : colors.text }
                   ]}>
                     {option.label}
                   </Text>
@@ -518,7 +484,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   
-  // 🏆 : New progress filter styles - MULTI-SELECT CHAMPION!
+  // Progress filter styles
   activeProgressSummary: {
     marginBottom: 12,
     paddingHorizontal: 12,
@@ -535,11 +501,6 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 12,
   },
-  progressToggle: {
-    borderRadius: 12,
-    borderWidth: 1,
-    padding: 14,
-  },
   progressToggleCompact: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -551,9 +512,6 @@ const styles = StyleSheet.create({
   },
   progressEmojiCompact: {
     fontSize: 16,
-  },
-  progressTextContainer: {
-    flex: 1,
   },
   progressToggleTextCompact: {
     fontSize: 14,
