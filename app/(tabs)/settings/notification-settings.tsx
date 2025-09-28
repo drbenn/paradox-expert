@@ -7,7 +7,7 @@ import { useAppState } from '@/state/useAppState'
 // import useAppControlState from '@/state/useAppControlState'
 import { Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Alert,
   SafeAreaView,
@@ -259,7 +259,7 @@ export default function NotificationSettingsScreen() {
         <View style={styles.header}>          
           <Text style={[styles.title, {color: colors.text}]}>Daily Reminders</Text>
           <Text style={[styles.subtitle, {color: colors.textSecondary}]}>
-            Get notified to learn a new fallacy every day
+            Get notified to learn a new paradox every day
           </Text>
         </View>
 
@@ -284,7 +284,7 @@ export default function NotificationSettingsScreen() {
             />
           </View>
           <Text style={[styles.description, {color: colors.textSecondary}]}>
-            Receive a daily reminder to explore a new logical fallacy and take the daily challenge. 
+            Receive a daily reminder to explore a new logical paradox and take the daily challenge. 
             All notifications are processed locally on your device.
           </Text>
         </Card>
@@ -450,7 +450,7 @@ export default function NotificationSettingsScreen() {
         <Card>
           <Text style={[styles.infoTitle, {color: colors.text}]}>💡 How It Works</Text>
           <Text style={[styles.description, {color: colors.textSecondary}]}>
-            Daily notifications will remind you to explore a new logical fallacy at your chosen time. 
+            Daily notifications will remind you to explore a new logical paradox at your chosen time. 
             All notifications are processed locally on your device - no data is sent to external servers.
             {'\n\n'}You can change your notification time or disable notifications at any time from this screen.
           </Text>

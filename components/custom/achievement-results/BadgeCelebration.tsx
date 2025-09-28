@@ -1,7 +1,7 @@
 import SHAPES from '@/constants/Shapes'
 import { EarnedAchievement } from '@/types/achievement.types'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import {
   Animated,
   Dimensions,
@@ -118,7 +118,7 @@ export default function BadgeCelebration({
       case 'epic':
         return `EXTRAORDINARY achievement! You're reaching elite levels of expertise. Few reach this level of mastery!`
       case 'legendary':
-        return `LEGENDARY status achieved! You are among the greatest fallacy masters! This is the pinnacle of achievement!`
+        return `LEGENDARY status achieved! You are among the greatest paradox masters! This is the pinnacle of achievement!`
       default:
         return `Keep pushing your limits and achieving greatness!`
     }

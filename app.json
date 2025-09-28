@@ -4,7 +4,7 @@
     "slug": "paradox-expert",
     "version": "1.0.2",
     "splash": {
-      "image": "./assets/images/fallacy-expert-splash.png",
+      "image": "./assets/images/paradox-expert-splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#6366f1"
     },

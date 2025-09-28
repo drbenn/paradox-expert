@@ -1,13 +1,13 @@
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import {
-    Dimensions,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native'
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
@@ -59,11 +59,11 @@ export default function DetailTutorialStage({
       {/* Content */}
       <View style={styles.contentContainer}>
         <Text style={[styles.description, { color: colors.text }]}>
-          Learn each fallacy, how it&apos;s used, and real world examples to build deep understanding.
+          Learn each paradox, how it&apos;s used, and real world examples to build deep understanding.
         </Text>
         
         <View style={styles.featureList}>
-          <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Detailed explanations of each logical fallacy</Text>
+          <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Detailed explanations of each logical paradox</Text>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Real-world examples from politics, media, and everyday life</Text>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Learn how fallacies are used and how to spot them</Text>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Related fallacies and connections to build understanding</Text>

@@ -15,7 +15,7 @@ class DailyChallengeQuizService {
       todaysParadox = this.getRandomParadoxForTodayInTier(allFallacies, tierForParadoxSelection)
     }
 
-    console.log(' new fallacy for the day: ', todaysParadox.title)
+    console.log(' new paradox for the day: ', todaysParadox.title)
     return todaysParadox
   }
 

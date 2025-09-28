@@ -10,7 +10,7 @@ import { useShallow } from 'zustand/shallow'
 
 interface DailyChallengeQuizButtonProps {
   fallacyId?: string
-  mode?: 'auto' | 'quiz-center' | 'fallacy-detail'
+  mode?: 'auto' | 'quiz-center' | 'paradox-detail'
 }
 
 const DailyChallengeQuizButton: React.FC<DailyChallengeQuizButtonProps> = ({ 
@@ -62,7 +62,7 @@ const DailyChallengeQuizButton: React.FC<DailyChallengeQuizButtonProps> = ({
 
     if (mode === 'quiz-center') {
       showButton = true
-    } else if (mode === 'fallacy-detail') {
+    } else if (mode === 'paradox-detail') {
       showButton = smartParadoxId === todaysParadoxId
     } else {
       // Auto mode

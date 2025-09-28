@@ -1,11 +1,11 @@
 import SHAPES from '@/constants/Shapes'
 import { useAppState } from '@/state/useAppState'
 import {
-    ActivityIndicator,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native'
 import { useShallow } from 'zustand/shallow'
 
@@ -16,7 +16,7 @@ interface TodaysChallengeCardProps {
 
 const TodaysChallengeCard = ({ colors }: TodaysChallengeCardProps) => {
   // const [isLoading, setIsLoading] = useState(true)
-  // const [fallacy, setParadox] = useState<Paradox | null>(null)
+  // const [paradox, setParadox] = useState<Paradox | null>(null)
   // const [isCompleted, setIsCompleted] = useState(false)
 
   const navigateToDailyChallengeParadox = useAppState((state) => state.navigateToDailyChallengeParadox)

@@ -1,6 +1,5 @@
 import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { Stack } from 'expo-router'
-import React from 'react'
 
 export default function LibraryLayout() {
   const { colors } = useSystemTheme()
@@ -17,7 +16,7 @@ export default function LibraryLayout() {
         name="index"
       />
       <Stack.Screen 
-        name="fallacy/[id]"
+        name="paradox/[id]"
         options={{
           animation: 'fade',
       }}/>

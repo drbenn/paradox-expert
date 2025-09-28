@@ -6,11 +6,11 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 interface ParadoxCardProps {
-  fallacy: Paradox
+  paradox: Paradox
   onPress: () => void
 }
 
-const ParadoxListCard: React.FC<ParadoxCardProps> = ({ fallacy, onPress }) => {
+const ParadoxListCard: React.FC<ParadoxCardProps> = ({ paradox, onPress }) => {
   const { colors } = useSystemTheme()
   return (
     <TouchableOpacity
@@ -20,7 +20,7 @@ const ParadoxListCard: React.FC<ParadoxCardProps> = ({ fallacy, onPress }) => {
     >
       {/* Emoji | Image placeholder */}
       <View style={[styles.imageContainer, {backgroundColor: colors.background}]}>
-        {fallacy.emoji_shortcode ? (
+        {paradox.emoji_shortcode ? (
           <>
           {/* <Image 
             // TODO: need to figure out how to import using string literal
@@ -29,7 +29,7 @@ const ParadoxListCard: React.FC<ParadoxCardProps> = ({ fallacy, onPress }) => {
             resizeMode="cover"
           /> */}
           <Text style={styles.emoji}>
-            { Number(fallacy.id) > 160 ? fallacy.emoji_unicode: fallacy.emoji_literal }
+            { Number(paradox.id) > 160 ? paradox.emoji_unicode: paradox.emoji_literal }
           </Text>
           </>
         ) : (
@@ -40,10 +40,10 @@ const ParadoxListCard: React.FC<ParadoxCardProps> = ({ fallacy, onPress }) => {
       {/* Content */}
       <View style={styles.content}>
         <Text style={[styles.title, {color: colors.text}]}>
-          {fallacy.id + '. ' + fallacy.title}
+          {paradox.id + '. ' + paradox.title}
         </Text>
         <Text style={[styles.subtitle, {color: colors.textSecondary}]}>
-          {fallacy.subtitle || fallacy.description}
+          {paradox.subtitle || paradox.description}
         </Text>
       </View>
 

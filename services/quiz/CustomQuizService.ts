@@ -7,50 +7,50 @@ class CustomQuizService {
    * 🏆 : Apply filters to available fallacies
    */
   applyFiltersToFallacies(fallacies: Paradox[], filters: CustomQuizFilters): Paradox[] {
-    return fallacies.filter(fallacy => {
+    return fallacies.filter(paradox => {
       // Tier filter
       if (filters.selectedTiers.size > 0) {
-        const fallacyTier = parseInt(fallacy.tier?.toString() || '1')
+        const fallacyTier = parseInt(paradox.tier?.toString() || '1')
         if (!filters.selectedTiers.has(fallacyTier)) return false
       }
       
       // Difficulty filter
-      if (filters.selectedDifficulty !== 'all' && fallacy.difficulty !== filters.selectedDifficulty) {
+      if (filters.selectedDifficulty !== 'all' && paradox.difficulty !== filters.selectedDifficulty) {
         return false
       }
       
       // Usage filter
-      if (filters.selectedUsage !== null && fallacy.usage !== filters.selectedUsage) {
+      if (filters.selectedUsage !== null && paradox.usage !== filters.selectedUsage) {
         return false
       }
       
       // Subtlety filter
-      if (filters.selectedSubtlety !== null && fallacy.subtlety !== filters.selectedSubtlety) {
+      if (filters.selectedSubtlety !== null && paradox.subtlety !== filters.selectedSubtlety) {
         return false
       }
       
       // Severity filter
-      if (filters.selectedSeverity !== null && fallacy.severity !== filters.selectedSeverity) {
+      if (filters.selectedSeverity !== null && paradox.severity !== filters.selectedSeverity) {
         return false
       }
       
       // Intent filter
-      if (filters.selectedIntent !== null && fallacy.intent !== filters.selectedIntent) {
+      if (filters.selectedIntent !== null && paradox.intent !== filters.selectedIntent) {
         return false
       }
       
       // Defensibility filter
-      if (filters.selectedDefensibility !== null && fallacy.defensibility !== filters.selectedDefensibility) {
+      if (filters.selectedDefensibility !== null && paradox.defensibility !== filters.selectedDefensibility) {
         return false
       }
       
       // Context filter
-      if (filters.selectedContexts.size > 0 && !filters.selectedContexts.has(fallacy.context)) {
+      if (filters.selectedContexts.size > 0 && !filters.selectedContexts.has(paradox.context)) {
         return false
       }
       
       // Medium filter
-      if (filters.selectedMediums.size > 0 && !filters.selectedMediums.has(fallacy.medium)) {
+      if (filters.selectedMediums.size > 0 && !filters.selectedMediums.has(paradox.medium)) {
         return false
       }
       

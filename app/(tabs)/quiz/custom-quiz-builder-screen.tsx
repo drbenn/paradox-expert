@@ -13,13 +13,13 @@ import { Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import { useEffect, useMemo, useState } from 'react'
 import {
-    Alert,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -76,7 +76,7 @@ export default function CustomQuizBuilderScreen() {
 
     // Apply favorites filter first
     if (showFavoritesOnly) {
-      filtered = filtered.filter((fallacy: Paradox) => fallacy.isFavorite || false)
+      filtered = filtered.filter((paradox: Paradox) => paradox.isFavorite || false)
     }
 
     // 🚨 CHAMPIONSHIP OR LOGIC for learned/unlearned
@@ -85,10 +85,10 @@ export default function CustomQuizBuilderScreen() {
       // Do nothing - show all fallacies regardless of learned status
     } else if (showLearnedOnly) {
       // Only learned selected
-      filtered = filtered.filter((fallacy: Paradox) => fallacy.isLearned || false)
+      filtered = filtered.filter((paradox: Paradox) => paradox.isLearned || false)
     } else if (showUnlearnedOnly) {
       // Only unlearned selected
-      filtered = filtered.filter((fallacy: Paradox) => !(fallacy.isLearned || false))
+      filtered = filtered.filter((paradox: Paradox) => !(paradox.isLearned || false))
     }
 
     return filtered
@@ -140,21 +140,21 @@ export default function CustomQuizBuilderScreen() {
   }
 
   // 🎯 FALLACY SELECTION LOGIC
-  const handleParadoxPress = (fallacy: Paradox) => {
+  const handleParadoxPress = (paradox: Paradox) => {
     setSelectedFallacies((prev: Paradox[]) => {
-      const isSelected = prev.some((f: Paradox) => f.id === fallacy.id)
+      const isSelected = prev.some((f: Paradox) => f.id === paradox.id)
       if (isSelected) {
         // Remove from selection
-        return prev.filter((f: Paradox) => f.id !== fallacy.id)
+        return prev.filter((f: Paradox) => f.id !== paradox.id)
       } else {
         // Add to selection
-        return [...prev, fallacy]
+        return [...prev, paradox]
       }
     })
   }
 
-  const isSelected = (fallacy: Paradox) => {
-    return selectedFallacies.some((f: Paradox) => f.id === fallacy.id)
+  const isSelected = (paradox: Paradox) => {
+    return selectedFallacies.some((f: Paradox) => f.id === paradox.id)
   }
 
   // 🏆 FILTER HANDLERS
@@ -225,7 +225,7 @@ export default function CustomQuizBuilderScreen() {
 
   const handleStartQuiz = () => {
     if (selectedFallacies.length === 0) {
-      Alert.alert('No Fallacies Selected', 'Please select at least one fallacy to create a quiz.')
+      Alert.alert('No Fallacies Selected', 'Please select at least one paradox to create a quiz.')
       return
     }
 

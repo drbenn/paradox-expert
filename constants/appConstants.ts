@@ -22,11 +22,11 @@ const APP_CONSTANTS = {
   DEVELOPER_CO: 'SparkDart',
   DEVELOPER_EMAIL: 'sparkdart.contact@gmail.com',
   DEVELOPER_WEBSITE: 'https://sparkdart.com',
-  APP_WEBSITE: 'https://sparkdart.com/apps/fallacy-expert',
-  // APP_WEBSITE_APP_PRIVACY_POLICY: 'https://policies.sparkdart.com/fallacy-expert/privacy-policy.html',
-  // APP_WEBSITE_APP_TERMS_OF_SERVICE: 'https://policies.sparkdart.com/fallacy-expert/terms-of-service.html',
-  APP_WEBSITE_APP_PRIVACY_POLICY: 'https://sites.google.com/view/sparkdart-policies/fallacy-expert-privacy-policy',
-  APP_WEBSITE_APP_TERMS_OF_SERVICE: 'https://sites.google.com/view/sparkdart-policies/fallacy-expert-terms-of-service',
+  APP_WEBSITE: 'https://sparkdart.com/apps/paradox-expert',
+  // APP_WEBSITE_APP_PRIVACY_POLICY: 'https://policies.sparkdart.com/paradox-expert/privacy-policy.html',
+  // APP_WEBSITE_APP_TERMS_OF_SERVICE: 'https://policies.sparkdart.com/paradox-expert/terms-of-service.html',
+  APP_WEBSITE_APP_PRIVACY_POLICY: 'https://sites.google.com/view/sparkdart-policies/paradox-expert-privacy-policy',
+  APP_WEBSITE_APP_TERMS_OF_SERVICE: 'https://sites.google.com/view/sparkdart-policies/paradox-expert-terms-of-service',
 
   // App store
   APPLE_APP_STORE_REVIEW_LINK: `https://apps.apple.com/app/id${appleStoreId}?action=write-review`,
@@ -52,15 +52,15 @@ const APP_CONSTANTS = {
     QUESTION_TYPE_DISTRIBUTION: {
       example_selection: 0.4,        // 40% - "Pick the example that demonstrates..."
       true_false: 0.2,              // 20% - "True or False: This example demonstrates..."
-      scenario_identification: 0.2,  // 20% - "Which fallacy is described below?"
-      binary_choice: 0.2            // 20% - "Which fallacy does this example demonstrate?" (2 options)
+      scenario_identification: 0.2,  // 20% - "Which paradox is described below?"
+      binary_choice: 0.2            // 20% - "Which paradox does this example demonstrate?" (2 options)
     }
   },
 
   // 🎯  FALLACY OF THE DAY - MEGA POWERS SELECTION!
   DAILY_CHALLENGE: {
     CURRENT_TIER_PREFERENCE: 0.8,    // 80% chance to pick from current tier
-    ANY_UNLOCKED_PREFERENCE: 0.2,    // 20% chance to pick from any unlocked fallacy
+    ANY_UNLOCKED_PREFERENCE: 0.2,    // 20% chance to pick from any unlocked paradox
     
     // 🏆 MAINTENANCE MODE (when all quizzes completed)
     MAINTENANCE_MODE: {

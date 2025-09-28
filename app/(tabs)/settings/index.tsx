@@ -10,14 +10,14 @@ import { router } from 'expo-router'
 import * as StoreReview from 'expo-store-review'
 import { useState } from 'react'
 import {
-    Alert,
-    SafeAreaView,
-    ScrollView,
-    Share,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  Share,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -235,7 +235,7 @@ export default function SettingsScreen() {
                       Notifications
                     </Text>
                     <Text style={[styles.settingSubtitle, { color: colors.textSecondary }]}>
-                      Manage daily fallacy reminder
+                      Manage daily paradox reminder
                     </Text>
                   </View>
                 </View>

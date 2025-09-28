@@ -6,13 +6,13 @@ import { useAppState } from '@/state/useAppState'
 import { router } from 'expo-router'
 import { useState } from 'react'
 import {
-    Alert,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -270,9 +270,9 @@ export default function DeveloperSettingsScreen() {
   //     for (let tier = 1; tier <= targetTier; tier++) {
   //       const tierFallacies = allFallacies.filter(f => f.tier?.toString() === tier.toString())
         
-  //       for (const fallacy of tierFallacies) {
-  //         if (!userProgressState.isLearned(fallacy.id)) {
-  //           await userProgressState.toggleLearned(fallacy.id)
+  //       for (const paradox of tierFallacies) {
+  //         if (!userProgressState.isLearned(paradox.id)) {
+  //           await userProgressState.toggleLearned(paradox.id)
   //         }
   //       }
   //     }

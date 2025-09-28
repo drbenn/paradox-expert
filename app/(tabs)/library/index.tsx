@@ -11,11 +11,11 @@ import { Paradox } from '@/types/app.types'
 import { RelativePathString, router } from 'expo-router'
 import { useEffect, useMemo, useState } from 'react'
 import {
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useShallow } from 'zustand/shallow'
@@ -76,18 +76,18 @@ export default function LibraryIndexScreen() {
     // Search filter
     if (searchText.trim()) {
       const searchLower = searchText.toLowerCase().trim()
-      filtered = filtered.filter(fallacy => 
-        fallacy.title.toLowerCase().includes(searchLower) ||
-        fallacy.subtitle.toLowerCase().includes(searchLower) ||
-        fallacy.description.toLowerCase().includes(searchLower) ||
-        fallacy.category.toLowerCase().includes(searchLower) ||
-        fallacy.type.toLowerCase().includes(searchLower)
+      filtered = filtered.filter(paradox => 
+        paradox.title.toLowerCase().includes(searchLower) ||
+        paradox.subtitle.toLowerCase().includes(searchLower) ||
+        paradox.description.toLowerCase().includes(searchLower) ||
+        paradox.category.toLowerCase().includes(searchLower) ||
+        paradox.type.toLowerCase().includes(searchLower)
       )
     }
     
     // 🏆  FIX: Progress filters with OR logic!
     if (showFavoritesOnly) {
-      filtered = filtered.filter((fallacy: Paradox) => favoriteFallacies?.some((fav: Paradox) => fav.id=== fallacy.id) || false)
+      filtered = filtered.filter((paradox: Paradox) => favoriteFallacies?.some((fav: Paradox) => fav.id=== paradox.id) || false)
     }
 
     // 🚨 CHAMPIONSHIP OR LOGIC for learned/unlearned
@@ -96,33 +96,33 @@ export default function LibraryIndexScreen() {
       // Do nothing - show all fallacies regardless of learned status
     } else if (showLearnedOnly) {
       // Only learned selected
-      filtered = filtered.filter((fallacy: Paradox) => learnedFallacies?.some((fav: Paradox) => fav.id=== fallacy.id) || false)
+      filtered = filtered.filter((paradox: Paradox) => learnedFallacies?.some((fav: Paradox) => fav.id=== paradox.id) || false)
     } else if (showUnlearnedOnly) {
       // Only unlearned selected
-      filtered = filtered.filter((fallacy: Paradox) => !(learnedFallacies?.some((fav: Paradox) => fav.id=== fallacy.id) || false))
+      filtered = filtered.filter((paradox: Paradox) => !(learnedFallacies?.some((fav: Paradox) => fav.id=== paradox.id) || false))
     }
     
     // Apply all other filters (same as before)
     if (selectedDifficulty !== 'all') {
-      filtered = filtered.filter(fallacy => fallacy.difficulty === selectedDifficulty)
+      filtered = filtered.filter(paradox => paradox.difficulty === selectedDifficulty)
     }
     if (selectedUsage) {
-      filtered = filtered.filter(fallacy => fallacy.usage === selectedUsage)
+      filtered = filtered.filter(paradox => paradox.usage === selectedUsage)
     }
     if (selectedSubtlety) {
-      filtered = filtered.filter(fallacy => fallacy.subtlety === selectedSubtlety)
+      filtered = filtered.filter(paradox => paradox.subtlety === selectedSubtlety)
     }
     if (selectedSeverity) {
-      filtered = filtered.filter(fallacy => fallacy.severity === selectedSeverity)
+      filtered = filtered.filter(paradox => paradox.severity === selectedSeverity)
     }
     if (selectedIntent) {
-      filtered = filtered.filter(fallacy => fallacy.intent === selectedIntent)
+      filtered = filtered.filter(paradox => paradox.intent === selectedIntent)
     }
     if (selectedDefensibility) {
-      filtered = filtered.filter(fallacy => fallacy.defensibility === selectedDefensibility)
+      filtered = filtered.filter(paradox => paradox.defensibility === selectedDefensibility)
     }
     if (selectedContexts.size > 0) {
-      filtered = filtered.filter(fallacy => selectedContexts.has(fallacy.context as ContextFilter))
+      filtered = filtered.filter(paradox => selectedContexts.has(paradox.context as ContextFilter))
     }
     
     return filtered
@@ -212,10 +212,10 @@ export default function LibraryIndexScreen() {
       showUnlearnedOnly
   }
 
-  const handleParadoxPress = (fallacy: Paradox) => {
+  const handleParadoxPress = (paradox: Paradox) => {
     router.push({
-      pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
-      params: { id: fallacy.id }
+      pathname: "/(tabs)/library/paradox/[id]" as RelativePathString,
+      params: { id: paradox.id }
     })
   }
 

@@ -2781,7 +2781,7 @@
     "related_paradoxes": ["False Positive Paradox", "Representativeness Heuristic"],
     "historical_detail": [
       "The Base Rate Paradox was first systematically studied by psychologists Daniel Kahneman and Amos Tversky in the 1970s as part of their research on cognitive biases and heuristics. They found that people consistently neglect base rate information in favor of specific case information, even when the base rates are more diagnostic.",
-      "The fallacy became central to understanding human reasoning errors and has been extensively studied in medical decision-making, legal reasoning, and diagnostic contexts. It demonstrates how human intuition about probability differs systematically from normative probability theory.",
+      "The paradox became central to understanding human reasoning errors and has been extensively studied in medical decision-making, legal reasoning, and diagnostic contexts. It demonstrates how human intuition about probability differs systematically from normative probability theory.",
       "The Base Rate Paradox has practical implications for medical testing, security screening, jury decision-making, and any field where probabilistic reasoning about rare events is important. Understanding this bias has influenced the design of decision support systems and training programs for professionals who must make probabilistic judgments."
     ],
     "examples": [
@@ -2810,7 +2810,7 @@
     "type": "statistical",
     "tier": "4",
     "subtitle": "Why rare evidence doesn't mean rare innocence",
-    "description": "The prosecutor's fallacy confuses P(evidence|innocent) with P(innocent|evidence). If DNA evidence occurs in 1 in a million people, the prosecutor argues there's only a 1 in a million chance of innocence. But this ignores how many people could have left the evidence - if a million people had access, we'd expect one innocent match.",
+    "description": "The prosecutor's paradox confuses P(evidence|innocent) with P(innocent|evidence). If DNA evidence occurs in 1 in a million people, the prosecutor argues there's only a 1 in a million chance of innocence. But this ignores how many people could have left the evidence - if a million people had access, we'd expect one innocent match.",
     "difficulty": "intermediate",
     "domain": "probability",
     "presentation": "scenario",
@@ -2820,7 +2820,7 @@
     "related_paradoxes": ["Base Rate Paradox", "False Positive Paradox"],
     "historical_detail": [
       "The Prosecutor's Paradox was first identified in the 1990s during early applications of DNA evidence in criminal trials. Legal scholars and statisticians noticed that prosecutors and juries were systematically misinterpreting the meaning of statistical evidence, confusing conditional probabilities in ways that could lead to wrongful convictions.",
-      "The fallacy became a significant concern in forensic science and legal practice, leading to increased attention to proper statistical reasoning in legal contexts. Several high-profile cases have involved incorrect applications of statistical evidence that exemplify the prosecutor's fallacy.",
+      "The paradox became a significant concern in forensic science and legal practice, leading to increased attention to proper statistical reasoning in legal contexts. Several high-profile cases have involved incorrect applications of statistical evidence that exemplify the prosecutor's paradox.",
       "The Prosecutor's Paradox has influenced legal education, expert witness testimony standards, and guidelines for presenting statistical evidence in court. It demonstrates the importance of understanding conditional probability and base rates in contexts where statistical reasoning affects life-and-death decisions."
     ],
     "examples": [
@@ -2898,7 +2898,7 @@
     "related_paradoxes": ["Simpson's Paradox", "Robinson's Paradox"],
     "historical_detail": [
       "The Ecological Paradox was first formally described by sociologist William Robinson in 1950, though the underlying logical error had been recognized earlier. Robinson demonstrated using literacy and immigration data that correlations observed at the state level could be completely different from correlations at the individual level.",
-      "The fallacy became crucial in sociology, epidemiology, and political science, where researchers often work with aggregate data but want to make inferences about individuals. It showed that conclusions drawn from group-level data could be completely wrong when applied to individuals within those groups.",
+      "The paradox became crucial in sociology, epidemiology, and political science, where researchers often work with aggregate data but want to make inferences about individuals. It showed that conclusions drawn from group-level data could be completely wrong when applied to individuals within those groups.",
       "The Ecological Paradox has influenced research methodology in many fields, leading to increased emphasis on multilevel modeling and careful attention to the level of analysis. It has particular relevance in public health, where policies are often based on population-level correlations that may not hold for individuals."
     ],
     "examples": [
@@ -4350,7 +4350,7 @@
       "The family decides to save money by eating out less, but when every family does this, the restaurant industry collapses and unemployment rises, hurting everyone including savers.",
       "The responsible citizen puts money in savings instead of buying a new car, but when everyone does this, car dealerships close and the citizens lose their jobs at the auto plant.",
       "The finance guru teaches everyone to save 20% of income, but when the whole town follows this advice, local businesses fail and property values crash.",
-      "I have studied macroeconomics and understand how the Paradox of Thrift reveals the fallacy of composition in economic reasoning about individual versus collective behavior.",
+      "I have studied macroeconomics and understand how the Paradox of Thrift reveals the paradox of composition in economic reasoning about individual versus collective behavior.",
       "The saver learns that their personal virtue becomes a collective vice when everyone practices it simultaneously, requiring coordination to avoid mutually destructive outcomes.",
       "The Department of Macroeconomic Policy uses the Paradox of Thrift to design stimulus measures that account for the self-defeating nature of widespread saving during downturns.",
       "The universe's most frugal society achieves perfect individual saving discipline but creates permanent economic collapse as no one spends enough to maintain anyone's income."

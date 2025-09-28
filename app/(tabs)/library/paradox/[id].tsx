@@ -15,13 +15,13 @@ import { Ionicons } from '@expo/vector-icons'
 import { RelativePathString, router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
 import {
-    SafeAreaView,
-    ScrollView,
-    Share,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  SafeAreaView,
+  ScrollView,
+  Share,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useShallow } from 'zustand/shallow'
@@ -54,8 +54,8 @@ const ParadoxIdScreen: React.FC = () => {
   // logger.log('🔍 DEBUG - Fallacies loaded:', fallaciesLoaded) // Debug log
   // logger.log('🔍 DEBUG - Total fallacies:', fallacies.length) // Debug log
 
-  // Convert string ID to number and get the specific fallacy from state
-  const fallacy = id ? getParadoxById(id) : undefined
+  // Convert string ID to number and get the specific paradox from state
+  const paradox = id ? getParadoxById(id) : undefined
 
   // Navigation handlers
   const handleBackPress = () => {
@@ -82,33 +82,33 @@ const ParadoxIdScreen: React.FC = () => {
 
     // 🔗 RELATED FALLACIES NAVIGATION HANDLER - NOW WORKING!
   const handleRelatedParadoxPress = (fallacyTitle: string) => {
-    // Find the fallacy by title first
+    // Find the paradox by title first
     const allFallacies = getAllFallacies()
     const relatedParadox = allFallacies.find((f: Paradox) => f.title === fallacyTitle)
     
     if (relatedParadox) {
       router.push({
-        pathname: "/(tabs)/library/fallacy/[id]" as RelativePathString,
+        pathname: "/(tabs)/library/paradox/[id]" as RelativePathString,
         params: { id: relatedParadox.id.toString() }
       })
-      // logger.log(`Navigated to related fallacy: ${fallacyTitle}`)
+      // logger.log(`Navigated to related paradox: ${fallacyTitle}`)
     } else {
-      // logger.warn(`Related fallacy not found: ${fallacyTitle}`)
+      // logger.warn(`Related paradox not found: ${fallacyTitle}`)
     }
   }
 
     // 📤 SHARE FUNCTIONALITY
   const handleShareParadox = async () => {
-    if (!fallacy) return
+    if (!paradox) return
     
     try {
       await Share.share({
-        message: `Check out this logical fallacy: ${fallacy.title}\n\n${fallacy.subtitle}\n\n${fallacy.description} \n\n 
+        message: `Check out this logical paradox: ${paradox.title}\n\n${paradox.subtitle}\n\n${paradox.description} \n\n 
         Paradox Expert available on mobile! ${APP_CONSTANTS.APP_WEBSITE}`,
-        title: `${fallacy.title} - Paradox Expert`
+        title: `${paradox.title} - Paradox Expert`
       })
     } catch (error) {
-      logger.error('Error sharing fallacy:', error)
+      logger.error('Error sharing paradox:', error)
     }
   }
 
@@ -123,7 +123,7 @@ const ParadoxIdScreen: React.FC = () => {
     )
   }
 
-  if (!fallacy) {
+  if (!paradox) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.errorContainer}>
@@ -173,37 +173,37 @@ const ParadoxIdScreen: React.FC = () => {
           
         >
           <ParadoxHeaderWithImage
-            id={fallacy.id}
-            title={fallacy.title}
-            subtitle={fallacy.subtitle}
-            description={fallacy.description}
+            id={paradox.id}
+            title={paradox.title}
+            subtitle={paradox.subtitle}
+            description={paradox.description}
             backgroundColor={colors.background}
-            emoji_literal={Number(fallacy.id) > 160 ? fallacy.emoji_unicode: fallacy.emoji_literal}
+            emoji_literal={Number(paradox.id) > 160 ? paradox.emoji_unicode: paradox.emoji_literal}
             // TODO: need to figure out how to import using string literal
-            // imagePath={fallacy.img_path ? require(`@/assets/images/${fallacy.img_path}`) : ''}
+            // imagePath={paradox.img_path ? require(`@/assets/images/${paradox.img_path}`) : ''}
           />
 
           {/* Attributes Card */}
           <View style={{marginTop: SHAPES.standardVerticalMargin}}>
             <AttributesCard
-              id={fallacy.id}
-              difficulty={fallacy.difficulty}
-              type={fallacy.type}
-              category={fallacy.category}
-              usage={fallacy.usage}
-              subtlety={fallacy.subtlety}
-              severity={fallacy.severity}
+              id={paradox.id}
+              difficulty={paradox.difficulty}
+              type={paradox.type}
+              category={paradox.category}
+              usage={paradox.usage}
+              subtlety={paradox.subtlety}
+              severity={paradox.severity}
             />
           </View>
 
 
           {/* Daily Challenge Button */}
-          <DailyChallengeQuizButton mode="fallacy-detail" />
+          <DailyChallengeQuizButton mode="paradox-detail" />
 
           {/* Examples Section */}
           <ExpandablePreviewListCard
             title="Examples"
-            items={fallacy.examples || []}
+            items={paradox.examples || []}
             style={{marginBottom: 24, backgroundColor: colors.surface}}
           />
 
@@ -211,12 +211,12 @@ const ParadoxIdScreen: React.FC = () => {
           <View>
             <ExpandableParagraphPreview
               title="Historical Insight"
-              textParagraphs={fallacy.historical_detail || ['No historical details available for this fallacy.']}
+              textParagraphs={paradox.historical_detail || ['No historical details available for this paradox.']}
             />
           </View>
 
           {/* 🔗 RELATED FALLACIES SECTION -  STYLE! */}
-          {fallacy.related_falacies && fallacy.related_falacies.length > 0 && (
+          {paradox.related_falacies && paradox.related_falacies.length > 0 && (
             <Card>
               <Text style={[styles.relatedFallaciesTitle, { color: colors.text }]}>
                 🔗 Related Fallacies
@@ -225,7 +225,7 @@ const ParadoxIdScreen: React.FC = () => {
                 Tap to explore similar logical fallacies
               </Text>
               <View style={styles.relatedFallaciesGrid}>
-                {fallacy.related_falacies.map((relatedTitle: string, index: number) => (
+                {paradox.related_falacies.map((relatedTitle: string, index: number) => (
                   <TouchableOpacity
                     key={index}
                     style={[styles.relatedParadoxChip, { backgroundColor: colors.background, borderColor: colors.border }]}

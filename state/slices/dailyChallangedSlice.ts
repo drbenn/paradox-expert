@@ -52,7 +52,7 @@ export const dailyChallengeSlice: StateCreator<
     const fallacyId = todaysChallenge?.id
     if (fallacyId) {
       router.push({
-        pathname: "/(tabs)/library/fallacy/[id]",
+        pathname: "/(tabs)/library/paradox/[id]",
         params: { id: fallacyId || 1 }
       });
     }

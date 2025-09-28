@@ -4,10 +4,10 @@ import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { Paradox } from '@/types/app.types'
 import React from 'react'
 import {
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native'
 import ParadoxListCard from './ParadoxListCard'
 
@@ -16,7 +16,7 @@ interface ParadoxResultsProps {
   displayedFallacies: Paradox[]
   isLoading: boolean
   fallaciesLoaded: boolean
-  onParadoxPress: (fallacy: Paradox) => void
+  onParadoxPress: (paradox: Paradox) => void
   onLoadMore: () => void
 }
 
@@ -59,7 +59,7 @@ const ParadoxResults: React.FC<ParadoxResultsProps> = ({
           {displayedFallacies.map((item) => (
             <View key={item.id}>
               <ParadoxListCard
-                fallacy={item}
+                paradox={item}
                 onPress={() => onParadoxPress(item)}
               />
             </View>

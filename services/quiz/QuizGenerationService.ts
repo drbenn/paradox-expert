@@ -25,7 +25,7 @@ class QuizGenerationService {
           quiz = this.generateUnitTest(quizSetup.tier!, fallacies, quizSetup.quizConfig)
           break
         case 'daily_challenge':
-          quiz = this.generateDailyChallenge(quizSetup.quizConfig.targetParadox!, fallacies, quizSetup.quizConfig) // you handle fallacy selection elsewhere
+          quiz = this.generateDailyChallenge(quizSetup.quizConfig.targetParadox!, fallacies, quizSetup.quizConfig) // you handle paradox selection elsewhere
           break
         case 'custom':
           quiz = this.generateCustomQuiz(fallacies, quizSetup.quizConfig)
@@ -51,8 +51,8 @@ class QuizGenerationService {
   }
 
   private getFallaciesForTier(tier: number, allFallacies: Paradox[]): Paradox[] {
-    const tierFallacies = allFallacies.filter((fallacy: Paradox) => 
-      Number(fallacy.tier) === tier
+    const tierFallacies = allFallacies.filter((paradox: Paradox) => 
+      Number(paradox.tier) === tier
     )
     
     if (tierFallacies.length === 0) {
@@ -188,11 +188,11 @@ class QuizGenerationService {
     logger.log(`🎮 Generating daily challenge for "${targetParadox.title}"`)
     
     if (!targetParadox) {
-      logger.error(`❌ No target fallacy provided for daily challenge`)
-      throw new Error(`Target fallacy is required for daily challenge`)
+      logger.error(`❌ No target paradox provided for daily challenge`)
+      throw new Error(`Target paradox is required for daily challenge`)
     }
 
-    // Generate mixed questions all focused on the target fallacy
+    // Generate mixed questions all focused on the target paradox
     const questions = quizQuestionService.generateDailyChallengeQuestions(
       targetParadox, 
       allFallacies, 
@@ -206,7 +206,7 @@ class QuizGenerationService {
       tier: null, // Daily challenges don't have tiers
       quizNumber: null, // Daily challenges don't have quiz numbers
       title: `Daily Challenge - ${targetParadox.title}`,
-      description: `Master the "${targetParadox.title}" fallacy with 10 focused questions!`,
+      description: `Master the "${targetParadox.title}" paradox with 10 focused questions!`,
       fallacyIds: [targetParadox.id],
       questions: shuffledQuestions,
       timeLimit: config.questionTimeLimitSeconds,
@@ -230,12 +230,12 @@ class QuizGenerationService {
     }
 
     // Filter to get only the selected fallacies
-    const customFallacies = allFallacies.filter((fallacy: Paradox) => 
-      config.selectedParadoxIds!.includes(fallacy.id)
+    const customFallacies = allFallacies.filter((paradox: Paradox) => 
+      config.selectedParadoxIds!.includes(paradox.id)
     )
 
     if (customFallacies.length === 0) {
-      logger.error(`❌ None of the selected fallacy IDs were found in available fallacies`)
+      logger.error(`❌ None of the selected paradox IDs were found in available fallacies`)
       throw new Error(`Selected fallacies not found in available fallacies`)
     }
 

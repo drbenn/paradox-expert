@@ -136,7 +136,7 @@ export interface DailyChallengeStatus {
   todaysParadox: Paradox | null
   isLoading?: boolean
 
-  // use in state only., only updated by timer on when daily challenge fallacy changes based off reset timess
+  // use in state only., only updated by timer on when daily challenge paradox changes based off reset timess
   lastParadoxChangeDateTime: string | null
 }
 

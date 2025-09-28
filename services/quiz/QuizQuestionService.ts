@@ -24,23 +24,23 @@ class QuizQuestionService {
     
     // Generate each type of question
     for (let i = 0; i < exampleSelectionCount; i++) {
-      const fallacy = this.getRandomItem(quizFallacies)
-      questions.push(this.generateExampleSelectionQuestion(fallacy, allFallacies, questions.length + 1, config))
+      const paradox = this.getRandomItem(quizFallacies)
+      questions.push(this.generateExampleSelectionQuestion(paradox, allFallacies, questions.length + 1, config))
     }
     
     for (let i = 0; i < trueFalseCount; i++) {
-      const fallacy = this.getRandomItem(quizFallacies)
-      questions.push(this.generateTrueFalseQuestion(fallacy, quizFallacies, questions.length + 1, config))
+      const paradox = this.getRandomItem(quizFallacies)
+      questions.push(this.generateTrueFalseQuestion(paradox, quizFallacies, questions.length + 1, config))
     }
     
     for (let i = 0; i < scenarioIdCount; i++) {
-      const fallacy = this.getRandomItem(quizFallacies)
-      questions.push(this.generateScenarioIdentificationQuestion(fallacy, quizFallacies, questions.length + 1, config))
+      const paradox = this.getRandomItem(quizFallacies)
+      questions.push(this.generateScenarioIdentificationQuestion(paradox, quizFallacies, questions.length + 1, config))
     }
     
     for (let i = 0; i < binaryChoiceCount; i++) {
-      const fallacy = this.getRandomItem(quizFallacies)
-      questions.push(this.generateBinaryChoiceQuestion(fallacy, quizFallacies, questions.length + 1, config))
+      const paradox = this.getRandomItem(quizFallacies)
+      questions.push(this.generateBinaryChoiceQuestion(paradox, quizFallacies, questions.length + 1, config))
     }
     
     // logger.log(`✅ : Generated ${questions.length} mixed-type questions`)
@@ -65,7 +65,7 @@ class QuizQuestionService {
     const correctExample = this.getRandomItem(targetExamples)
     const incorrectExamples = this.getIncorrectExamples(targetParadox, allFallacies, 3)
     
-    // 🏆 : Options should be EXAMPLES, not fallacy names!
+    // 🏆 : Options should be EXAMPLES, not paradox names!
     const correctOption: QuizOption = {
       id: `option-${targetParadox.id}-correct`,
       text: correctExample, // ← THE ACTUAL EXAMPLE TEXT
@@ -86,7 +86,7 @@ class QuizQuestionService {
       questionType: 'example_selection',
       fallacyId: targetParadox.id,
       fallacyName: targetParadox.title,
-      questionText: `Pick the example that demonstrates the following fallacy: "${targetParadox.title}"`,
+      questionText: `Pick the example that demonstrates the following paradox: "${targetParadox.title}"`,
       options: allOptions,
       correctAnswer: correctOption.id,
       timeLimit: config.questionTimeLimitSeconds || APP_CONSTANTS.QUIZ.QUESTION_TIME_LIMIT_SECONDS
@@ -110,10 +110,10 @@ class QuizQuestionService {
     let example: string
     
     if (isTrue) {
-      // True case: Use an actual example from the target fallacy
+      // True case: Use an actual example from the target paradox
       example = this.getRandomItem(targetExamples)
     } else {
-      // False case: Use an example from a different fallacy in the quiz
+      // False case: Use an example from a different paradox in the quiz
       const otherFallacies = quizFallacies.filter(f => f.id !== targetParadox.id)
       if (otherFallacies.length > 0) {
         const wrongParadox = this.getRandomItem(otherFallacies)
@@ -142,8 +142,8 @@ class QuizQuestionService {
       questionType: 'true_false',
       fallacyId: targetParadox.id,
       fallacyName: targetParadox.title,
-      // 🏆 MACHO MAN: Show the EXAMPLE and ask if it demonstrates the fallacy!
-      questionText: `True or False: The following example demonstrates the "${targetParadox.title}" fallacy:\n\n"${example}"`,
+      // 🏆 MACHO MAN: Show the EXAMPLE and ask if it demonstrates the paradox!
+      questionText: `True or False: The following example demonstrates the "${targetParadox.title}" paradox:\n\n"${example}"`,
       options: [trueOption, falseOption],
       correctAnswer: isTrue ? 'true' : 'false',
       timeLimit: config.questionTimeLimitSeconds || APP_CONSTANTS.QUIZ.QUESTION_TIME_LIMIT_SECONDS
@@ -156,7 +156,7 @@ class QuizQuestionService {
     questionNumber: number,
     config: QuizConfig
   ): QuizQuestion {
-    // 🏆 : Use the fallacy DESCRIPTION, not examples!
+    // 🏆 : Use the paradox DESCRIPTION, not examples!
     const description = targetParadox.description || targetParadox.title
     
     if (!description || description.trim().length === 0) {
@@ -173,9 +173,9 @@ class QuizQuestionService {
       text: targetParadox.title // ← THE FALLACY NAME
     }
     
-    const incorrectOptions: QuizOption[] = incorrectFallacies.map((fallacy, index) => ({
+    const incorrectOptions: QuizOption[] = incorrectFallacies.map((paradox, index) => ({
       id: `option-${targetParadox.id}-incorrect-${index}`,
-      text: fallacy.title // ← OTHER FALLACY NAMES
+      text: paradox.title // ← OTHER FALLACY NAMES
     }))
     
     const allOptions = this.shuffleArray([correctOption, ...incorrectOptions])
@@ -186,8 +186,8 @@ class QuizQuestionService {
       questionType: 'scenario_identification',
       fallacyId: targetParadox.id,
       fallacyName: targetParadox.title,
-      // 🏆 RICK RUDE STYLE: Show the DESCRIPTION and ask which fallacy it is!
-      questionText: `Which fallacy is described below?\n\n"${description}"`,
+      // 🏆 RICK RUDE STYLE: Show the DESCRIPTION and ask which paradox it is!
+      questionText: `Which paradox is described below?\n\n"${description}"`,
       options: allOptions,
       correctAnswer: correctOption.id,
       timeLimit: config.questionTimeLimitSeconds || APP_CONSTANTS.QUIZ.QUESTION_TIME_LIMIT_SECONDS
@@ -206,10 +206,10 @@ class QuizQuestionService {
       throw new Error(`Paradox ${targetParadox.title} has no examples`)
     }
 
-    // 🏆 : Show an EXAMPLE and ask which fallacy it demonstrates
+    // 🏆 : Show an EXAMPLE and ask which paradox it demonstrates
     const example = this.getRandomItem(targetExamples)
     
-    // Get one other fallacy for the incorrect option
+    // Get one other paradox for the incorrect option
     const otherFallacies = quizFallacies.filter(f => f.id !== targetParadox.id)
     if (otherFallacies.length === 0) {
       throw new Error('Need at least 2 fallacies for binary choice question')
@@ -235,15 +235,15 @@ class QuizQuestionService {
       questionType: 'binary_choice',
       fallacyId: targetParadox.id,
       fallacyName: targetParadox.title,
-      // 🏆 RICK RUDE STYLE: Show the EXAMPLE and ask which fallacy it demonstrates!
-      questionText: `Which fallacy does this example demonstrate?\n\n"${example}"`,
+      // 🏆 RICK RUDE STYLE: Show the EXAMPLE and ask which paradox it demonstrates!
+      questionText: `Which paradox does this example demonstrate?\n\n"${example}"`,
       options: allOptions,
       correctAnswer: correctOption.id,
       timeLimit: config.questionTimeLimitSeconds || APP_CONSTANTS.QUIZ.QUESTION_TIME_LIMIT_SECONDS
     }
   }
 
-  // 🆕 SPECIAL QUESTION GENERATION METHODS - For Daily Challenges (focused on single fallacy)
+  // 🆕 SPECIAL QUESTION GENERATION METHODS - For Daily Challenges (focused on single paradox)
 
   generateDailyTrueFalseQuestion(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
     const examples = targetParadox.examples || []
@@ -287,7 +287,7 @@ class QuizQuestionService {
       questionType: 'scenario_identification' as const,
       fallacyId: targetParadox.id,
       fallacyName: targetParadox.title,
-      questionText: `Which fallacy is described below?\n\n"${description}"`,
+      questionText: `Which paradox is described below?\n\n"${description}"`,
       options: this.shuffleArray([
         { id: 'correct', text: targetParadox.title },
         ...otherFallacies.map((f, i) => ({ id: `incorrect-${i}`, text: f.title }))
@@ -314,7 +314,7 @@ class QuizQuestionService {
       questionType: 'binary_choice' as const,
       fallacyId: targetParadox.id,
       fallacyName: targetParadox.title,
-      questionText: `Which fallacy does this example demonstrate?\n\n"${example}"`,
+      questionText: `Which paradox does this example demonstrate?\n\n"${example}"`,
       options: this.shuffleArray([
         { id: 'correct', text: targetParadox.title },
         { id: 'incorrect', text: otherParadox.title }
@@ -398,12 +398,12 @@ class QuizQuestionService {
     const incorrectExamples: { text: string; fallacyId: string }[] = []
     
     const availableExamples: { text: string; fallacyId: string }[] = []
-    otherFallacies.forEach(fallacy => {
-      if (fallacy.examples) {
-        fallacy.examples.forEach(example => {
+    otherFallacies.forEach(paradox => {
+      if (paradox.examples) {
+        paradox.examples.forEach(example => {
           availableExamples.push({
             text: example,
-            fallacyId: fallacy.id
+            fallacyId: paradox.id
           })
         })
       }
@@ -533,7 +533,7 @@ class QuizQuestionService {
     const questions = []
     const questionTypes = ['example_selection', 'true_false', 'scenario_identification', 'binary_choice']
     
-    // Generate 10 questions, all focused on the target fallacy
+    // Generate 10 questions, all focused on the target paradox
     for (let i = 0; i < 10; i++) {
       const questionType = questionTypes[i % questionTypes.length] // Cycle through types
       

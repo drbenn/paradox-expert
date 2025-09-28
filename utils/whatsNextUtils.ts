@@ -104,9 +104,9 @@ function getDailyChallengeNextSteps(passed: boolean, score: number): NextStepsDa
   } else {
     return {
       title: '⚡ Challenge Practice Needed',
-      description: 'Daily challenges focus on mastery! Review today\'s fallacy in the library, then retake the challenge. You can retry as many times as needed.',
+      description: 'Daily challenges focus on mastery! Review today\'s paradox in the library, then retake the challenge. You can retry as many times as needed.',
       recommendations: [
-        '📖 Study today\'s featured fallacy',
+        '📖 Study today\'s featured paradox',
         '💡 Review examples and explanations',
         '🔄 Retake when ready - no limits!'
       ],

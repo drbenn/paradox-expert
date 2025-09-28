@@ -37,7 +37,7 @@ export const devDebugSliceSlice: StateCreator<
     set({ debugModeActive: !debugModeActive });
   },
   resetAppData: () => {
-    // fallacy slice
+    // paradox slice
     const { clearAllLearned, clearAllFavorites, calculateLearnedParadoxStats } =  get()
     clearAllLearned()
     clearAllFavorites()

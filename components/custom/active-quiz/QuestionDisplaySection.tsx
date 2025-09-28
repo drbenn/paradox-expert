@@ -54,7 +54,7 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
       <View style={styles.questionContainer}>
         {/* 🎯 MAIN INSTRUCTION */}
         <Text style={[styles.instructionText, { color: colors?.text || '#000000' }]}>
-          Which example demonstrates this fallacy?
+          Which example demonstrates this paradox?
         </Text>
         
         {/* 🏆 FALLACY SPOTLIGHT */}
@@ -72,7 +72,7 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
         
         {/* 🎮 CHALLENGE PROMPT */}
         <Text style={[styles.challengePrompt, { color: colors?.textSecondary || '#666666' }]}>
-          Select the example that best demonstrates this logical fallacy
+          Select the example that best demonstrates this logical paradox
         </Text>
       </View>
     )
@@ -123,7 +123,7 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
         
         {/* 🎮 CHALLENGE PROMPT */}
         <Text style={[styles.challengePrompt, { color: colors?.textSecondary || '#666666' }]}>
-          Does this example demonstrate the fallacy above?
+          Does this example demonstrate the paradox above?
         </Text>
       </View>
     )
@@ -134,14 +134,14 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
     // 🛡️ : Safe string processing with fallbacks
     const questionText = safeQuestion.questionText || ''
     const parts = questionText.includes('\n\n') ? questionText.split('\n\n') : [questionText]
-    const instruction = parts[0] || 'Which fallacy is described below?'
+    const instruction = parts[0] || 'Which paradox is described below?'
     const description = parts.length > 1 ? parts[1].replace(/"/g, '') : questionText
     
     return (
       <View style={styles.questionContainer}>
         {/* 🎯 MAIN INSTRUCTION */}
         <Text style={[styles.instructionText, { color: colors?.text || '#000000' }]}>
-          Identify the fallacy from this description
+          Identify the paradox from this description
         </Text>
         
         {/* 📋 DESCRIPTION BOX */}
@@ -159,7 +159,7 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
         
         {/* 🎮 CHALLENGE PROMPT */}
         <Text style={[styles.challengePrompt, { color: colors?.textSecondary || '#666666' }]}>
-          Which logical fallacy matches this description?
+          Which logical paradox matches this description?
         </Text>
       </View>
     )
@@ -177,7 +177,7 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
       <View style={styles.questionContainer}>
         {/* 🎯 MAIN INSTRUCTION */}
         <Text style={[styles.instructionText, { color: colors?.text || '#000000' }]}>
-          Which fallacy does this example demonstrate?
+          Which paradox does this example demonstrate?
         </Text>
         
         {/* 📖 EXAMPLE TO ANALYZE */}
@@ -197,7 +197,7 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
         
         {/* 🎮 CHALLENGE PROMPT */}
         <Text style={[styles.challengePrompt, { color: colors?.textSecondary || '#666666' }]}>
-          Choose the correct fallacy from the two options below
+          Choose the correct paradox from the two options below
         </Text>
       </View>
     )

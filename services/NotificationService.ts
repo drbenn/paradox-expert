@@ -33,11 +33,11 @@ class NotificationService {
     return 'Development/Production build (notifications supported)';
   }
 
-  // 🧠 STATIC: Simple daily fallacy notification content
+  // 🧠 STATIC: Simple daily paradox notification content
   static getStaticNotificationContent(): { title: string; body: string } {
     return {
       title: '🧠 Daily Paradox Challenge',
-      body: 'Check out today\'s fallacy of the day and sharpen your critical thinking skills!'
+      body: 'Check out today\'s paradox of the day and sharpen your critical thinking skills!'
     };
   }
 
@@ -64,7 +64,7 @@ class NotificationService {
       if (status !== 'granted') {
         Alert.alert(
           'Permission Required',
-          'Please enable notifications in your device settings to receive daily fallacy reminders.',
+          'Please enable notifications in your device settings to receive daily paradox reminders.',
           [{ text: 'OK' }]
         );
         return false;
