@@ -225,14 +225,14 @@ export default function CustomQuizBuilderScreen() {
 
   const handleStartQuiz = () => {
     if (selectedFallacies.length === 0) {
-      Alert.alert('No Fallacies Selected', 'Please select at least one paradox to create a quiz.')
+      Alert.alert('No Paradoxes Selected', 'Please select at least one paradox to create a quiz.')
       return
     }
 
     // Validation: Need at least 3 paradoxes for good variety
     if (selectedFallacies.length < 3) {
       Alert.alert(
-        'More Fallacies Needed', 
+        'More Paradoxes Needed', 
         'Please select at least 3 paradoxes for better quiz variety.',
         [{ text: 'OK' }]
       )

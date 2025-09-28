@@ -8,7 +8,7 @@ import { Quiz } from './quiz.types'
 export interface CustomQuizConfig {
   // Basic Quiz Settings
   questionCount: number              // 5-30 questions (user selectable)
-  selectedFallacies: Paradox[]      // Fallacies chosen by user via filters
+  selectedFallacies: Paradox[]      // Paradoxes chosen by user via filters
   
   // Quiz Metadata
   title?: string                    // Optional custom title

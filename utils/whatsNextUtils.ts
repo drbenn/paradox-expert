@@ -56,7 +56,7 @@ function getUnitTestNextSteps(passed: boolean, score: number): NextStepsData {
         route: '/(tabs)/quiz'
       },
       secondaryAction: {
-        text: 'Review All Fallacies',
+        text: 'Review All Paradoxes',
         route: '/(tabs)/library'
       }
     }
@@ -74,7 +74,7 @@ function getUnitTestNextSteps(passed: boolean, score: number): NextStepsData {
         route: '/(tabs)/quiz'
       },
       secondaryAction: {
-        text: 'Review All Fallacies',
+        text: 'Review All Paradoxes',
         route: '/(tabs)/library'
       }
     }
@@ -97,7 +97,7 @@ function getDailyChallengeNextSteps(passed: boolean, score: number): NextStepsDa
         route: '/(tabs)/quiz'
       },
       secondaryAction: {
-        text: 'Review All Fallacies',
+        text: 'Review All Paradoxes',
         route: '/(tabs)/library'
       }
     }
@@ -115,7 +115,7 @@ function getDailyChallengeNextSteps(passed: boolean, score: number): NextStepsDa
         route: '/(tabs)/quiz'
       },
       secondaryAction: {
-        text: 'Review All Fallacies',
+        text: 'Review All Paradoxes',
         route: '/(tabs)/library'
       }
     }
@@ -138,7 +138,7 @@ function getWeeklyGauntletNextSteps(passed: boolean, score: number): NextStepsDa
         route: '/(tabs)/quiz'
       },
       secondaryAction: {
-        text: 'Review All Fallacies',
+        text: 'Review All Paradoxes',
         route: '/(tabs)/library'
       }
     }
@@ -156,7 +156,7 @@ function getWeeklyGauntletNextSteps(passed: boolean, score: number): NextStepsDa
         route: '/(tabs)/quiz'
       },
       secondaryAction: {
-        text: 'Review All Fallacies',
+        text: 'Review All Paradoxes',
         route: '/(tabs)/library'
       }
     }
@@ -197,7 +197,7 @@ function getCustomQuizNextSteps(passed: boolean, score: number): NextStepsData {
         route: '/(tabs)/quiz/custom-quiz-builder-screen'
       },
       secondaryAction: {
-        text: 'Review All Fallacies',
+        text: 'Review All Paradoxes',
         route: '/(tabs)/library'
       }
     }
@@ -220,7 +220,7 @@ function getRegularQuizNextSteps(passed: boolean, score: number): NextStepsData 
         route: '/(tabs)/quiz'
       },
       secondaryAction: {
-        text: 'Review All Fallacies',
+        text: 'Review All Paradoxes',
         route: '/(tabs)/library'
       }
     }
@@ -238,7 +238,7 @@ function getRegularQuizNextSteps(passed: boolean, score: number): NextStepsData 
         route: '/(tabs)/quiz'
       },
       secondaryAction: {
-        text: 'Review All Fallacies',
+        text: 'Review All Paradoxes',
         route: '/(tabs)/library'
       }
     }

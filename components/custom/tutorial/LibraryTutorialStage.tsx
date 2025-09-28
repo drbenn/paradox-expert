@@ -42,7 +42,7 @@ export default function LibraryTutorialStage({
           Explore the Library
         </Text>
         <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-          Discover Logical Fallacies
+          Discover Logical Paradoxes
         </Text>
       </View>
 

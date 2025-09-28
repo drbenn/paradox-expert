@@ -51,7 +51,7 @@ const ParadoxIdScreen: React.FC = () => {
   // const [scrollEnabled, setScrollEnabled] = useState(true)    // 🎯 State to control scroll during swipes
 
 
-  // logger.log('🔍 DEBUG - Fallacies loaded:', fallaciesLoaded) // Debug log
+  // logger.log('🔍 DEBUG - Paradoxes loaded:', fallaciesLoaded) // Debug log
   // logger.log('🔍 DEBUG - Total paradoxes:', paradoxes.length) // Debug log
 
   // Convert string ID to number and get the specific paradox from state
@@ -219,7 +219,7 @@ const ParadoxIdScreen: React.FC = () => {
           {paradox.related_falacies && paradox.related_falacies.length > 0 && (
             <Card>
               <Text style={[styles.relatedFallaciesTitle, { color: colors.text }]}>
-                🔗 Related Fallacies
+                🔗 Related Paradoxes
               </Text>
               <Text style={[styles.relatedFallaciesSubtitle, { color: colors.textSecondary }]}>
                 Tap to explore similar logical paradoxes
