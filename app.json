@@ -1,0 +1,73 @@
+{
+  "expo": {
+    "name": "Paradox Expert",
+    "slug": "paradox-expert",
+    "version": "1.0.2",
+    "splash": {
+      "image": "./assets/images/fallacy-expert-splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#6366f1"
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "orientation": "portrait",
+    "icon": "./assets/images/app-icon.png",
+    "scheme": "fallacyexpert",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "bundleIdentifier": "com.sparkdart.fallacyexpert",
+      "supportsTablet": true,
+      "icon": "./assets/images/app-icon.png"
+    },
+    "android": {
+      "package": "com.sparkdart.fallacyexpert",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/app-icon.png",
+        "backgroundColor": "#6366f1"
+      },
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "com.google.android.gms.permission.AD_ID"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon-32x32.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-1220609263451519~1907125687",
+          "iosAppId": "tbd",
+          "maxAdContentRating": "T",
+          "tagForChildDirectedTreatment": false,
+          "tagForUnderAgeOfConsent": false
+        }
+      ],
+      "expo-tracking-transparency",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/notification-icon.png",
+          "color": "#6366f1"
+        }
+      ],
+      "expo-iap"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "4294ae5a-27d4-4b16-9b7c-717e12e00624"
+      }
+    }
+  }
+}
