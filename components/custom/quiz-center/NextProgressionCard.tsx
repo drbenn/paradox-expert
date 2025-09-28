@@ -3,7 +3,7 @@ import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { useAppState } from '@/state/useAppState'
 import { QuizSetup, TestType } from '@/types/quiz.types'
 import { createRegularQuizSetup, createUnitTestSetup } from '@/utils/quizConfigGeneratorUtils'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 // Utility function: Generate quiz metadata
@@ -11,7 +11,7 @@ const getQuizDisplayData = (testType: TestType, tier: number, quiz: number | nul
   if (testType === 'unit_test') {
     return {
       title: `Tier ${tier} - Unit Test`,
-      description: `Comprehensive test covering ALL 20 fallacies in Tier ${tier}`,
+      description: `Comprehensive test covering ALL 20 paradoxes in Tier ${tier}`,
       badge: `TIER ${tier}`,
       badgeColor: '#f59e0b',
       label: 'Unit Test',
@@ -26,7 +26,7 @@ const getQuizDisplayData = (testType: TestType, tier: number, quiz: number | nul
   if (testType === 'regular' && quiz !== null) {
     return {
       title: `Tier ${tier} - Quiz ${quiz}`,
-      description: `Test your knowledge of 5 logical fallacies`,
+      description: `Test your knowledge of 5 logical paradoxes`,
       badge: `T${tier}Q${quiz}`,
       badgeColor: '#3b82f6',
       label: 'Next Quiz', 
@@ -42,7 +42,7 @@ const getQuizDisplayData = (testType: TestType, tier: number, quiz: number | nul
   if (testType === 'regular' && quiz === 5) {
     return {
       title: 'You Won Life! 🎉',
-      description: 'You\'ve mastered all 200 logical fallacies. You are now a critical thinking legend!',
+      description: 'You\'ve mastered all 200 logical paradoxes. You are now a critical thinking legend!',
       badge: '🏆',
       badgeColor: '#10b981',
       label: 'Complete',

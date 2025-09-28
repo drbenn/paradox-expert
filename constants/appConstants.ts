@@ -37,7 +37,7 @@ const APP_CONSTANTS = {
     // 🎯 Question Counts
     REGULAR_QUIZ_QUESTIONS: 10,      // 10 questions per regular quiz
     UNIT_TEST_QUESTIONS: 20,         // 20 questions per unit test
-    FALLACIES_PER_QUIZ: 5,          // How many fallacies each regular quiz covers
+    FALLACIES_PER_QUIZ: 5,          // How many paradoxes each regular quiz covers
     
     // ⏰ Timing Settings
     QUESTION_TIME_LIMIT_SECONDS: 10,     // 60 seconds per question

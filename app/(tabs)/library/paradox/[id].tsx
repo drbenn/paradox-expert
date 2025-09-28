@@ -52,7 +52,7 @@ const ParadoxIdScreen: React.FC = () => {
 
 
   // logger.log('🔍 DEBUG - Fallacies loaded:', fallaciesLoaded) // Debug log
-  // logger.log('🔍 DEBUG - Total fallacies:', fallacies.length) // Debug log
+  // logger.log('🔍 DEBUG - Total paradoxes:', paradoxes.length) // Debug log
 
   // Convert string ID to number and get the specific paradox from state
   const paradox = id ? getParadoxById(id) : undefined
@@ -112,7 +112,7 @@ const ParadoxIdScreen: React.FC = () => {
     }
   }
 
-  // Show loading state if fallacies aren't loaded yet
+  // Show loading state if paradoxes aren't loaded yet
   if (!isFallaciesLoaded) {
     return (
       <SafeAreaView style={[styles.container, {backgroundColor: colors.background}]}>
@@ -222,7 +222,7 @@ const ParadoxIdScreen: React.FC = () => {
                 🔗 Related Fallacies
               </Text>
               <Text style={[styles.relatedFallaciesSubtitle, { color: colors.textSecondary }]}>
-                Tap to explore similar logical fallacies
+                Tap to explore similar logical paradoxes
               </Text>
               <View style={styles.relatedFallaciesGrid}>
                 {paradox.related_falacies.map((relatedTitle: string, index: number) => (

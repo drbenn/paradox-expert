@@ -133,7 +133,7 @@ export default function SettingsScreen() {
   async function handleShareAppWithFriends() {
     try {
       await Share.share({
-        message: `🧠 Check out Paradox Expert - the app that's making critical thinking training as addictive as gaming! Master 200 logical fallacies through interactive quizzes, daily challenges, and weekly gauntlets. Level up your reasoning skills and become a logic champion! 💪 \n\n ${APP_CONSTANTS.APP_NAME}: ${APP_CONSTANTS.APP_WEBSITE}`,
+        message: `🧠 Check out Paradox Expert - the app that's making critical thinking training as addictive as gaming! Master 200 logical paradoxes through interactive quizzes, daily challenges, and weekly gauntlets. Level up your reasoning skills and become a logic champion! 💪 \n\n ${APP_CONSTANTS.APP_NAME}: ${APP_CONSTANTS.APP_WEBSITE}`,
         url: APP_CONSTANTS.APP_WEBSITE,
         title: `${APP_CONSTANTS.APP_NAME} App`
       });

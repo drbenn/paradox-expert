@@ -18,7 +18,7 @@ export default function StatsGrid() {
           {learnedStats.totalFallacies - learnedStats.totalLearned }
         </Text>
         <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
-          unlearned fallacies
+          unlearned paradoxes
         </Text>
       </Card>
       <Card variant="stat">
@@ -26,7 +26,7 @@ export default function StatsGrid() {
           {learnedStats.totalLearned}
         </Text>
         <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
-          mastered fallacies
+          mastered paradoxes
         </Text>
       </Card>
     </View>

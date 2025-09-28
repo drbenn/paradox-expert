@@ -1,6 +1,5 @@
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
-import React from 'react'
 import {
   Dimensions,
   Image,
@@ -78,7 +77,7 @@ export default function ProgressTutorialStage({
           Ready to Begin Your Journey?
         </Text>
         <Text style={[styles.readyText, { color: colors.text }]}>
-          Start with Tier 1 fallacies and work your way up to becoming a logical reasoning expert!
+          Start with Tier 1 paradoxes and work your way up to becoming a logical reasoning expert!
         </Text>
       </View>
 

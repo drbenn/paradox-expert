@@ -74,7 +74,7 @@ export interface CustomQuizCreationResult {
 export const CUSTOM_QUIZ_VALIDATION = {
   MIN_QUESTIONS: 5,
   MAX_QUESTIONS: 30,
-  MIN_FALLACIES: 3,                // Need at least 3 fallacies for good variety
+  MIN_FALLACIES: 3,                // Need at least 3 paradoxes for good variety
   MAX_FALLACIES: 50,               // Reasonable upper limit
   DEFAULT_QUESTION_TIME_LIMIT: 60, // 60 seconds per question
   DEFAULT_PASSING_SCORE: 70,       // 70% to pass
@@ -102,7 +102,7 @@ export const CUSTOM_QUIZ_DEFAULTS = {
   questionTimeLimit: 60,            // 60 seconds per question
   passingScore: 70,                 // 70% to pass
   title: 'Custom Quiz',
-  description: 'A personalized quiz based on your selected fallacies'
+  description: 'A personalized quiz based on your selected paradoxes'
 } as const
 
 // 🎯 HELPER FUNCTIONS FOR CUSTOM QUIZ LOGIC
@@ -124,10 +124,10 @@ export const CUSTOM_QUIZ_DEFAULTS = {
   
 //   // Validate paradox selection
 //   if (config.selectedFallacies.length < CUSTOM_QUIZ_VALIDATION.MIN_FALLACIES) {
-//     errors.push(`Minimum ${CUSTOM_QUIZ_VALIDATION.MIN_FALLACIES} fallacies required for good variety`)
+//     errors.push(`Minimum ${CUSTOM_QUIZ_VALIDATION.MIN_FALLACIES} paradoxes required for good variety`)
 //   }
 //   if (config.selectedFallacies.length > CUSTOM_QUIZ_VALIDATION.MAX_FALLACIES) {
-//     errors.push(`Maximum ${CUSTOM_QUIZ_VALIDATION.MAX_FALLACIES} fallacies allowed`)
+//     errors.push(`Maximum ${CUSTOM_QUIZ_VALIDATION.MAX_FALLACIES} paradoxes allowed`)
 //   }
   
 //   // Validate question type distribution
@@ -140,7 +140,7 @@ export const CUSTOM_QUIZ_DEFAULTS = {
   
 //   // Generate warnings
 //   if (config.selectedFallacies.length < 5 && config.questionCount > 15) {
-//     warnings.push('Few fallacies with many questions may result in repetitive content')
+//     warnings.push('Few paradoxes with many questions may result in repetitive content')
 //   }
   
 //   if (config.questionCount > 20) {
@@ -162,13 +162,13 @@ export const CUSTOM_QUIZ_DEFAULTS = {
 // }
 
 /**
- * 🏆 : Calculate estimated difficulty based on selected fallacies
+ * 🏆 : Calculate estimated difficulty based on selected paradoxes
  */
-export function calculateEstimatedDifficulty(fallacies: Paradox[]): 'easy' | 'moderate' | 'hard' | 'expert' {
-  if (fallacies.length === 0) return 'easy'
+export function calculateEstimatedDifficulty(paradoxes: Paradox[]): 'easy' | 'moderate' | 'hard' | 'expert' {
+  if (paradoxes.length === 0) return 'easy'
   
   // Calculate average difficulty score
-  const difficultyScores = fallacies.map(paradox => {
+  const difficultyScores = paradoxes.map(paradox => {
     switch (paradox.difficulty) {
       case 'beginner': return 1
       case 'intermediate': return 2
@@ -231,10 +231,10 @@ export function countActiveFilters(filters: CustomQuizFilters): number {
 }
 
 // /**
-//  * 🏆 : Apply filters to available fallacies
+//  * 🏆 : Apply filters to available paradoxes
 //  */
-// export function applyFiltersToFallacies(fallacies: Paradox[], filters: CustomQuizFilters): Paradox[] {
-//   return fallacies.filter(paradox => {
+// export function applyFiltersToFallacies(paradoxes: Paradox[], filters: CustomQuizFilters): Paradox[] {
+//   return paradoxes.filter(paradox => {
 //     // Tier filter
 //     if (filters.selectedTiers.size > 0) {
 //       const fallacyTier = parseInt(paradox.tier?.toString() || '1')

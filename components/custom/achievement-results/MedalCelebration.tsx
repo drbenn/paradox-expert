@@ -1,7 +1,7 @@
 import SHAPES from '@/constants/Shapes'
 import { EarnedAchievement } from '@/types/achievement.types'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import {
   Animated,
   Dimensions,
@@ -127,7 +127,7 @@ export default function MedalCelebration({
     } else if (award_level === 'silver') {
       return `Excellent work! You scored ${score}%.\n\nYou're showing real skill and dedication. Push for 90%+ to earn the prestigious Gold Medal!`
     } else {
-      return `PERFECT! You achieved Gold with ${score}%!\n\nYou've demonstrated mastery of these fallacies. This level of excellence sets you apart!`
+      return `PERFECT! You achieved Gold with ${score}%!\n\nYou've demonstrated mastery of these paradoxes. This level of excellence sets you apart!`
     }
   }
 

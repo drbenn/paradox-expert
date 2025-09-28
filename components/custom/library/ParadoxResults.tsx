@@ -30,12 +30,12 @@ const ParadoxResults: React.FC<ParadoxResultsProps> = ({
 }) => {
   const { colors } = useSystemTheme()
 
-  // Loading state while fallacies are loading
+  // Loading state while paradoxes are loading
   if (!fallaciesLoaded) {
     return (
       <View style={styles.loadingContainer}>
         <Text style={[styles.loadingText, { color: colors.text }]}>
-          Loading fallacies...
+          Loading paradoxes...
         </Text>
       </View>
     )
@@ -49,7 +49,7 @@ const ParadoxResults: React.FC<ParadoxResultsProps> = ({
         </Text>
         {filteredFallacies.length === 0 && (
           <Text style={[styles.noResultsText, { color: colors.textSecondary }]}>
-            No fallacies match your criteria! Try adjusting your filters.
+            No paradoxes match your criteria! Try adjusting your filters.
           </Text>
         )}
       </View>

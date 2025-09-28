@@ -1,7 +1,7 @@
 import SHAPES from '@/constants/Shapes'
 import { EarnedAchievement } from '@/types/achievement.types'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import {
   Animated,
   Dimensions,
@@ -124,9 +124,9 @@ export default function TrophyCelebration({
     
     if (is_unit_test) {
       if (award_level === 'small_trophy') {
-        return `Great job! You passed the unit test with ${score}%.\n\nYou've demonstrated good understanding of this tier's fallacies. Retake to score 85%+ and earn the LARGE TROPHY with maximum recognition!`
+        return `Great job! You passed the unit test with ${score}%.\n\nYou've demonstrated good understanding of this tier's paradoxes. Retake to score 85%+ and earn the LARGE TROPHY with maximum recognition!`
       } else {
-        return `LEGENDARY performance! You mastered this tier with ${score}%!\n\nYou've earned the ultimate Large Trophy recognition. This represents complete mastery of these logical fallacies!`
+        return `LEGENDARY performance! You mastered this tier with ${score}%!\n\nYou've earned the ultimate Large Trophy recognition. This represents complete mastery of these logical paradoxes!`
       }
     } else {
       return `Outstanding achievement! You scored ${score}% on this assessment.\n\nTrophies represent exceptional performance and dedication to learning. Keep up this excellent work!`

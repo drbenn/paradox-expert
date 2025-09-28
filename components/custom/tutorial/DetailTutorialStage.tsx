@@ -65,8 +65,8 @@ export default function DetailTutorialStage({
         <View style={styles.featureList}>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Detailed explanations of each logical paradox</Text>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Real-world examples from politics, media, and everyday life</Text>
-          <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Learn how fallacies are used and how to spot them</Text>
-          <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Related fallacies and connections to build understanding</Text>
+          <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Learn how paradoxes are used and how to spot them</Text>
+          <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Related paradoxes and connections to build understanding</Text>
         </View>
       </View>
 

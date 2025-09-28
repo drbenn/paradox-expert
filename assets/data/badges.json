@@ -113,7 +113,7 @@
   {
     "id": "fallacy_master",
     "title": "Paradox Master",
-    "description": "Complete the Tier 10 Unit Test - You've mastered all 200 fallacies!",
+    "description": "Complete the Tier 10 Unit Test - You've mastered all 200 paradoxes!",
     "emoji": "🏛️",
     "rarity": "legendary",
     "triggers": ["unit_test"],

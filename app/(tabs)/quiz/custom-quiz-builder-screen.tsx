@@ -29,12 +29,12 @@ export default function CustomQuizBuilderScreen() {
 
   // 🏆 STATE-FIRST DATA SOURCING - Clean and Simple!
   const isFallaciesLoaded = useAppState((state) => state.isFallaciesLoaded)
-  const fallacies = useAppState((state) => state.fallacies)
+  const paradoxes = useAppState((state) => state.paradoxes)
   const startQuiz = useAppState((state) => state.startQuiz)
 
   // 🎯 DIRECT ARRAY FILTERING - No more Sets!
-  const favoriteFallacies: Paradox[] = fallacies.filter((f: Paradox) => f.isFavorite)
-  const learnedFallacies: Paradox[] = fallacies.filter((f: Paradox) => f.isLearned)
+  const favoriteFallacies: Paradox[] = paradoxes.filter((f: Paradox) => f.isFavorite)
+  const learnedFallacies: Paradox[] = paradoxes.filter((f: Paradox) => f.isLearned)
 
   // 🎯 FILTER STATE MANAGEMENT
   const [filters, setFilters] = useState<CustomQuizFilters>({
@@ -64,9 +64,9 @@ export default function CustomQuizBuilderScreen() {
 
   // 🏆 ALL FALLACIES AVAILABLE - No restrictions!
   const availableFallacies = useMemo(() => {
-    if (!isFallaciesLoaded || fallacies.length === 0) return []
-    return fallacies // All fallacies are now available for custom quizzes
-  }, [fallacies, isFallaciesLoaded])
+    if (!isFallaciesLoaded || paradoxes.length === 0) return []
+    return paradoxes // All paradoxes are now available for custom quizzes
+  }, [paradoxes, isFallaciesLoaded])
 
   // 🏆 PROGRESS FILTER APPLICATION WITH OR LOGIC
   const progressFilteredFallacies = useMemo(() => {
@@ -82,7 +82,7 @@ export default function CustomQuizBuilderScreen() {
     // 🚨 CHAMPIONSHIP OR LOGIC for learned/unlearned
     if (showLearnedOnly && showUnlearnedOnly) {
       // Both selected = show all (no additional filtering)
-      // Do nothing - show all fallacies regardless of learned status
+      // Do nothing - show all paradoxes regardless of learned status
     } else if (showLearnedOnly) {
       // Only learned selected
       filtered = filtered.filter((paradox: Paradox) => paradox.isLearned || false)
@@ -114,7 +114,7 @@ export default function CustomQuizBuilderScreen() {
     return { favoritesCount, learnedCount, unlearnedCount }
   }, [favoriteFallacies, learnedFallacies, availableFallacies, isFallaciesLoaded])
 
-  // 🏆 Calculate how many selected fallacies are still visible after filtering
+  // 🏆 Calculate how many selected paradoxes are still visible after filtering
   const visibleSelectedCount = useMemo(() => {
     return selectedFallacies.filter((selectedParadox: Paradox) => 
       filteredFallacies.some((filteredParadox: Paradox) => filteredParadox.id === selectedParadox.id)
@@ -125,7 +125,7 @@ export default function CustomQuizBuilderScreen() {
   const FALLACIES_PER_LOAD = 20
   
   useEffect(() => {
-    // Reset displayed fallacies when filters change
+    // Reset displayed paradoxes when filters change
     setDisplayedFallacies(filteredFallacies.slice(0, FALLACIES_PER_LOAD))
   }, [filteredFallacies])
 
@@ -229,17 +229,17 @@ export default function CustomQuizBuilderScreen() {
       return
     }
 
-    // Validation: Need at least 3 fallacies for good variety
+    // Validation: Need at least 3 paradoxes for good variety
     if (selectedFallacies.length < 3) {
       Alert.alert(
         'More Fallacies Needed', 
-        'Please select at least 3 fallacies for better quiz variety.',
+        'Please select at least 3 paradoxes for better quiz variety.',
         [{ text: 'OK' }]
       )
       return
     }
 
-    // 🏆 Simple random slice to max 30 fallacies
+    // 🏆 Simple random slice to max 30 paradoxes
     const fallaciesNeeded = Math.min(questionCount, selectedFallacies.length, 30)
     const selectedFallaciesForQuiz = selectedFallacies.length > fallaciesNeeded
       ? selectedFallacies.sort(() => Math.random() - 0.5).slice(0, fallaciesNeeded)
@@ -248,7 +248,7 @@ export default function CustomQuizBuilderScreen() {
     // 🏆 Start the custom quiz
     Alert.alert(
       'Start Custom Quiz', 
-      `Ready to start a ${questionCount}-question quiz created from ${selectedFallacies.length} selected fallacies?`,
+      `Ready to start a ${questionCount}-question quiz created from ${selectedFallacies.length} selected paradoxes?`,
       [
         { text: 'Cancel', style: 'cancel' },
         { 

@@ -1,6 +1,5 @@
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
-import React from 'react'
 import {
   Dimensions,
   Image,
@@ -60,12 +59,12 @@ export default function QuizTutorialStage({
       {/* Content */}
       <View style={styles.contentContainer}>
         <Text style={[styles.description, { color: colors.text }]}>
-          Take quizzes to learn fallacies and master from most common to most complex!
+          Take quizzes to learn paradoxes and master from most common to most complex!
         </Text>
         
         <View style={styles.featureList}>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Interactive quizzes test your understanding</Text>
-          <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Progress from basic to complex fallacies across 10 tiers</Text>
+          <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Progress from basic to complex paradoxes across 10 tiers</Text>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Daily challenges keep your skills sharp</Text>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Weekly gauntlets test your mastery</Text>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Create custom quizzes to focus on specific areas</Text>

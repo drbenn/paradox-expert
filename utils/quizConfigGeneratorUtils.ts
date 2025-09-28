@@ -27,7 +27,7 @@ export function createRegularQuizSetup(tier: number, quizNumber: number): QuizSe
     quizType: 'unit_test',
     quizConfig: {
       questionsPerQuiz: 20,
-      fallaciesPerQuiz: 20, // All fallacies in tier
+      fallaciesPerQuiz: 20, // All paradoxes in tier
       passingScorePercentage: 70,
       questionTimeLimitSeconds: 60,
       quizTimeLimitSeconds: 1200, // 20 minutes

@@ -4,10 +4,10 @@ import { CustomQuizFilters } from "@/types/custom-quiz.types"
 class CustomQuizService {
 
   /**
-   * 🏆 : Apply filters to available fallacies
+   * 🏆 : Apply filters to available paradoxes
    */
-  applyFiltersToFallacies(fallacies: Paradox[], filters: CustomQuizFilters): Paradox[] {
-    return fallacies.filter(paradox => {
+  applyFiltersToFallacies(paradoxes: Paradox[], filters: CustomQuizFilters): Paradox[] {
+    return paradoxes.filter(paradox => {
       // Tier filter
       if (filters.selectedTiers.size > 0) {
         const fallacyTier = parseInt(paradox.tier?.toString() || '1')

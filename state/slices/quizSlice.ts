@@ -106,8 +106,8 @@ export const quizSlice: StateCreator<
     get().setIsQuizInProgress(true)
     logger.log('✅ Set isQuizInProgress to:', get().isQuizInProgress)
     try {
-      const fallacies = useAppState.getState().fallacies
-      const quizSession: QuizSession = quizGenerationService.generateQuizSession(fallacies, quizSetup)
+      const paradoxes = useAppState.getState().paradoxes
+      const quizSession: QuizSession = quizGenerationService.generateQuizSession(paradoxes, quizSetup)
     
       // Store for handoff to active.tsx
       get().setStartingQuizSession(quizSession)
@@ -248,7 +248,7 @@ export const quizSlice: StateCreator<
         logger.log('✅ addAchievementsToHistory updated')
       }
 
-      // 11. Mark fallacies learned for passed regular quiz
+      // 11. Mark paradoxes learned for passed regular quiz
       if (result.passed && result.testType === 'regular' || result.passed && result.testType === 'daily_challenge') {
         get().markFallaciesLearned(result.fallacyIds)  
       }

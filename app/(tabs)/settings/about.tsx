@@ -83,9 +83,9 @@ export default function AboutScreen() {
         <Card>
           <Text style={[styles.title, {color: colors.text}]}>About</Text>
           <Text style={[styles.description, {color: colors.text}]}>
-            { APP_CONSTANTS.APP_NAME } is a comprehensive educational quiz app that transforms learning logical fallacies into an engaging, game-like experience to sharpen your critical thinking skills.
+            { APP_CONSTANTS.APP_NAME } is a comprehensive educational quiz app that transforms learning logical paradoxes into an engaging, game-like experience to sharpen your critical thinking skills.
             {'\n'}{'\n'}
-            Master 200 logical fallacies through a structured learning journey featuring interactive quizzes, daily challenges, weekly gauntlets, and achievement systems. Progress through 10 tiers of increasing difficulty, earn trophies and badges, and become an expert at identifying logical errors in everyday arguments and debates.
+            Master 200 logical paradoxes through a structured learning journey featuring interactive quizzes, daily challenges, weekly gauntlets, and achievement systems. Progress through 10 tiers of increasing difficulty, earn trophies and badges, and become an expert at identifying logical errors in everyday arguments and debates.
           </Text>
           <Text 
             style={[styles.versionNumber, {color: colors.primary}]}

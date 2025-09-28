@@ -59,11 +59,11 @@ export const dailyChallengeSlice: StateCreator<
   },
 
   getNewParadoxForDailyChallenge: () => {
-    const { quizHistory, fallacies, dailyChallengeStatus } = get()
+    const { quizHistory, paradoxes, dailyChallengeStatus } = get()
 
     set({dailyChallengeStatus: { ...dailyChallengeStatus, isDailyChallengeLoading: true }})
 
-    const newDailyParadox: Paradox = dailyChallangeQuizService.determineNewDailyChallengeParadox(quizHistory, fallacies)
+    const newDailyParadox: Paradox = dailyChallangeQuizService.determineNewDailyChallengeParadox(quizHistory, paradoxes)
     const nowDateTime: string = DateService.getLocalISOString()
 
     set({

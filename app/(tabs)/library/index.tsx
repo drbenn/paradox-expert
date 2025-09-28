@@ -34,7 +34,7 @@ export default function LibraryIndexScreen() {
     }))
   )
 
-  // all fallacies updated by state for use in automatic changes to favorite and learned fallacies
+  // all paradoxes updated by state for use in automatic changes to favorite and learned paradoxes
   const allFallacies = getAllFallacies()
   const favoriteFallacies = allFallacies.filter((f: Paradox) => f.isFavorite)
   const learnedFallacies = allFallacies.filter((f: Paradox) => f.isLearned)
@@ -93,7 +93,7 @@ export default function LibraryIndexScreen() {
     // 🚨 CHAMPIONSHIP OR LOGIC for learned/unlearned
     if (showLearnedOnly && showUnlearnedOnly) {
       // Both selected = show all (no additional filtering)
-      // Do nothing - show all fallacies regardless of learned status
+      // Do nothing - show all paradoxes regardless of learned status
     } else if (showLearnedOnly) {
       // Only learned selected
       filtered = filtered.filter((paradox: Paradox) => learnedFallacies?.some((fav: Paradox) => fav.id=== paradox.id) || false)
@@ -236,7 +236,7 @@ export default function LibraryIndexScreen() {
 
   // 🏆 : Enhanced subtitle with progress filter info
   const getSubtitleText = () => {
-    if (!isFallaciesLoaded) return 'Loading fallacies...'
+    if (!isFallaciesLoaded) return 'Loading paradoxes...'
     
     const activeProgressFilters = []
     if (showFavoritesOnly) activeProgressFilters.push('favorites')
@@ -244,10 +244,10 @@ export default function LibraryIndexScreen() {
     if (showUnlearnedOnly) activeProgressFilters.push('unlearned')
     
     if (activeProgressFilters.length > 0) {
-      return `${filteredFallacies.length} ${activeProgressFilters.join(' + ')} fallacies ready to conquer!`
+      return `${filteredFallacies.length} ${activeProgressFilters.join(' + ')} paradoxes ready to conquer!`
     }
     
-    return `${filteredFallacies.length} fallacies ready to conquer!`
+    return `${filteredFallacies.length} paradoxes ready to conquer!`
   }
 
   return (

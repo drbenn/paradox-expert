@@ -6,7 +6,7 @@ import { adSlice, AdSlice } from './slices/adSlice'
 import { appControlSlice, AppControlSlice } from './slices/appControlSlice'
 import { dailyChallengeSlice, DailyChallengeSlice } from './slices/dailyChallangedSlice'
 import { DevDebugSlice, devDebugSliceSlice } from './slices/devDebugSlice'
-import { fallacySlice, ParadoxSlice } from './slices/fallacySlice'
+import { fallacySlice, ParadoxSlice } from './slices/paradoxSlice'
 import { quizSlice, QuizSlice } from './slices/quizSlice'
 
 export type AppState = AppControlSlice & AdSlice & ParadoxSlice & QuizSlice & DevDebugSlice & AchievementSlice & DailyChallengeSlice & {
@@ -29,7 +29,7 @@ export const useAppState = create<AppState>()(
       storage: createJSONStorage(() => AsyncStorage), // ✅ Configure AsyncStorage for React Native
       partialize: (state) => ({       
         // Paradox Slice Persistence
-        fallacies: state.fallacies,
+        paradoxes: state.paradoxes,
         isFallaciesLoaded: state.isFallaciesLoaded,
         learnedStats: state.learnedStats,
 

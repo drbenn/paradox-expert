@@ -45,7 +45,7 @@ function getUnitTestNextSteps(passed: boolean, score: number): NextStepsData {
   if (passed) {
     return {
       title: '🏆 Tier Mastered!',
-      description: 'Outstanding! You\'ve mastered this entire tier of fallacies. You can now confidently move to the next tier or review any concepts in the library.',
+      description: 'Outstanding! You\'ve mastered this entire tier of paradoxes. You can now confidently move to the next tier or review any concepts in the library.',
       achievements: [
         '🏆 Tier comprehensively mastered',
         '🔓 Next tier unlocked',
@@ -63,9 +63,9 @@ function getUnitTestNextSteps(passed: boolean, score: number): NextStepsData {
   } else {
     return {
       title: '📚 Unit Test Study Plan',
-      description: 'Unit tests are challenging! Review the fallacies from this tier in the library, retake individual quizzes, then try the unit test again.',
+      description: 'Unit tests are challenging! Review the paradoxes from this tier in the library, retake individual quizzes, then try the unit test again.',
       recommendations: [
-        '📖 Review all tier fallacies in Library',
+        '📖 Review all tier paradoxes in Library',
         '🔄 Retake individual quizzes in this tier',
         '🏆 Retry unit test when confident'
       ],
@@ -127,7 +127,7 @@ function getWeeklyGauntletNextSteps(passed: boolean, score: number): NextStepsDa
   if (passed) {
     return {
       title: '🔥 Gauntlet Conquered!',
-      description: 'INCREDIBLE endurance! You survived the ultimate weekly challenge. Your comprehensive knowledge across all unlocked fallacies is impressive!',
+      description: 'INCREDIBLE endurance! You survived the ultimate weekly challenge. Your comprehensive knowledge across all unlocked paradoxes is impressive!',
       achievements: [
         '🔥 Weekly gauntlet survived',
         '🏆 Endurance mastery proven',
@@ -186,10 +186,10 @@ function getCustomQuizNextSteps(passed: boolean, score: number): NextStepsData {
   } else {
     return {
       title: '🎨 Custom Challenge Practice',
-      description: 'Your custom quiz revealed areas for improvement! Review the fallacies you selected, adjust your quiz settings, or try with fewer fallacies.',
+      description: 'Your custom quiz revealed areas for improvement! Review the paradoxes you selected, adjust your quiz settings, or try with fewer paradoxes.',
       recommendations: [
-        '📖 Review the fallacies you selected',
-        '🔧 Try with fewer fallacies or easier settings',
+        '📖 Review the paradoxes you selected',
+        '🔧 Try with fewer paradoxes or easier settings',
         '🎯 Focus on your weak areas first'
       ],
       primaryAction: {
@@ -209,7 +209,7 @@ function getRegularQuizNextSteps(passed: boolean, score: number): NextStepsData 
   if (passed) {
     return {
       title: '🎯 Great Progress!',
-      description: 'Excellent work! You\'ve mastered this set of fallacies. Continue your learning journey with the next quiz or deepen your understanding in the library.',
+      description: 'Excellent work! You\'ve mastered this set of paradoxes. Continue your learning journey with the next quiz or deepen your understanding in the library.',
       achievements: [
         '🏅 Quiz completed successfully',
         '🔓 Next quiz unlocked',
@@ -227,9 +227,9 @@ function getRegularQuizNextSteps(passed: boolean, score: number): NextStepsData 
   } else {
     return {
       title: '📚 Keep Learning!',
-      description: 'Learning logical fallacies takes practice! Review the fallacies from this quiz in the library, then give it another try when you\'re ready.',
+      description: 'Learning logical paradoxes takes practice! Review the paradoxes from this quiz in the library, then give it another try when you\'re ready.',
       recommendations: [
-        '💡 Review fallacies in the Library tab',
+        '💡 Review paradoxes in the Library tab',
         '📖 Study the examples and explanations',
         '🔄 Retake the quiz when ready'
       ],

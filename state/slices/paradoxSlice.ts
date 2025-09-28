@@ -2,10 +2,10 @@ import { Paradox, QuizLearnedParadoxStats } from '@/types/app.types'
 import logger from '@/utils/logger'
 import { RelativePathString, router } from 'expo-router'
 import { StateCreator } from 'zustand'
-import fallaciesData from '../../assets/data/fallacies.json'
+import fallaciesData from '../../assets/data/paradoxes.json'
 
 export interface ParadoxSlice {
-  fallacies: Paradox[]
+  paradoxes: Paradox[]
   isFallaciesLoaded: boolean
   learnedStats: QuizLearnedParadoxStats
   
@@ -44,7 +44,7 @@ export const fallacySlice: StateCreator<
   ParadoxSlice
 > = (set, get) => ({
   // Initial state
-  fallacies: [],
+  paradoxes: [],
   isFallaciesLoaded: false,
   learnedStats: {
     totalLearned: 0,
@@ -54,63 +54,63 @@ export const fallacySlice: StateCreator<
 
   // General Paradox Actions
   loadFallacies: () => {
-    console.log('loading fallacies:')
+    console.log('loading paradoxes:')
     
-    const { fallacies, isFallaciesLoaded } = get()
+    const { paradoxes, isFallaciesLoaded } = get()
 
     // Don't reload if already loaded (prevents overwriting user progress)
-    if (fallacies.length > 0 && !isFallaciesLoaded) {
-      logger.log(`✅ : Loaded ${fallacies.length} fallacies already loaded in persistent memory`)
+    if (paradoxes.length > 0 && !isFallaciesLoaded) {
+      logger.log(`✅ : Loaded ${paradoxes.length} paradoxes already loaded in persistent memory`)
       set({ isFallaciesLoaded: true })
       return
     }
 
     try {
-      const fallacies = fallaciesData as Paradox[]
-      logger.log(`✅ : Loaded ${fallacies.length} fallacies from JSON`)
+      const paradoxes = fallaciesData as Paradox[]
+      logger.log(`✅ : Loaded ${paradoxes.length} paradoxes from JSON`)
       // Load fresh data from JSON (only on first run or if persistence failed)
-      const fallaciesWithDefaults = fallacies.map((paradox: any) => ({
+      const fallaciesWithDefaults = paradoxes.map((paradox: any) => ({
         ...paradox,
         isFavorite: false,
         isLearned: false
       }))
       
       set({ 
-        fallacies: fallaciesWithDefaults, 
+        paradoxes: fallaciesWithDefaults, 
         isFallaciesLoaded: true 
       })
     } catch (error) {
-      logger.error('❌ : Error loading fallacies:', error)
+      logger.error('❌ : Error loading paradoxes:', error)
       set({ 
-        fallacies: [],
+        paradoxes: [],
         fallaciesLoaded: false 
       })
     }
   },
 
-  getAllFallacies: () => get().fallacies,
+  getAllFallacies: () => get().paradoxes,
 
   getParadoxById: (id: string) => {
-    const fallacies = get().fallacies
-    return fallacies.find((paradox: Paradox) => paradox.id === id)
+    const paradoxes = get().paradoxes
+    return paradoxes.find((paradox: Paradox) => paradox.id === id)
   },
   
   getRandomParadox: () => {
-    const fallacies = get().fallacies
-    if (fallacies.length === 0) {
-      throw new Error('No fallacies loaded')
+    const paradoxes = get().paradoxes
+    if (paradoxes.length === 0) {
+      throw new Error('No paradoxes loaded')
     }
-    const randomIndex = Math.floor(Math.random() * fallacies.length)
-    return fallacies[randomIndex]
+    const randomIndex = Math.floor(Math.random() * paradoxes.length)
+    return paradoxes[randomIndex]
   },
 
   getParadoxByTitle: (title: string) => {
-    const fallacies = get().fallacies
-    return fallacies.find((paradox: Paradox) => paradox.title === title)
+    const paradoxes = get().paradoxes
+    return paradoxes.find((paradox: Paradox) => paradox.title === title)
   },
 
   getParadoxCount: () => {
-    return get().fallacies.length
+    return get().paradoxes.length
   },
 
 
@@ -122,48 +122,48 @@ export const fallacySlice: StateCreator<
   },
 
   toggleParadoxLearned: (id: string) => {
-    const { fallacies } = get()
-    const paradox = fallacies.find((f: Paradox) => f.id === id)
+    const { paradoxes } = get()
+    const paradox = paradoxes.find((f: Paradox) => f.id === id)
     if (!paradox) return false
     
-    const updatedFallacies = fallacies.map((paradox: Paradox) =>
+    const updatedFallacies = paradoxes.map((paradox: Paradox) =>
       paradox.id === id
         ? { ...paradox, isLearned: !paradox.isLearned }
         : paradox
     )
-    set({ fallacies: updatedFallacies })
+    set({ paradoxes: updatedFallacies })
     return !paradox.isLearned
   },
 
   markFallaciesLearned: (fallacyIds: string[]) => {
-    const { fallacies } = get()
-    const updatedFallacies = fallacies.map((paradox: Paradox) =>
+    const { paradoxes } = get()
+    const updatedFallacies = paradoxes.map((paradox: Paradox) =>
       fallacyIds.includes(paradox.id)
         ? { ...paradox, isLearned: true }
         : paradox
     )
-    set({ fallacies: updatedFallacies })
+    set({ paradoxes: updatedFallacies })
     get().calculateLearnedParadoxStats()
   },
 
   calculateLearnedParadoxStats: () => {
-    const { fallacies } = get()
-    const learnedFallacies = fallacies.filter((f: Paradox) => f.isLearned)
+    const { paradoxes } = get()
+    const learnedFallacies = paradoxes.filter((f: Paradox) => f.isLearned)
     const learnedStats: QuizLearnedParadoxStats = {
       totalLearned: learnedFallacies.length,
       learnedIds: learnedFallacies.map((f: Paradox) => f.id),
-      totalFallacies: fallacies.length
+      totalFallacies: paradoxes.length
     }
     set({ learnedStats: learnedStats })
   },
 
   clearAllLearned: () => {
-    const { fallacies } = get()
-    const updatedFallacies = fallacies.map((paradox: Paradox) => ({
+    const { paradoxes } = get()
+    const updatedFallacies = paradoxes.map((paradox: Paradox) => ({
       ...paradox,
       isLearned: false
     }))
-    set({ fallacies: updatedFallacies })
+    set({ paradoxes: updatedFallacies })
   },
 
 
@@ -175,22 +175,22 @@ export const fallacySlice: StateCreator<
   },
 
   toggleFavoriteParadox: (id: string) => {
-    const { fallacies } = get()
-    const paradox = fallacies.find((f: Paradox) => f.id === id)
+    const { paradoxes } = get()
+    const paradox = paradoxes.find((f: Paradox) => f.id === id)
     if (!paradox) return false
     
-    const updatedFallacies = fallacies.map((paradox: Paradox) =>
+    const updatedFallacies = paradoxes.map((paradox: Paradox) =>
       paradox.id === id
         ? { ...paradox, isFavorite: !paradox.isFavorite }
         : paradox
     )
-    set({ fallacies: updatedFallacies })
+    set({ paradoxes: updatedFallacies })
     return !paradox.isFavorite
   },
 
   getFavoriteStats: () => {
-    const { fallacies } = get()
-    const favoriteFallacies = fallacies.filter((f: Paradox) => f.isFavorite)
+    const { paradoxes } = get()
+    const favoriteFallacies = paradoxes.filter((f: Paradox) => f.isFavorite)
     
     return {
       totalFavorites: favoriteFallacies.length,
@@ -199,29 +199,29 @@ export const fallacySlice: StateCreator<
   },
 
   clearAllFavorites: () => {
-    const { fallacies } = get()
-    const updatedFallacies = fallacies.map((paradox: Paradox) => ({
+    const { paradoxes } = get()
+    const updatedFallacies = paradoxes.map((paradox: Paradox) => ({
       ...paradox,
       isFavorite: false
     }))
-    set({ fallacies: updatedFallacies })
+    set({ paradoxes: updatedFallacies })
   },
 
 
   // 🧭 NAVIGATION ACTIONS!
   navigateToRandomParadox: (method: string, currentId?: string) => {
-    const { fallacies } = get() 
-    if (fallacies.length === 0) {
-      // logger.warn('No fallacies loaded')
+    const { paradoxes } = get() 
+    if (paradoxes.length === 0) {
+      // logger.warn('No paradoxes loaded')
       return
     }
     
     let randomParadox: Paradox
     
     if (currentId) {
-      const availableFallacies = fallacies.filter((f: Paradox) => f.id !== currentId)
+      const availableFallacies = paradoxes.filter((f: Paradox) => f.id !== currentId)
       if (availableFallacies.length === 0) {
-        randomParadox = fallacies[0]
+        randomParadox = paradoxes[0]
       } else {
         const randomIndex = Math.floor(Math.random() * availableFallacies.length)
         randomParadox = availableFallacies[randomIndex]
@@ -244,22 +244,22 @@ export const fallacySlice: StateCreator<
   },
   
   navigateToNextParadox: (method: string, currentId: string) => {
-    const { fallacies } = get() 
-    if (fallacies.length === 0) {
-      // logger.warn('No fallacies loaded')
+    const { paradoxes } = get() 
+    if (paradoxes.length === 0) {
+      // logger.warn('No paradoxes loaded')
       return
     }
     
-    const currentIndex = fallacies.findIndex((f: Paradox) => f.id === currentId)
+    const currentIndex = paradoxes.findIndex((f: Paradox) => f.id === currentId)
     let nextIndex
     
-    if (currentIndex === -1 || currentIndex === fallacies.length - 1) {
+    if (currentIndex === -1 || currentIndex === paradoxes.length - 1) {
       nextIndex = 0
     } else {
       nextIndex = currentIndex + 1
     }
     
-    const nextParadox = fallacies[nextIndex]
+    const nextParadox = paradoxes[nextIndex]
 
     if (method === 'push') {
       router.push({
@@ -275,22 +275,22 @@ export const fallacySlice: StateCreator<
   },
 
   navigateToPreviousParadox: (method: string, currentId: string) => {
-    const { fallacies } = get()  
-    if (fallacies.length === 0) {
-      // logger.warn('No fallacies loaded')
+    const { paradoxes } = get()  
+    if (paradoxes.length === 0) {
+      // logger.warn('No paradoxes loaded')
       return
     }
     
-    const currentIndex = fallacies.findIndex((f: Paradox) => f.id === currentId)
+    const currentIndex = paradoxes.findIndex((f: Paradox) => f.id === currentId)
     let nextIndex
     
     if (currentIndex === -1 || currentIndex === 0) {
-      nextIndex = fallacies.length - 1
+      nextIndex = paradoxes.length - 1
     } else {
       nextIndex = currentIndex - 1
     }
     
-    const previousParadox = fallacies[nextIndex]
+    const previousParadox = paradoxes[nextIndex]
 
     if (method === 'push') {
       router.push({

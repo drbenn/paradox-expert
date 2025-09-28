@@ -17,7 +17,7 @@ export default function OverallProgressCard() {
       
       <View style={styles.progressInfo}>
         <Text style={[styles.progressText, { color: colors.textSecondary }]}>
-          {learnedStats.totalLearned} of {learnedStats.totalFallacies} fallacies mastered
+          {learnedStats.totalLearned} of {learnedStats.totalFallacies} paradoxes mastered
         </Text>
         <Text style={[styles.progressPercent, { color: colors.primary }]}>
           {Number(percentMastered).toFixed(1)}%

@@ -264,7 +264,7 @@ export default function DeveloperSettingsScreen() {
 
   // const markFallaciesAsLearned = async (targetTier: number) => {
   //   try {
-  //     const allFallacies = useParadoxState.getState().fallacies
+  //     const allFallacies = useParadoxState.getState().paradoxes
   //     const userProgressState = useUserProgressState.getState()
       
   //     for (let tier = 1; tier <= targetTier; tier++) {

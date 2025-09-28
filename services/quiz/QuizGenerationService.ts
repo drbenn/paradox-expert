@@ -6,32 +6,32 @@ class QuizGenerationService {
 
 
   public generateQuizSession(
-    fallacies: Paradox[],
+    paradoxes: Paradox[],
     quizSetup: QuizSetup
   ): QuizSession {
     try {
-      if (fallacies.length === 0) {
-        throw new Error('No fallacies available. Please load fallacies first.')
+      if (paradoxes.length === 0) {
+        throw new Error('No paradoxes available. Please load paradoxes first.')
       }
-      logger.log(`📚 : Generating quiz with ${fallacies.length} total fallacies available`)
+      logger.log(`📚 : Generating quiz with ${paradoxes.length} total paradoxes available`)
 
       let quiz: Quiz
       
       switch(quizSetup.quizType) {
         case 'regular':
-          quiz = this.generateRegularQuiz(quizSetup.tier!, quizSetup.quizNumber!, fallacies, quizSetup.quizConfig)
+          quiz = this.generateRegularQuiz(quizSetup.tier!, quizSetup.quizNumber!, paradoxes, quizSetup.quizConfig)
           break
         case 'unit_test': 
-          quiz = this.generateUnitTest(quizSetup.tier!, fallacies, quizSetup.quizConfig)
+          quiz = this.generateUnitTest(quizSetup.tier!, paradoxes, quizSetup.quizConfig)
           break
         case 'daily_challenge':
-          quiz = this.generateDailyChallenge(quizSetup.quizConfig.targetParadox!, fallacies, quizSetup.quizConfig) // you handle paradox selection elsewhere
+          quiz = this.generateDailyChallenge(quizSetup.quizConfig.targetParadox!, paradoxes, quizSetup.quizConfig) // you handle paradox selection elsewhere
           break
         case 'custom':
-          quiz = this.generateCustomQuiz(fallacies, quizSetup.quizConfig)
+          quiz = this.generateCustomQuiz(paradoxes, quizSetup.quizConfig)
           break
         case 'weekly_gauntlet':
-          quiz = this.generateWeeklyGauntlet(fallacies, quizSetup.quizConfig) // placeholder
+          quiz = this.generateWeeklyGauntlet(paradoxes, quizSetup.quizConfig) // placeholder
           break
       }
       
@@ -56,11 +56,11 @@ class QuizGenerationService {
     )
     
     if (tierFallacies.length === 0) {
-      logger.error(`❌ No fallacies found for tier ${tier}`)
-      throw new Error(`No fallacies found for tier ${tier}`)
+      logger.error(`❌ No paradoxes found for tier ${tier}`)
+      throw new Error(`No paradoxes found for tier ${tier}`)
     }
     
-    logger.log(`📊 Found ${tierFallacies.length} fallacies for tier ${tier}`)
+    logger.log(`📊 Found ${tierFallacies.length} paradoxes for tier ${tier}`)
     
     // Sort by ID for consistent ordering
     return tierFallacies.sort((a: Paradox, b: Paradox) => parseInt(a.id) - parseInt(b.id))
@@ -72,18 +72,18 @@ class QuizGenerationService {
     
     // Bounds checking
     if (startIndex >= tierFallacies.length) {
-      logger.error(`❌ Quiz ${quizNumber} start index ${startIndex} exceeds available fallacies (${tierFallacies.length})`)
-      throw new Error(`Quiz ${quizNumber} exceeds available fallacies for this tier`)
+      logger.error(`❌ Quiz ${quizNumber} start index ${startIndex} exceeds available paradoxes (${tierFallacies.length})`)
+      throw new Error(`Quiz ${quizNumber} exceeds available paradoxes for this tier`)
     }
     
     const quizFallacies = tierFallacies.slice(startIndex, endIndex)
     
     if (quizFallacies.length === 0) {
-      logger.error(`❌ No fallacies available for quiz ${quizNumber} (indices ${startIndex}-${endIndex})`)
-      throw new Error(`No fallacies available for quiz ${quizNumber}`)
+      logger.error(`❌ No paradoxes available for quiz ${quizNumber} (indices ${startIndex}-${endIndex})`)
+      throw new Error(`No paradoxes available for quiz ${quizNumber}`)
     }
     
-    logger.log(`🎯 Quiz ${quizNumber} using fallacies ${startIndex + 1}-${Math.min(endIndex, tierFallacies.length)}`)
+    logger.log(`🎯 Quiz ${quizNumber} using paradoxes ${startIndex + 1}-${Math.min(endIndex, tierFallacies.length)}`)
     
     return quizFallacies
   }
@@ -94,18 +94,18 @@ class QuizGenerationService {
     allFallacies: Paradox[],
     config: QuizConfig
   ): Quiz {
-    // Get all fallacies for this tier (20 fallacies per tier)
+    // Get all paradoxes for this tier (20 paradoxes per tier)
     const tierFallacies = this.getFallaciesForTier(tier, allFallacies)
     
     if (tierFallacies.length === 0) {
-      throw new Error(`No fallacies found for tier ${tier}. Cannot generate quiz.`)
+      throw new Error(`No paradoxes found for tier ${tier}. Cannot generate quiz.`)
     }
 
-    // Get the specific fallacies for this quiz number (5 fallacies per regular quiz)
+    // Get the specific paradoxes for this quiz number (5 paradoxes per regular quiz)
     const quizFallacies = this.getFallaciesForQuiz(tierFallacies, quizNumber, config.fallaciesPerQuiz)
     
     if (quizFallacies.length === 0) {
-      throw new Error(`No fallacies available for tier ${tier}, quiz ${quizNumber}`)
+      throw new Error(`No paradoxes available for tier ${tier}, quiz ${quizNumber}`)
     }
 
     // Generate mixed questions using the question service
@@ -142,17 +142,17 @@ class QuizGenerationService {
   ): Quiz {
     logger.log(`🎯 Generating unit test for tier ${tier}`)
     
-    // Get all fallacies for this tier (all 20 fallacies)
+    // Get all paradoxes for this tier (all 20 paradoxes)
     const tierFallacies = this.getFallaciesForTier(tier, allFallacies)
     
     if (tierFallacies.length === 0) {
-      logger.error(`❌ No fallacies found for tier ${tier}. Cannot generate unit test.`)
-      throw new Error(`No fallacies found for tier ${tier}. Cannot generate unit test.`)
+      logger.error(`❌ No paradoxes found for tier ${tier}. Cannot generate unit test.`)
+      throw new Error(`No paradoxes found for tier ${tier}. Cannot generate unit test.`)
     }
 
-    logger.log(`📊 Using all ${tierFallacies.length} fallacies for comprehensive unit test`)
+    logger.log(`📊 Using all ${tierFallacies.length} paradoxes for comprehensive unit test`)
 
-    // Generate mixed questions covering all tier fallacies
+    // Generate mixed questions covering all tier paradoxes
     const questions = quizQuestionService.generateMixedQuestions(
       tierFallacies, 
       allFallacies, 
@@ -168,14 +168,14 @@ class QuizGenerationService {
       tier,
       quizNumber: null, // Unit tests don't have quiz numbers
       title: `Tier ${tier} - Comprehensive Unit Test`,
-      description: `Master ALL ${tierFallacies.length} fallacies in Tier ${tier}! This comprehensive test covers everything you've learned.`,
+      description: `Master ALL ${tierFallacies.length} paradoxes in Tier ${tier}! This comprehensive test covers everything you've learned.`,
       fallacyIds: tierFallacies.map((f: Paradox) => f.id),
       questions: shuffledQuestions,
       timeLimit: config.questionTimeLimitSeconds,
       passingScore: config.passingScorePercentage
     }
 
-    logger.log(`✅ Generated unit test with ${quiz.questions.length} questions covering ${quiz.fallacyIds.length} fallacies`)
+    logger.log(`✅ Generated unit test with ${quiz.questions.length} questions covering ${quiz.fallacyIds.length} paradoxes`)
 
     return quiz
   }
@@ -225,23 +225,23 @@ class QuizGenerationService {
     logger.log(`🎨 Generating custom quiz`)
     
     if (!config.selectedParadoxIds || config.selectedParadoxIds.length === 0) {
-      logger.error(`❌ No fallacies selected for custom quiz`)
-      throw new Error(`Selected fallacies are required for custom quiz`)
+      logger.error(`❌ No paradoxes selected for custom quiz`)
+      throw new Error(`Selected paradoxes are required for custom quiz`)
     }
 
-    // Filter to get only the selected fallacies
+    // Filter to get only the selected paradoxes
     const customFallacies = allFallacies.filter((paradox: Paradox) => 
       config.selectedParadoxIds!.includes(paradox.id)
     )
 
     if (customFallacies.length === 0) {
-      logger.error(`❌ None of the selected paradox IDs were found in available fallacies`)
-      throw new Error(`Selected fallacies not found in available fallacies`)
+      logger.error(`❌ None of the selected paradox IDs were found in available paradoxes`)
+      throw new Error(`Selected paradoxes not found in available paradoxes`)
     }
 
-    logger.log(`📊 Using ${customFallacies.length} selected fallacies for custom quiz`)
+    logger.log(`📊 Using ${customFallacies.length} selected paradoxes for custom quiz`)
 
-    // Generate mixed questions using selected fallacies
+    // Generate mixed questions using selected paradoxes
     const questions = quizQuestionService.generateMixedQuestions(
       customFallacies, 
       allFallacies, 
@@ -257,14 +257,14 @@ class QuizGenerationService {
       tier: null, // Custom quizzes don't have tiers
       quizNumber: null, // Custom quizzes don't have quiz numbers
       title: 'Custom Quiz',
-      description: `Knowledge tested on ${customFallacies.length} fallacies`,
+      description: `Knowledge tested on ${customFallacies.length} paradoxes`,
       fallacyIds: customFallacies.map((f: Paradox) => f.id),
       questions: shuffledQuestions,
       timeLimit: config.questionTimeLimitSeconds,
       passingScore: config.passingScorePercentage
     }
 
-    logger.log(`✅ Generated custom quiz with ${quiz.questions.length} questions covering ${quiz.fallacyIds.length} selected fallacies`)
+    logger.log(`✅ Generated custom quiz with ${quiz.questions.length} questions covering ${quiz.fallacyIds.length} selected paradoxes`)
 
     return quiz
   }
@@ -276,12 +276,12 @@ class QuizGenerationService {
     logger.log(`⚔️ Generating weekly gauntlet (placeholder implementation)`)
     
     if (allFallacies.length === 0) {
-      logger.error(`❌ No fallacies available for weekly gauntlet`)
-      throw new Error(`No fallacies available for weekly gauntlet`)
+      logger.error(`❌ No paradoxes available for weekly gauntlet`)
+      throw new Error(`No paradoxes available for weekly gauntlet`)
     }
 
-    // Use all available fallacies for the marathon challenge
-    logger.log(`📊 Using all ${allFallacies.length} available fallacies for weekly gauntlet`)
+    // Use all available paradoxes for the marathon challenge
+    logger.log(`📊 Using all ${allFallacies.length} available paradoxes for weekly gauntlet`)
 
     const questions = quizQuestionService.generateMixedQuestions(
       allFallacies, 
@@ -298,7 +298,7 @@ class QuizGenerationService {
       tier: null,
       quizNumber: null,
       title: 'Weekly Gauntlet',
-      description: `Marathon challenge across all ${allFallacies.length} unlocked fallacies`,
+      description: `Marathon challenge across all ${allFallacies.length} unlocked paradoxes`,
       fallacyIds: allFallacies.map((f: Paradox) => f.id),
       questions: shuffledQuestions,
       timeLimit: config.questionTimeLimitSeconds,

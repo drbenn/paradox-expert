@@ -163,7 +163,7 @@ class QuizQuestionService {
       throw new Error(`Paradox ${targetParadox.title} has no description`)
     }
     
-    // Get 3 other fallacies from the quiz for incorrect options
+    // Get 3 other paradoxes from the quiz for incorrect options
     const otherFallacies = quizFallacies.filter(f => f.id !== targetParadox.id)
     const incorrectFallacies = this.shuffleArray(otherFallacies).slice(0, 3)
     
@@ -212,7 +212,7 @@ class QuizQuestionService {
     // Get one other paradox for the incorrect option
     const otherFallacies = quizFallacies.filter(f => f.id !== targetParadox.id)
     if (otherFallacies.length === 0) {
-      throw new Error('Need at least 2 fallacies for binary choice question')
+      throw new Error('Need at least 2 paradoxes for binary choice question')
     }
     const incorrectParadox = this.getRandomItem(otherFallacies)
     
@@ -275,7 +275,7 @@ class QuizQuestionService {
   generateDailyScenarioQuestion(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
     const description = targetParadox.description || targetParadox.subtitle || targetParadox.title
     
-    // Get 3 other fallacies for incorrect options
+    // Get 3 other paradoxes for incorrect options
     const otherFallacies = allFallacies
       .filter(f => f.id !== targetParadox.id)
       .sort(() => Math.random() - 0.5)
@@ -388,7 +388,7 @@ class QuizQuestionService {
 
   // 🔄 UTILITY METHODS - The workhorses!
 
-  // Get incorrect examples from other fallacies
+  // Get incorrect examples from other paradoxes
   private getIncorrectExamples(
     targetParadox: Paradox, 
     allFallacies: Paradox[], 

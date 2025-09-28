@@ -1,6 +1,5 @@
 import SHAPES from '@/constants/Shapes'
 import { useSystemTheme } from '@/hooks/useSystemTheme'
-import React from 'react'
 import {
   Dimensions,
   Image,
@@ -60,11 +59,11 @@ export default function LibraryTutorialStage({
       {/* Content */}
       <View style={styles.contentContainer}>
         <Text style={[styles.description, { color: colors.text }]}>
-          Check out the library for all fallacies and use filters to find your favorites or learn about their usage.
+          Check out the library for all paradoxes and use filters to find your favorites or learn about their usage.
         </Text>
         
         <View style={styles.featureList}>
-          <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Browse 200+ logical fallacies organized by difficulty</Text>
+          <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Browse 200+ logical paradoxes organized by difficulty</Text>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Filter by category and complexity</Text>
           <Text style={[styles.bulletPoint, { color: colors.textSecondary }]}>• Save favorites for quick access</Text>
         </View>

@@ -114,7 +114,7 @@ export default function BadgeCelebration({
       case 'common':
         return `Great start! Every badge represents growth and dedication. Keep pushing your limits!`
       case 'rare':
-        return `Impressive dedication! You're showing real commitment to mastering fallacies. This level of consistency sets you apart!`
+        return `Impressive dedication! You're showing real commitment to mastering paradoxes. This level of consistency sets you apart!`
       case 'epic':
         return `EXTRAORDINARY achievement! You're reaching elite levels of expertise. Few reach this level of mastery!`
       case 'legendary':

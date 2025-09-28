@@ -3,10 +3,10 @@ import { useSystemTheme } from '@/hooks/useSystemTheme'
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import {
-    StyleSheet,
-    TextInput,
-    TouchableOpacity,
-    View
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native'
 
 interface ParadoxSearchBarProps {
@@ -18,7 +18,7 @@ interface ParadoxSearchBarProps {
 const ParadoxSearchBar: React.FC<ParadoxSearchBarProps> = ({
   searchText,
   onSearchChange,
-  placeholder = "Search fallacies"
+  placeholder = "Search paradoxes"
 }) => {
   const { colors } = useSystemTheme()
 

@@ -36,7 +36,7 @@ export default function QuizIndexScreen() {
               <View style={styles.headerText}>
                 <Text style={[styles.title, { color: colors.text }]}>Quiz Center</Text>
                 <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-                  Test your knowledge of logical fallacies
+                  Test your knowledge of logical paradoxes
                 </Text>
               </View>
             </View>
