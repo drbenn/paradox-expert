@@ -9,7 +9,7 @@ import { StyleSheet, Text, View } from 'react-native'
 export default function OverallProgressCard() {
   const { colors } = useSystemTheme()
   const learnedStats: QuizLearnedParadoxStats = useAppState((state) => state.learnedStats)
-  const percentMastered = (learnedStats.totalLearned / learnedStats.totalFallacies) * 100 || 0
+  const percentMastered = (learnedStats.totalLearned / learnedStats.totalParadoxes) * 100 || 0
 
   return (
     <Card variant="default">
@@ -17,7 +17,7 @@ export default function OverallProgressCard() {
       
       <View style={styles.progressInfo}>
         <Text style={[styles.progressText, { color: colors.textSecondary }]}>
-          {learnedStats.totalLearned} of {learnedStats.totalFallacies} paradoxes mastered
+          {learnedStats.totalLearned} of {learnedStats.totalParadoxes} paradoxes mastered
         </Text>
         <Text style={[styles.progressPercent, { color: colors.primary }]}>
           {Number(percentMastered).toFixed(1)}%

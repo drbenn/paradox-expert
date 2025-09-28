@@ -6,12 +6,12 @@ class CustomQuizService {
   /**
    * 🏆 : Apply filters to available paradoxes
    */
-  applyFiltersToFallacies(paradoxes: Paradox[], filters: CustomQuizFilters): Paradox[] {
+  applyFiltersToParadoxes(paradoxes: Paradox[], filters: CustomQuizFilters): Paradox[] {
     return paradoxes.filter(paradox => {
       // Tier filter
       if (filters.selectedTiers.size > 0) {
-        const fallacyTier = parseInt(paradox.tier?.toString() || '1')
-        if (!filters.selectedTiers.has(fallacyTier)) return false
+        const paradoxTier = parseInt(paradox.tier?.toString() || '1')
+        if (!filters.selectedTiers.has(paradoxTier)) return false
       }
       
       // Difficulty filter

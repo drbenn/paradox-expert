@@ -27,17 +27,17 @@ export default function LibraryIndexScreen() {
 
   const ITEMS_PER_PAGE = 20
 
-  const { isFallaciesLoaded, getAllFallacies } = useAppState(
+  const { isParadoxesLoaded, getAllParadoxes } = useAppState(
     useShallow((state) => ({ 
-      isFallaciesLoaded: state.isFallaciesLoaded, 
-      getAllFallacies: state.getAllFallacies 
+      isParadoxesLoaded: state.isParadoxesLoaded, 
+      getAllParadoxes: state.getAllParadoxes 
     }))
   )
 
   // all paradoxes updated by state for use in automatic changes to favorite and learned paradoxes
-  const allParadoxes = getAllFallacies()
-  const favoriteFallacies = allParadoxes.filter((f: Paradox) => f.isFavorite)
-  const learnedFallacies = allParadoxes.filter((f: Paradox) => f.isLearned)
+  const allParadoxes = getAllParadoxes()
+  const favoriteParadoxes = allParadoxes.filter((f: Paradox) => f.isFavorite)
+  const learnedParadoxes = allParadoxes.filter((f: Paradox) => f.isLearned)
   
   // 💪  STATE MANAGEMENT - NOW WITH PROGRESS MULTI-SELECT!
   const [searchText, setSearchText] = useState('')
@@ -55,22 +55,22 @@ export default function LibraryIndexScreen() {
   const [showUnlearnedOnly, setShowUnlearnedOnly] = useState(false)
   
   const [showFilters, setShowFilters] = useState(false)
-  const [displayedFallacies, setDisplayedFallacies] = useState<Paradox[]>([])
+  const [displayedParadoxes, setDisplayedParadoxes] = useState<Paradox[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
   
   // 🏆 : Calculate progress counts for display
   const progressCounts = useMemo(() => {
-    const favoritesCount = favoriteFallacies.length
-    const learnedCount = learnedFallacies.length
-    const totalFallacies = allParadoxes.length
-    const unlearnedCount = totalFallacies - learnedCount
+    const favoritesCount = favoriteParadoxes.length
+    const learnedCount = learnedParadoxes.length
+    const totalParadoxes = allParadoxes.length
+    const unlearnedCount = totalParadoxes - learnedCount
     
     return { favoritesCount, learnedCount, unlearnedCount }
-  }, [favoriteFallacies, learnedFallacies, allParadoxes])
+  }, [favoriteParadoxes, learnedParadoxes, allParadoxes])
 
   // Filter and search logic -  STYLE WITH PROPER DEPENDENCIES!
-  const filteredFallacies = useMemo(() => {
+  const filteredParadoxes = useMemo(() => {
     let filtered = allParadoxes
     
     // Search filter
@@ -87,7 +87,7 @@ export default function LibraryIndexScreen() {
     
     // 🏆  FIX: Progress filters with OR logic!
     if (showFavoritesOnly) {
-      filtered = filtered.filter((paradox: Paradox) => favoriteFallacies?.some((fav: Paradox) => fav.id=== paradox.id) || false)
+      filtered = filtered.filter((paradox: Paradox) => favoriteParadoxes?.some((fav: Paradox) => fav.id=== paradox.id) || false)
     }
 
     // 🚨 CHAMPIONSHIP OR LOGIC for learned/unlearned
@@ -96,10 +96,10 @@ export default function LibraryIndexScreen() {
       // Do nothing - show all paradoxes regardless of learned status
     } else if (showLearnedOnly) {
       // Only learned selected
-      filtered = filtered.filter((paradox: Paradox) => learnedFallacies?.some((fav: Paradox) => fav.id=== paradox.id) || false)
+      filtered = filtered.filter((paradox: Paradox) => learnedParadoxes?.some((fav: Paradox) => fav.id=== paradox.id) || false)
     } else if (showUnlearnedOnly) {
       // Only unlearned selected
-      filtered = filtered.filter((paradox: Paradox) => !(learnedFallacies?.some((fav: Paradox) => fav.id=== paradox.id) || false))
+      filtered = filtered.filter((paradox: Paradox) => !(learnedParadoxes?.some((fav: Paradox) => fav.id=== paradox.id) || false))
     }
     
     // Apply all other filters (same as before)
@@ -139,17 +139,17 @@ export default function LibraryIndexScreen() {
     showFavoritesOnly,
     showLearnedOnly,
     showUnlearnedOnly,
-    // favoriteFallacies and learnedFallacies are derived arrays that get recreated on every render, causing infinite re-renders
+    // favoriteParadoxes and learnedParadoxes are derived arrays that get recreated on every render, causing infinite re-renders
     // SO F ESLINT - DO NOT INCLUDE
-    // favoriteFallacies,
-    // learnedFallacies
+    // favoriteParadoxes,
+    // learnedParadoxes
   ])
 
   // Reset pagination when filters change
   useEffect(() => {
     setCurrentPage(1)
-    setDisplayedFallacies(filteredFallacies.slice(0, ITEMS_PER_PAGE))
-  }, [filteredFallacies])
+    setDisplayedParadoxes(filteredParadoxes.slice(0, ITEMS_PER_PAGE))
+  }, [filteredParadoxes])
 
   //  HANDLER FUNCTIONS - CLEAN AND ORGANIZED WITH PROGRESS!
   const handleSearchChange = (text: string) => {
@@ -220,23 +220,23 @@ export default function LibraryIndexScreen() {
   }
 
   const handleLoadMore = () => {
-    if (isLoading || displayedFallacies.length >= filteredFallacies.length) return
+    if (isLoading || displayedParadoxes.length >= filteredParadoxes.length) return
     
     setIsLoading(true)
     // LIGHTNING FAST local data - no delays needed, brother!
     const nextPage = currentPage + 1
     const startIndex = (nextPage - 1) * ITEMS_PER_PAGE
     const endIndex = startIndex + ITEMS_PER_PAGE
-    const newItems = filteredFallacies.slice(startIndex, endIndex)
+    const newItems = filteredParadoxes.slice(startIndex, endIndex)
     
-    setDisplayedFallacies(prev => [...prev, ...newItems])
+    setDisplayedParadoxes(prev => [...prev, ...newItems])
     setCurrentPage(nextPage)
     setIsLoading(false)
   }
 
   // 🏆 : Enhanced subtitle with progress filter info
   const getSubtitleText = () => {
-    if (!isFallaciesLoaded) return 'Loading paradoxes...'
+    if (!isParadoxesLoaded) return 'Loading paradoxes...'
     
     const activeProgressFilters = []
     if (showFavoritesOnly) activeProgressFilters.push('favorites')
@@ -244,10 +244,10 @@ export default function LibraryIndexScreen() {
     if (showUnlearnedOnly) activeProgressFilters.push('unlearned')
     
     if (activeProgressFilters.length > 0) {
-      return `${filteredFallacies.length} ${activeProgressFilters.join(' + ')} paradoxes ready to conquer!`
+      return `${filteredParadoxes.length} ${activeProgressFilters.join(' + ')} paradoxes ready to conquer!`
     }
     
-    return `${filteredFallacies.length} paradoxes ready to conquer!`
+    return `${filteredParadoxes.length} paradoxes ready to conquer!`
   }
 
   return (
@@ -317,10 +317,10 @@ export default function LibraryIndexScreen() {
           {/* 📋 RESULTS COMPONENT */}
           <View style={[{marginHorizontal: SHAPES.standardVerticalMargin }]}>
             <ParadoxResults
-              filteredFallacies={filteredFallacies}
-              displayedFallacies={displayedFallacies}
+              filteredParadoxes={filteredParadoxes}
+              displayedParadoxes={displayedParadoxes}
               isLoading={isLoading}
-              fallaciesLoaded={isFallaciesLoaded}
+              paradoxesLoaded={isParadoxesLoaded}
               onParadoxPress={handleParadoxPress}
               onLoadMore={handleLoadMore}
             />

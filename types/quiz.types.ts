@@ -11,7 +11,7 @@ export interface Quiz {
   quizNumber: number | null   // null for custom/daily/weekly    
   title: string
   description: string
-  fallacyIds: string[]
+  paradoxIds: string[]
   questions: QuizQuestion[]
   timeLimit: number
   passingScore: number
@@ -37,7 +37,7 @@ export interface QuizSession {
 
 export interface QuizConfig {
   questionsPerQuiz: number
-  fallaciesPerQuiz: number
+  paradoxesPerQuiz: number
   passingScorePercentage: number
   questionTimeLimitSeconds: number
   quizTimeLimitSeconds: number
@@ -56,15 +56,15 @@ export interface QuizQuestion {
   questionText: string
   options: QuizOption[]
   correctAnswer: string
-  fallacyId: string
-  fallacyName: string
+  paradoxId: string
+  paradoxName: string
   questionNumber: number
   timeLimit?: number
 }
 
 export interface QuizOption {
   id: string
-  fallacyId?: string
+  paradoxId?: string
   text: string
   isCorrect?: boolean
 }
@@ -94,7 +94,7 @@ export interface QuizResult {
   testType: TestType
   tier: number | null           // null for custom/daily/weekly
   quizNumber: number | null     // null for custom/daily/weekly
-  fallacyIds: string[]
+  paradoxIds: string[]
   score: number
   totalQuestions: number
   passed: boolean

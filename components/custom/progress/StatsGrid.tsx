@@ -15,7 +15,7 @@ export default function StatsGrid() {
     <View style={styles.statsGrid}>
       <Card variant="stat">
         <Text style={[styles.statNumber, { color: colors.primary }]}>
-          {learnedStats.totalFallacies - learnedStats.totalLearned }
+          {learnedStats.totalParadoxes - learnedStats.totalLearned }
         </Text>
         <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
           unlearned paradoxes

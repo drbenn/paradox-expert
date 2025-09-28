@@ -96,7 +96,7 @@ class NotificationService {
           body,
           sound: 'default',
           data: {
-            type: 'daily_fallacy',
+            type: 'daily_paradox',
             targetScreen: 'home',
             scheduledAt: DateService.getLocalISOString(),
           },

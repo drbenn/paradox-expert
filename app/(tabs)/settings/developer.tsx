@@ -214,7 +214,7 @@ export default function DeveloperSettingsScreen() {
   //   }
     
   //   await refreshAllGameState()
-  //   await markFallaciesAsLearned(targetTier)
+  //   await markParadoxesAsLearned(targetTier)
   // }
 
   // const completeRegularQuizCheat = async (tier: number, quizNumber: number, completionDate: Date) => {
@@ -262,15 +262,15 @@ export default function DeveloperSettingsScreen() {
   //   ])
   // }
 
-  // const markFallaciesAsLearned = async (targetTier: number) => {
+  // const markParadoxesAsLearned = async (targetTier: number) => {
   //   try {
   //     const allParadoxes = useParadoxState.getState().paradoxes
   //     const userProgressState = useUserProgressState.getState()
       
   //     for (let tier = 1; tier <= targetTier; tier++) {
-  //       const tierFallacies = allParadoxes.filter(f => f.tier?.toString() === tier.toString())
+  //       const tierParadoxes = allParadoxes.filter(f => f.tier?.toString() === tier.toString())
         
-  //       for (const paradox of tierFallacies) {
+  //       for (const paradox of tierParadoxes) {
   //         if (!userProgressState.isLearned(paradox.id)) {
   //           await userProgressState.toggleLearned(paradox.id)
   //         }

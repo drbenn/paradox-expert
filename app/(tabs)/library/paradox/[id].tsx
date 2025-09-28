@@ -32,10 +32,10 @@ const ParadoxIdScreen: React.FC = () => {
   const { colors } = useSystemTheme()
 
   // zustand shallow state listeners
-  const { isFallaciesLoaded, getAllFallacies } = useAppState(
+  const { isParadoxesLoaded, getAllParadoxes } = useAppState(
     useShallow((state) => ({ 
-      isFallaciesLoaded: state.isFallaciesLoaded, 
-      getAllFallacies: state.getAllFallacies 
+      isParadoxesLoaded: state.isParadoxesLoaded, 
+      getAllParadoxes: state.getAllParadoxes 
     }))
   )
 
@@ -51,7 +51,7 @@ const ParadoxIdScreen: React.FC = () => {
   // const [scrollEnabled, setScrollEnabled] = useState(true)    // 🎯 State to control scroll during swipes
 
 
-  // logger.log('🔍 DEBUG - Paradoxes loaded:', fallaciesLoaded) // Debug log
+  // logger.log('🔍 DEBUG - Paradoxes loaded:', paradoxesLoaded) // Debug log
   // logger.log('🔍 DEBUG - Total paradoxes:', paradoxes.length) // Debug log
 
   // Convert string ID to number and get the specific paradox from state
@@ -81,19 +81,19 @@ const ParadoxIdScreen: React.FC = () => {
   })
 
     // 🔗 RELATED FALLACIES NAVIGATION HANDLER - NOW WORKING!
-  const handleRelatedParadoxPress = (fallacyTitle: string) => {
+  const handleRelatedParadoxPress = (paradoxTitle: string) => {
     // Find the paradox by title first
-    const allParadoxes = getAllFallacies()
-    const relatedParadox = allParadoxes.find((f: Paradox) => f.title === fallacyTitle)
+    const allParadoxes = getAllParadoxes()
+    const relatedParadox = allParadoxes.find((f: Paradox) => f.title === paradoxTitle)
     
     if (relatedParadox) {
       router.push({
         pathname: "/(tabs)/library/paradox/[id]" as RelativePathString,
         params: { id: relatedParadox.id.toString() }
       })
-      // logger.log(`Navigated to related paradox: ${fallacyTitle}`)
+      // logger.log(`Navigated to related paradox: ${paradoxTitle}`)
     } else {
-      // logger.warn(`Related paradox not found: ${fallacyTitle}`)
+      // logger.warn(`Related paradox not found: ${paradoxTitle}`)
     }
   }
 
@@ -113,7 +113,7 @@ const ParadoxIdScreen: React.FC = () => {
   }
 
   // Show loading state if paradoxes aren't loaded yet
-  if (!isFallaciesLoaded) {
+  if (!isParadoxesLoaded) {
     return (
       <SafeAreaView style={[styles.container, {backgroundColor: colors.background}]}>
         <View style={styles.errorContainer}>
@@ -218,13 +218,13 @@ const ParadoxIdScreen: React.FC = () => {
           {/* 🔗 RELATED FALLACIES SECTION -  STYLE! */}
           {paradox.related_falacies && paradox.related_falacies.length > 0 && (
             <Card>
-              <Text style={[styles.relatedFallaciesTitle, { color: colors.text }]}>
+              <Text style={[styles.relatedParadoxesTitle, { color: colors.text }]}>
                 🔗 Related Paradoxes
               </Text>
-              <Text style={[styles.relatedFallaciesSubtitle, { color: colors.textSecondary }]}>
+              <Text style={[styles.relatedParadoxesSubtitle, { color: colors.textSecondary }]}>
                 Tap to explore similar logical paradoxes
               </Text>
-              <View style={styles.relatedFallaciesGrid}>
+              <View style={styles.relatedParadoxesGrid}>
                 {paradox.related_falacies.map((relatedTitle: string, index: number) => (
                   <TouchableOpacity
                     key={index}
@@ -345,23 +345,23 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 80, // Extra bottom padding for better UX
   },
-  relatedFallaciesContainer: {
+  relatedParadoxesContainer: {
     marginVertical: SHAPES.standardVerticalMargin,
     padding: 20,
     borderRadius: SHAPES.borderRadius,
     borderWidth: 1,
   },
-  relatedFallaciesTitle: {
+  relatedParadoxesTitle: {
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 4,
   },
-  relatedFallaciesSubtitle: {
+  relatedParadoxesSubtitle: {
     fontSize: 14,
     fontWeight: '500',
     marginBottom: 16,
   },
-  relatedFallaciesGrid: {
+  relatedParadoxesGrid: {
     gap: 12,
   },
   relatedParadoxChip: {

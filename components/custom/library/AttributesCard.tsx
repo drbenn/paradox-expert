@@ -31,10 +31,10 @@ const AttributesCard = ({
       {/* 🏆 FLOATING ACTIONS - CHAMPIONSHIP BUTTON TEAM! */}
       <View style={styles.floatingActions}>
         <FavoriteStarButton
-          fallacyId={id}
+          paradoxId={id}
         />
         <LearnedStarButton
-          fallacyId={id}
+          paradoxId={id}
         />
       </View>
 

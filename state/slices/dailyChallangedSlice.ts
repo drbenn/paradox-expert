@@ -49,11 +49,11 @@ export const dailyChallengeSlice: StateCreator<
   // // Actions
   navigateToDailyChallengeParadox: () => {
     const todaysChallenge = get().dailyChallengeStatus.todaysParadox
-    const fallacyId = todaysChallenge?.id
-    if (fallacyId) {
+    const paradoxId = todaysChallenge?.id
+    if (paradoxId) {
       router.push({
         pathname: "/(tabs)/library/paradox/[id]",
-        params: { id: fallacyId || 1 }
+        params: { id: paradoxId || 1 }
       });
     }
   },

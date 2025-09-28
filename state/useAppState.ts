@@ -6,7 +6,7 @@ import { adSlice, AdSlice } from './slices/adSlice'
 import { appControlSlice, AppControlSlice } from './slices/appControlSlice'
 import { dailyChallengeSlice, DailyChallengeSlice } from './slices/dailyChallangedSlice'
 import { DevDebugSlice, devDebugSliceSlice } from './slices/devDebugSlice'
-import { fallacySlice, ParadoxSlice } from './slices/paradoxSlice'
+import { paradoxSlice, ParadoxSlice } from './slices/paradoxSlice'
 import { quizSlice, QuizSlice } from './slices/quizSlice'
 
 export type AppState = AppControlSlice & AdSlice & ParadoxSlice & QuizSlice & DevDebugSlice & AchievementSlice & DailyChallengeSlice & {
@@ -18,7 +18,7 @@ export const useAppState = create<AppState>()(
     (...a) => ({
       ...appControlSlice(...a),
       ...adSlice(...a),
-      ...fallacySlice(...a),
+      ...paradoxSlice(...a),
       ...quizSlice(...a),
       ...devDebugSliceSlice(...a),
       ...achievementSlice(...a),
@@ -30,7 +30,7 @@ export const useAppState = create<AppState>()(
       partialize: (state) => ({       
         // Paradox Slice Persistence
         paradoxes: state.paradoxes,
-        isFallaciesLoaded: state.isFallaciesLoaded,
+        isParadoxesLoaded: state.isParadoxesLoaded,
         learnedStats: state.learnedStats,
 
         // Quiz Slice Persistence

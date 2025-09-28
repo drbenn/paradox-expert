@@ -43,8 +43,8 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   })
 
-  const isFallaciesLoaded = useAppState((state) => state.isFallaciesLoaded)
-  const loadFallacies = useAppState((state) => state.loadFallacies)
+  const isParadoxesLoaded = useAppState((state) => state.isParadoxesLoaded)
+  const loadParadoxes = useAppState((state) => state.loadParadoxes)
   const setNextQuizOrTest = useAppState((state) => state.setNextQuizOrTest)
 
   const isBadgesLoaded = useAppState((state) => state.isBadgesLoaded)
@@ -75,8 +75,8 @@ export default function RootLayout() {
     
     try {
 
-      if (!isFallaciesLoaded) {
-        loadFallacies()
+      if (!isParadoxesLoaded) {
+        loadParadoxes()
       }
 
       if (!isBadgesLoaded) {
@@ -113,8 +113,8 @@ export default function RootLayout() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    isFallaciesLoaded,
-    loadFallacies
+    isParadoxesLoaded,
+    loadParadoxes
   ])
 
   useEffect(() => {

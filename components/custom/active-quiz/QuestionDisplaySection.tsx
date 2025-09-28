@@ -25,7 +25,7 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
     ...question, // Spread first to get all properties
     questionType: question.questionType || 'default',
     questionText: question.questionText || 'Question loading...',
-    fallacyName: question.fallacyName || 'Unknown Paradox'
+    paradoxName: question.paradoxName || 'Unknown Paradox'
   }
   
   // 🏆 : Render specialized question display based on type!
@@ -58,15 +58,15 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
         </Text>
         
         {/* 🏆 FALLACY SPOTLIGHT */}
-        <View style={[styles.fallacySpotlight, { 
+        <View style={[styles.paradoxSpotlight, { 
           backgroundColor: (colors?.primary || '#3B82F6') + '10',
           borderColor: (colors?.primary || '#3B82F6') + '30'
         }]}>
-          <Text style={[styles.fallacySpotlightLabel, { color: colors?.primary || '#3B82F6' }]}>
+          <Text style={[styles.paradoxSpotlightLabel, { color: colors?.primary || '#3B82F6' }]}>
             TARGET FALLACY
           </Text>
-          <Text style={[styles.fallacyName, { color: colors?.primary || '#3B82F6' }]}>
-            &quot;{safeQuestion.fallacyName}&quot;
+          <Text style={[styles.paradoxName, { color: colors?.primary || '#3B82F6' }]}>
+            &quot;{safeQuestion.paradoxName}&quot;
           </Text>
         </View>
         
@@ -90,19 +90,19 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
       <View style={styles.questionContainer}>
         {/* 🎯 MAIN INSTRUCTION */}
         <Text style={[styles.instructionText, { color: colors?.text || '#000000' }]}>
-          {instruction.replace(`"${safeQuestion.fallacyName}"`, '')}
+          {instruction.replace(`"${safeQuestion.paradoxName}"`, '')}
         </Text>
         
         {/* 🏆 FALLACY CONTEXT */}
-        <View style={[styles.fallacyContext, { 
+        <View style={[styles.paradoxContext, { 
           backgroundColor: '#10B981' + '10',
           borderColor: '#10B981' + '30'
         }]}>
-          <Text style={[styles.fallacyContextLabel, { color: '#10B981' }]}>
+          <Text style={[styles.paradoxContextLabel, { color: '#10B981' }]}>
             FALLACY IN QUESTION
           </Text>
-          <Text style={[styles.fallacyName, { color: '#10B981' }]}>
-            &quot;{safeQuestion.fallacyName}&quot;
+          <Text style={[styles.paradoxName, { color: '#10B981' }]}>
+            &quot;{safeQuestion.paradoxName}&quot;
           </Text>
         </View>
         
@@ -212,8 +212,8 @@ export default function QuestionDisplaySection({ question, colors }: QuestionDis
         </Text>
         
         {safeQuestion.questionType === 'example_selection' && (
-          <Text style={[styles.fallacyName, { color: colors?.primary || '#3B82F6' }]}>
-            &quot;{safeQuestion.fallacyName}&quot;
+          <Text style={[styles.paradoxName, { color: colors?.primary || '#3B82F6' }]}>
+            &quot;{safeQuestion.paradoxName}&quot;
           </Text>
         )}
       </View>
@@ -251,34 +251,34 @@ const styles = StyleSheet.create({
   },
   
   // 🏆 FALLACY SPOTLIGHT (for example selection)
-  fallacySpotlight: {
+  paradoxSpotlight: {
     padding: 16,
     borderRadius: SHAPES.borderRadius,
     borderWidth: 2,
     alignItems: 'center',
     gap: 8,
   },
-  fallacySpotlightLabel: {
+  paradoxSpotlightLabel: {
     fontSize: 10,
     fontWeight: '800',
     letterSpacing: 1,
     textTransform: 'uppercase',
   },
-  fallacyName: {
+  paradoxName: {
     fontSize: 20,
     fontWeight: '800',
     textAlign: 'center',
   },
   
   // 🔍 FALLACY CONTEXT (for true/false)
-  fallacyContext: {
+  paradoxContext: {
     padding: 12,
     borderRadius: SHAPES.borderRadius,
     borderWidth: 1,
     alignItems: 'center',
     gap: 6,
   },
-  fallacyContextLabel: {
+  paradoxContextLabel: {
     fontSize: 10,
     fontWeight: '700',
     letterSpacing: 0.5,

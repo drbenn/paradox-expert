@@ -9,18 +9,18 @@ import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity, View } fr
 import { useShallow } from 'zustand/shallow'
 
 interface DailyChallengeQuizButtonProps {
-  fallacyId?: string
+  paradoxId?: string
   mode?: 'auto' | 'quiz-center' | 'paradox-detail'
 }
 
 const DailyChallengeQuizButton: React.FC<DailyChallengeQuizButtonProps> = ({ 
-  fallacyId,
+  paradoxId,
   mode = 'auto'
 }) => {
   const { colors } = useSystemTheme()
   const params = useLocalSearchParams()
   
-  const smartParadoxId = fallacyId || (params.id as string) || null
+  const smartParadoxId = paradoxId || (params.id as string) || null
   
   const { isCompleted, todaysParadox, isLoading } = useAppState(
     useShallow((state) => ({

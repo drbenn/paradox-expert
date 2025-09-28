@@ -8,7 +8,7 @@ import { Quiz } from './quiz.types'
 export interface CustomQuizConfig {
   // Basic Quiz Settings
   questionCount: number              // 5-30 questions (user selectable)
-  selectedFallacies: Paradox[]      // Paradoxes chosen by user via filters
+  selectedParadoxes: Paradox[]      // Paradoxes chosen by user via filters
   
   // Quiz Metadata
   title?: string                    // Optional custom title
@@ -65,7 +65,7 @@ export interface CustomQuizCreationResult {
   quiz?: Quiz
   errors: string[]
   warnings: string[]
-  selectedFallaciesCount: number
+  selectedParadoxesCount: number
   estimatedDifficulty: 'easy' | 'moderate' | 'hard' | 'expert'
   estimatedTime: number             // Minutes
 }
@@ -123,10 +123,10 @@ export const CUSTOM_QUIZ_DEFAULTS = {
 //   }
   
 //   // Validate paradox selection
-//   if (config.selectedFallacies.length < CUSTOM_QUIZ_VALIDATION.MIN_FALLACIES) {
+//   if (config.selectedParadoxes.length < CUSTOM_QUIZ_VALIDATION.MIN_FALLACIES) {
 //     errors.push(`Minimum ${CUSTOM_QUIZ_VALIDATION.MIN_FALLACIES} paradoxes required for good variety`)
 //   }
-//   if (config.selectedFallacies.length > CUSTOM_QUIZ_VALIDATION.MAX_FALLACIES) {
+//   if (config.selectedParadoxes.length > CUSTOM_QUIZ_VALIDATION.MAX_FALLACIES) {
 //     errors.push(`Maximum ${CUSTOM_QUIZ_VALIDATION.MAX_FALLACIES} paradoxes allowed`)
 //   }
   
@@ -139,7 +139,7 @@ export const CUSTOM_QUIZ_DEFAULTS = {
 //   }
   
 //   // Generate warnings
-//   if (config.selectedFallacies.length < 5 && config.questionCount > 15) {
+//   if (config.selectedParadoxes.length < 5 && config.questionCount > 15) {
 //     warnings.push('Few paradoxes with many questions may result in repetitive content')
 //   }
   
@@ -148,14 +148,14 @@ export const CUSTOM_QUIZ_DEFAULTS = {
 //   }
   
 //   // Calculate estimated difficulty and time
-//   const estimatedDifficulty = calculateEstimatedDifficulty(config.selectedFallacies)
+//   const estimatedDifficulty = calculateEstimatedDifficulty(config.selectedParadoxes)
 //   const estimatedTime = Math.ceil(config.questionCount * 1.5) // 1.5 minutes per question estimate
   
 //   return {
 //     isValid: errors.length === 0,
 //     errors,
 //     warnings,
-//     selectedFallaciesCount: config.selectedFallacies.length,
+//     selectedParadoxesCount: config.selectedParadoxes.length,
 //     estimatedDifficulty,
 //     estimatedTime
 //   }
@@ -195,7 +195,7 @@ export function calculateCustomQuizPoints(config: CustomQuizConfig, score: numbe
   totalPoints: number
 } {
   const basePoints = config.questionCount * CUSTOM_QUIZ_VALIDATION.BASE_POINTS_PER_QUESTION
-  const difficulty = calculateEstimatedDifficulty(config.selectedFallacies)
+  const difficulty = calculateEstimatedDifficulty(config.selectedParadoxes)
   const multiplier = CUSTOM_QUIZ_VALIDATION.DIFFICULTY_MULTIPLIERS[difficulty]
   
   const difficultyBonus = Math.round(basePoints * (multiplier - 1))
@@ -233,12 +233,12 @@ export function countActiveFilters(filters: CustomQuizFilters): number {
 // /**
 //  * 🏆 : Apply filters to available paradoxes
 //  */
-// export function applyFiltersToFallacies(paradoxes: Paradox[], filters: CustomQuizFilters): Paradox[] {
+// export function applyFiltersToParadoxes(paradoxes: Paradox[], filters: CustomQuizFilters): Paradox[] {
 //   return paradoxes.filter(paradox => {
 //     // Tier filter
 //     if (filters.selectedTiers.size > 0) {
-//       const fallacyTier = parseInt(paradox.tier?.toString() || '1')
-//       if (!filters.selectedTiers.has(fallacyTier)) return false
+//       const paradoxTier = parseInt(paradox.tier?.toString() || '1')
+//       if (!filters.selectedTiers.has(paradoxTier)) return false
 //     }
     
 //     // Difficulty filter
@@ -288,10 +288,10 @@ export function countActiveFilters(filters: CustomQuizFilters): number {
 /**
  * 🏆 : Create default custom quiz config
  */
-export function createDefaultCustomQuizConfig(availableFallacies: Paradox[]): CustomQuizConfig {
+export function createDefaultCustomQuizConfig(availableParadoxes: Paradox[]): CustomQuizConfig {
   return {
     questionCount: CUSTOM_QUIZ_DEFAULTS.questionCount,
-    selectedFallacies: availableFallacies.slice(0, 10), // First 10 available
+    selectedParadoxes: availableParadoxes.slice(0, 10), // First 10 available
     title: CUSTOM_QUIZ_DEFAULTS.title,
     description: CUSTOM_QUIZ_DEFAULTS.description,
     questionTypeDistribution: { ...CUSTOM_QUIZ_DEFAULTS.questionTypeDistribution },

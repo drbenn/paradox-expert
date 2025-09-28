@@ -250,7 +250,7 @@ export const quizSlice: StateCreator<
 
       // 11. Mark paradoxes learned for passed regular quiz
       if (result.passed && result.testType === 'regular' || result.passed && result.testType === 'daily_challenge') {
-        get().markFallaciesLearned(result.fallacyIds)  
+        get().markParadoxesLearned(result.paradoxIds)  
       }
 
     } catch (error) {

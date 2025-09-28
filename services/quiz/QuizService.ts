@@ -101,7 +101,7 @@ class QuizService {
       testType: quiz.testType,
       tier: quiz.tier,
       quizNumber: quiz.quizNumber,
-      fallacyIds: quiz.fallacyIds,
+      paradoxIds: quiz.paradoxIds,
       score,
       totalQuestions,
       passed,

@@ -1,5 +1,5 @@
 const appleStoreId = "NEED!"
-const googlePlayStorePackageName = "com.sparkdart.fallacyexpert"
+const googlePlayStorePackageName = "com.sparkdart.paradoxexpert"
 
 const APP_CONSTANTS = {
   // Overview

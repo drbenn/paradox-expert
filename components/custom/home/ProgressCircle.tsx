@@ -8,7 +8,7 @@ export default function ProgressCircle() {
   const { colors } = useSystemTheme()
   const learnedStats: QuizLearnedParadoxStats = useAppState((state) => state.learnedStats)
   const cumulativePoints: number = useAppState((state) => state.cumulativePoints)
-  const progressPercentage = (learnedStats.totalLearned / learnedStats.totalFallacies) * 100
+  const progressPercentage = (learnedStats.totalLearned / learnedStats.totalParadoxes) * 100
 
   return (
     <TouchableOpacity onPress={() => router.push('/(tabs)/progress')}>

@@ -6,7 +6,7 @@ export function createRegularQuizSetup(tier: number, quizNumber: number): QuizSe
     quizType: 'regular',
     quizConfig: {
       questionsPerQuiz: 10,
-      fallaciesPerQuiz: 5,
+      paradoxesPerQuiz: 5,
       passingScorePercentage: 70,
       questionTimeLimitSeconds: 60,
       quizTimeLimitSeconds: 600, // 10 minutes
@@ -27,7 +27,7 @@ export function createRegularQuizSetup(tier: number, quizNumber: number): QuizSe
     quizType: 'unit_test',
     quizConfig: {
       questionsPerQuiz: 20,
-      fallaciesPerQuiz: 20, // All paradoxes in tier
+      paradoxesPerQuiz: 20, // All paradoxes in tier
       passingScorePercentage: 70,
       questionTimeLimitSeconds: 60,
       quizTimeLimitSeconds: 1200, // 20 minutes
@@ -48,7 +48,7 @@ export function createRegularQuizSetup(tier: number, quizNumber: number): QuizSe
     quizType: 'daily_challenge',
     quizConfig: {
       questionsPerQuiz: 10,
-      fallaciesPerQuiz: 1,
+      paradoxesPerQuiz: 1,
       passingScorePercentage: 70,
       questionTimeLimitSeconds: 60,
       quizTimeLimitSeconds: 600, // 10 minutes
@@ -70,7 +70,7 @@ export function createRegularQuizSetup(tier: number, quizNumber: number): QuizSe
     quizType: 'custom',
     quizConfig: {
       questionsPerQuiz: questionCount,
-      fallaciesPerQuiz: selectedParadoxIds.length,
+      paradoxesPerQuiz: selectedParadoxIds.length,
       passingScorePercentage: 70,
       questionTimeLimitSeconds: 60,
       quizTimeLimitSeconds: questionCount * 60, // 1 minute per question
@@ -87,12 +87,12 @@ export function createRegularQuizSetup(tier: number, quizNumber: number): QuizSe
   }
   }
 
-  export function createWeeklyGauntletSetup(totalUnlockedFallacies: number): QuizSetup {
+  export function createWeeklyGauntletSetup(totalUnlockedParadoxes: number): QuizSetup {
   return {
     quizType: 'weekly_gauntlet',
     quizConfig: {
-      questionsPerQuiz: Math.min(50, totalUnlockedFallacies), // Cap at 50
-      fallaciesPerQuiz: totalUnlockedFallacies,
+      questionsPerQuiz: Math.min(50, totalUnlockedParadoxes), // Cap at 50
+      paradoxesPerQuiz: totalUnlockedParadoxes,
       passingScorePercentage: 70,
       questionTimeLimitSeconds: 60,
       quizTimeLimitSeconds: 3000, // 50 minutes

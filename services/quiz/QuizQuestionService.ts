@@ -8,7 +8,7 @@ class QuizQuestionService {
 
   // 🎯 : Generate mixed question types based on distribution!
   generateMixedQuestions(
-    quizFallacies: Paradox[], 
+    quizParadoxes: Paradox[], 
     allParadoxes: Paradox[], 
     totalQuestions: number,
     config: QuizConfig
@@ -24,23 +24,23 @@ class QuizQuestionService {
     
     // Generate each type of question
     for (let i = 0; i < exampleSelectionCount; i++) {
-      const paradox = this.getRandomItem(quizFallacies)
+      const paradox = this.getRandomItem(quizParadoxes)
       questions.push(this.generateExampleSelectionQuestion(paradox, allParadoxes, questions.length + 1, config))
     }
     
     for (let i = 0; i < trueFalseCount; i++) {
-      const paradox = this.getRandomItem(quizFallacies)
-      questions.push(this.generateTrueFalseQuestion(paradox, quizFallacies, questions.length + 1, config))
+      const paradox = this.getRandomItem(quizParadoxes)
+      questions.push(this.generateTrueFalseQuestion(paradox, quizParadoxes, questions.length + 1, config))
     }
     
     for (let i = 0; i < scenarioIdCount; i++) {
-      const paradox = this.getRandomItem(quizFallacies)
-      questions.push(this.generateScenarioIdentificationQuestion(paradox, quizFallacies, questions.length + 1, config))
+      const paradox = this.getRandomItem(quizParadoxes)
+      questions.push(this.generateScenarioIdentificationQuestion(paradox, quizParadoxes, questions.length + 1, config))
     }
     
     for (let i = 0; i < binaryChoiceCount; i++) {
-      const paradox = this.getRandomItem(quizFallacies)
-      questions.push(this.generateBinaryChoiceQuestion(paradox, quizFallacies, questions.length + 1, config))
+      const paradox = this.getRandomItem(quizParadoxes)
+      questions.push(this.generateBinaryChoiceQuestion(paradox, quizParadoxes, questions.length + 1, config))
     }
     
     // logger.log(`✅ : Generated ${questions.length} mixed-type questions`)
@@ -69,13 +69,13 @@ class QuizQuestionService {
     const correctOption: QuizOption = {
       id: `option-${targetParadox.id}-correct`,
       text: correctExample, // ← THE ACTUAL EXAMPLE TEXT
-      fallacyId: targetParadox.id
+      paradoxId: targetParadox.id
     }
     
     const incorrectOptions: QuizOption[] = incorrectExamples.map((example, index) => ({
       id: `option-${targetParadox.id}-incorrect-${index}`,
       text: example.text, // ← OTHER FALLACY EXAMPLES
-      fallacyId: example.fallacyId
+      paradoxId: example.paradoxId
     }))
     
     const allOptions = this.shuffleArray([correctOption, ...incorrectOptions])
@@ -84,8 +84,8 @@ class QuizQuestionService {
       id: `question-example-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'example_selection',
-      fallacyId: targetParadox.id,
-      fallacyName: targetParadox.title,
+      paradoxId: targetParadox.id,
+      paradoxName: targetParadox.title,
       questionText: `Pick the example that demonstrates the following paradox: "${targetParadox.title}"`,
       options: allOptions,
       correctAnswer: correctOption.id,
@@ -95,7 +95,7 @@ class QuizQuestionService {
 
   generateTrueFalseQuestion(
     targetParadox: Paradox,
-    quizFallacies: Paradox[],
+    quizParadoxes: Paradox[],
     questionNumber: number,
     config: QuizConfig
   ): QuizQuestion {
@@ -114,9 +114,9 @@ class QuizQuestionService {
       example = this.getRandomItem(targetExamples)
     } else {
       // False case: Use an example from a different paradox in the quiz
-      const otherFallacies = quizFallacies.filter(f => f.id !== targetParadox.id)
-      if (otherFallacies.length > 0) {
-        const wrongParadox = this.getRandomItem(otherFallacies)
+      const otherParadoxes = quizParadoxes.filter(f => f.id !== targetParadox.id)
+      if (otherParadoxes.length > 0) {
+        const wrongParadox = this.getRandomItem(otherParadoxes)
         const wrongExamples = wrongParadox.examples || []
         
         if (wrongExamples.length > 0) {
@@ -140,8 +140,8 @@ class QuizQuestionService {
       id: `question-tf-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'true_false',
-      fallacyId: targetParadox.id,
-      fallacyName: targetParadox.title,
+      paradoxId: targetParadox.id,
+      paradoxName: targetParadox.title,
       // 🏆 MACHO MAN: Show the EXAMPLE and ask if it demonstrates the paradox!
       questionText: `True or False: The following example demonstrates the "${targetParadox.title}" paradox:\n\n"${example}"`,
       options: [trueOption, falseOption],
@@ -152,7 +152,7 @@ class QuizQuestionService {
 
   generateScenarioIdentificationQuestion(
     targetParadox: Paradox,
-    quizFallacies: Paradox[],
+    quizParadoxes: Paradox[],
     questionNumber: number,
     config: QuizConfig
   ): QuizQuestion {
@@ -164,8 +164,8 @@ class QuizQuestionService {
     }
     
     // Get 3 other paradoxes from the quiz for incorrect options
-    const otherFallacies = quizFallacies.filter(f => f.id !== targetParadox.id)
-    const incorrectFallacies = this.shuffleArray(otherFallacies).slice(0, 3)
+    const otherParadoxes = quizParadoxes.filter(f => f.id !== targetParadox.id)
+    const incorrectParadoxes = this.shuffleArray(otherParadoxes).slice(0, 3)
     
     // 🏆 MACHO MAN: Options should be FALLACY NAMES, not examples!
     const correctOption: QuizOption = {
@@ -173,7 +173,7 @@ class QuizQuestionService {
       text: targetParadox.title // ← THE FALLACY NAME
     }
     
-    const incorrectOptions: QuizOption[] = incorrectFallacies.map((paradox, index) => ({
+    const incorrectOptions: QuizOption[] = incorrectParadoxes.map((paradox, index) => ({
       id: `option-${targetParadox.id}-incorrect-${index}`,
       text: paradox.title // ← OTHER FALLACY NAMES
     }))
@@ -184,8 +184,8 @@ class QuizQuestionService {
       id: `question-scenario-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'scenario_identification',
-      fallacyId: targetParadox.id,
-      fallacyName: targetParadox.title,
+      paradoxId: targetParadox.id,
+      paradoxName: targetParadox.title,
       // 🏆 RICK RUDE STYLE: Show the DESCRIPTION and ask which paradox it is!
       questionText: `Which paradox is described below?\n\n"${description}"`,
       options: allOptions,
@@ -196,7 +196,7 @@ class QuizQuestionService {
 
   generateBinaryChoiceQuestion(
     targetParadox: Paradox,
-    quizFallacies: Paradox[],
+    quizParadoxes: Paradox[],
     questionNumber: number,
     config: QuizConfig
   ): QuizQuestion {
@@ -210,11 +210,11 @@ class QuizQuestionService {
     const example = this.getRandomItem(targetExamples)
     
     // Get one other paradox for the incorrect option
-    const otherFallacies = quizFallacies.filter(f => f.id !== targetParadox.id)
-    if (otherFallacies.length === 0) {
+    const otherParadoxes = quizParadoxes.filter(f => f.id !== targetParadox.id)
+    if (otherParadoxes.length === 0) {
       throw new Error('Need at least 2 paradoxes for binary choice question')
     }
-    const incorrectParadox = this.getRandomItem(otherFallacies)
+    const incorrectParadox = this.getRandomItem(otherParadoxes)
     
     // 🏆 MACHO MAN: Options should be FALLACY NAMES!
     const correctOption: QuizOption = {
@@ -233,8 +233,8 @@ class QuizQuestionService {
       id: `question-binary-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'binary_choice',
-      fallacyId: targetParadox.id,
-      fallacyName: targetParadox.title,
+      paradoxId: targetParadox.id,
+      paradoxName: targetParadox.title,
       // 🏆 RICK RUDE STYLE: Show the EXAMPLE and ask which paradox it demonstrates!
       questionText: `Which paradox does this example demonstrate?\n\n"${example}"`,
       options: allOptions,
@@ -260,8 +260,8 @@ class QuizQuestionService {
       id: `daily-tf-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'true_false' as const,
-      fallacyId: targetParadox.id,
-      fallacyName: targetParadox.title,
+      paradoxId: targetParadox.id,
+      paradoxName: targetParadox.title,
       questionText: `True or False: This example demonstrates "${targetParadox.title}":\n\n"${example}"`,
       options: [
         { id: 'true', text: 'True' },
@@ -276,7 +276,7 @@ class QuizQuestionService {
     const description = targetParadox.description || targetParadox.subtitle || targetParadox.title
     
     // Get 3 other paradoxes for incorrect options
-    const otherFallacies = allParadoxes
+    const otherParadoxes = allParadoxes
       .filter(f => f.id !== targetParadox.id)
       .sort(() => Math.random() - 0.5)
       .slice(0, 3)
@@ -285,12 +285,12 @@ class QuizQuestionService {
       id: `daily-scenario-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'scenario_identification' as const,
-      fallacyId: targetParadox.id,
-      fallacyName: targetParadox.title,
+      paradoxId: targetParadox.id,
+      paradoxName: targetParadox.title,
       questionText: `Which paradox is described below?\n\n"${description}"`,
       options: this.shuffleArray([
         { id: 'correct', text: targetParadox.title },
-        ...otherFallacies.map((f, i) => ({ id: `incorrect-${i}`, text: f.title }))
+        ...otherParadoxes.map((f, i) => ({ id: `incorrect-${i}`, text: f.title }))
       ]),
       correctAnswer: 'correct',
       timeLimit: 60
@@ -312,8 +312,8 @@ class QuizQuestionService {
       id: `daily-binary-${targetParadox.id}-${questionNumber}-${Date.now()}`,
       questionNumber,
       questionType: 'binary_choice' as const,
-      fallacyId: targetParadox.id,
-      fallacyName: targetParadox.title,
+      paradoxId: targetParadox.id,
+      paradoxName: targetParadox.title,
       questionText: `Which paradox does this example demonstrate?\n\n"${example}"`,
       options: this.shuffleArray([
         { id: 'correct', text: targetParadox.title },
@@ -393,17 +393,17 @@ class QuizQuestionService {
     targetParadox: Paradox, 
     allParadoxes: Paradox[], 
     count: number
-  ): { text: string; fallacyId: string }[] {
-    const otherFallacies = allParadoxes.filter(f => f.id !== targetParadox.id)
-    const incorrectExamples: { text: string; fallacyId: string }[] = []
+  ): { text: string; paradoxId: string }[] {
+    const otherParadoxes = allParadoxes.filter(f => f.id !== targetParadox.id)
+    const incorrectExamples: { text: string; paradoxId: string }[] = []
     
-    const availableExamples: { text: string; fallacyId: string }[] = []
-    otherFallacies.forEach(paradox => {
+    const availableExamples: { text: string; paradoxId: string }[] = []
+    otherParadoxes.forEach(paradox => {
       if (paradox.examples) {
         paradox.examples.forEach(example => {
           availableExamples.push({
             text: example,
-            fallacyId: paradox.id
+            paradoxId: paradox.id
           })
         })
       }

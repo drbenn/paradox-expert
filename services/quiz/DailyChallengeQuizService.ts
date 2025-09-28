@@ -55,9 +55,9 @@ class DailyChallengeQuizService {
   }
 
   private getRandomParadoxForTodayInTier(allParadoxes: Paradox[], tier: number): Paradox {
-    const fallaciesInTier: Paradox[] = allParadoxes.filter((f: Paradox) => f.tier === tier.toString())
-    const randomIndex = Math.floor(Math.random() * fallaciesInTier.length)
-    return fallaciesInTier[randomIndex]
+    const paradoxesInTier: Paradox[] = allParadoxes.filter((f: Paradox) => f.tier === tier.toString())
+    const randomIndex = Math.floor(Math.random() * paradoxesInTier.length)
+    return paradoxesInTier[randomIndex]
   }
 
 }

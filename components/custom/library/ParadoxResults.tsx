@@ -12,26 +12,26 @@ import {
 import ParadoxListCard from './ParadoxListCard'
 
 interface ParadoxResultsProps {
-  filteredFallacies: Paradox[]
-  displayedFallacies: Paradox[]
+  filteredParadoxes: Paradox[]
+  displayedParadoxes: Paradox[]
   isLoading: boolean
-  fallaciesLoaded: boolean
+  paradoxesLoaded: boolean
   onParadoxPress: (paradox: Paradox) => void
   onLoadMore: () => void
 }
 
 const ParadoxResults: React.FC<ParadoxResultsProps> = ({
-  filteredFallacies,
-  displayedFallacies,
+  filteredParadoxes,
+  displayedParadoxes,
   isLoading,
-  fallaciesLoaded,
+  paradoxesLoaded,
   onParadoxPress,
   onLoadMore
 }) => {
   const { colors } = useSystemTheme()
 
   // Loading state while paradoxes are loading
-  if (!fallaciesLoaded) {
+  if (!paradoxesLoaded) {
     return (
       <View style={styles.loadingContainer}>
         <Text style={[styles.loadingText, { color: colors.text }]}>
@@ -45,18 +45,18 @@ const ParadoxResults: React.FC<ParadoxResultsProps> = ({
     <View style={styles.resultsContainer}>
       <View style={styles.resultsHeader}>
         <Text style={[styles.resultsTitle, { color: colors.text }]}>
-          {filteredFallacies.length} Fallac{filteredFallacies.length === 1 ? 'y' : 'ies'} Found
+          {filteredParadoxes.length} Fallac{filteredParadoxes.length === 1 ? 'y' : 'ies'} Found
         </Text>
-        {filteredFallacies.length === 0 && (
+        {filteredParadoxes.length === 0 && (
           <Text style={[styles.noResultsText, { color: colors.textSecondary }]}>
             No paradoxes match your criteria! Try adjusting your filters.
           </Text>
         )}
       </View>
 
-      {filteredFallacies.length > 0 && (
+      {filteredParadoxes.length > 0 && (
         <View style={styles.resultsListContainer}>
-          {displayedFallacies.map((item) => (
+          {displayedParadoxes.map((item) => (
             <View key={item.id}>
               <ParadoxListCard
                 paradox={item}
@@ -66,14 +66,14 @@ const ParadoxResults: React.FC<ParadoxResultsProps> = ({
           ))}
           
           {/* Load More Button or Loading State */}
-          {displayedFallacies.length < filteredFallacies.length && (
+          {displayedParadoxes.length < filteredParadoxes.length && (
             <TouchableOpacity
               style={[styles.loadMoreButton, { backgroundColor: colors.primary, borderColor: colors.primary }]}
               onPress={onLoadMore}
               disabled={isLoading}
             >
               <Text style={[styles.loadMoreText, { color: 'white' }]}>
-                {isLoading ? 'Loading more' : `Load More (${filteredFallacies.length - displayedFallacies.length} remaining)`}
+                {isLoading ? 'Loading more' : `Load More (${filteredParadoxes.length - displayedParadoxes.length} remaining)`}
               </Text>
             </TouchableOpacity>
           )}

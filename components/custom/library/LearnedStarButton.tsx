@@ -7,12 +7,12 @@ import { Animated, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { useShallow } from 'zustand/shallow'
 
 interface LearnedStarButtonProps {
-  fallacyId: string
-  onToggle?: (fallacyId: string, isLearned: boolean) => void
+  paradoxId: string
+  onToggle?: (paradoxId: string, isLearned: boolean) => void
 }
 
 export default function LearnedStarButton({ 
-  fallacyId, 
+  paradoxId, 
   onToggle 
 }: LearnedStarButtonProps) {
   const { colors, colorScheme } = useSystemTheme()
@@ -29,10 +29,10 @@ export default function LearnedStarButton({
   const [isToggling, setIsToggling] = useState(false)
 
   // Get current learned status from global state (instant lookup)
-  const currentlyLearned = isParadoxLearned(fallacyId)
+  const currentlyLearned = isParadoxLearned(paradoxId)
 
   const handleToggle = async () => {
-    // if (!learnedFallaciesLoaded || isToggling) return
+    // if (!learnedParadoxesLoaded || isToggling) return
 
     try {
       setIsToggling(true)
@@ -57,10 +57,10 @@ export default function LearnedStarButton({
       ]).start()
 
       // Toggle in global state (which updates database)
-      const newStatus = await toggleParadoxLearned(fallacyId)
+      const newStatus = await toggleParadoxLearned(paradoxId)
 
       // Call callback if provided
-      onToggle?.(fallacyId, newStatus)
+      onToggle?.(paradoxId, newStatus)
       
       
     } catch (error) {

@@ -31,7 +31,7 @@
 export interface QuizLearnedParadoxStats {
   totalLearned: number
   learnedIds: string[]
-  totalFallacies: number
+  totalParadoxes: number
 }
 
 export interface Paradox {

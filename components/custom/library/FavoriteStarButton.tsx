@@ -7,12 +7,12 @@ import { Animated, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { useShallow } from 'zustand/shallow'
 
 interface FavoriteStarButtonProps {
-  fallacyId: string
-  onToggle?: (fallacyId: string, isFavorite: boolean) => void
+  paradoxId: string
+  onToggle?: (paradoxId: string, isFavorite: boolean) => void
 }
 
 export default function FavoriteStarButton({ 
-  fallacyId, 
+  paradoxId, 
   onToggle 
 }: FavoriteStarButtonProps) {
   const { colors, colorScheme } = useSystemTheme()
@@ -28,7 +28,7 @@ export default function FavoriteStarButton({
   const [isToggling, setIsToggling] = useState(false)
 
   // Get current favorite status from global state (instant lookup)
-  const currentlyFavorite = isParadoxFavorite(fallacyId)
+  const currentlyFavorite = isParadoxFavorite(paradoxId)
 
   const handleToggle = async () => {
 
@@ -55,10 +55,10 @@ export default function FavoriteStarButton({
       ]).start()
 
       // Toggle in global state (which updates database)
-      const newStatus = await toggleFavoriteParadox(fallacyId)      
+      const newStatus = await toggleFavoriteParadox(paradoxId)      
       
       // Call callback if provided
-      onToggle?.(fallacyId, newStatus)
+      onToggle?.(paradoxId, newStatus)
       
     } catch (error) {
       logger.error('❌ Error toggling favorite status:', error)
