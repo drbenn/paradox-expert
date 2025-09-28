@@ -50,8 +50,8 @@ class QuizGenerationService {
     }
   }
 
-  private getFallaciesForTier(tier: number, allFallacies: Paradox[]): Paradox[] {
-    const tierFallacies = allFallacies.filter((paradox: Paradox) => 
+  private getFallaciesForTier(tier: number, allParadoxes: Paradox[]): Paradox[] {
+    const tierFallacies = allParadoxes.filter((paradox: Paradox) => 
       Number(paradox.tier) === tier
     )
     
@@ -91,11 +91,11 @@ class QuizGenerationService {
   private generateRegularQuiz(
     tier: number,
     quizNumber: number,
-    allFallacies: Paradox[],
+    allParadoxes: Paradox[],
     config: QuizConfig
   ): Quiz {
     // Get all paradoxes for this tier (20 paradoxes per tier)
-    const tierFallacies = this.getFallaciesForTier(tier, allFallacies)
+    const tierFallacies = this.getFallaciesForTier(tier, allParadoxes)
     
     if (tierFallacies.length === 0) {
       throw new Error(`No paradoxes found for tier ${tier}. Cannot generate quiz.`)
@@ -111,7 +111,7 @@ class QuizGenerationService {
     // Generate mixed questions using the question service
     const questions = quizQuestionService.generateMixedQuestions(
       quizFallacies, 
-      allFallacies, 
+      allParadoxes, 
       config.questionsPerQuiz, 
       config
     )
@@ -137,13 +137,13 @@ class QuizGenerationService {
 
   private generateUnitTest(
     tier: number,
-    allFallacies: Paradox[],
+    allParadoxes: Paradox[],
     config: QuizConfig
   ): Quiz {
     logger.log(`🎯 Generating unit test for tier ${tier}`)
     
     // Get all paradoxes for this tier (all 20 paradoxes)
-    const tierFallacies = this.getFallaciesForTier(tier, allFallacies)
+    const tierFallacies = this.getFallaciesForTier(tier, allParadoxes)
     
     if (tierFallacies.length === 0) {
       logger.error(`❌ No paradoxes found for tier ${tier}. Cannot generate unit test.`)
@@ -155,7 +155,7 @@ class QuizGenerationService {
     // Generate mixed questions covering all tier paradoxes
     const questions = quizQuestionService.generateMixedQuestions(
       tierFallacies, 
-      allFallacies, 
+      allParadoxes, 
       config.questionsPerQuiz, // This will be 20 for unit tests
       config
     )
@@ -182,7 +182,7 @@ class QuizGenerationService {
 
   private generateDailyChallenge(
     targetParadox: Paradox,
-    allFallacies: Paradox[],
+    allParadoxes: Paradox[],
     config: QuizConfig
   ): Quiz {
     logger.log(`🎮 Generating daily challenge for "${targetParadox.title}"`)
@@ -195,7 +195,7 @@ class QuizGenerationService {
     // Generate mixed questions all focused on the target paradox
     const questions = quizQuestionService.generateDailyChallengeQuestions(
       targetParadox, 
-      allFallacies, 
+      allParadoxes, 
     )
 
     const shuffledQuestions = quizQuestionService.shuffleQuestions(questions)
@@ -219,7 +219,7 @@ class QuizGenerationService {
   }
 
   private generateCustomQuiz(
-    allFallacies: Paradox[],
+    allParadoxes: Paradox[],
     config: QuizConfig
   ): Quiz {
     logger.log(`🎨 Generating custom quiz`)
@@ -230,7 +230,7 @@ class QuizGenerationService {
     }
 
     // Filter to get only the selected paradoxes
-    const customFallacies = allFallacies.filter((paradox: Paradox) => 
+    const customFallacies = allParadoxes.filter((paradox: Paradox) => 
       config.selectedParadoxIds!.includes(paradox.id)
     )
 
@@ -244,7 +244,7 @@ class QuizGenerationService {
     // Generate mixed questions using selected paradoxes
     const questions = quizQuestionService.generateMixedQuestions(
       customFallacies, 
-      allFallacies, 
+      allParadoxes, 
       config.questionsPerQuiz, // User-configured question count
       config
     )
@@ -270,22 +270,22 @@ class QuizGenerationService {
   }
 
   private generateWeeklyGauntlet(
-    allFallacies: Paradox[],
+    allParadoxes: Paradox[],
     config: QuizConfig
   ): Quiz {
     logger.log(`⚔️ Generating weekly gauntlet (placeholder implementation)`)
     
-    if (allFallacies.length === 0) {
+    if (allParadoxes.length === 0) {
       logger.error(`❌ No paradoxes available for weekly gauntlet`)
       throw new Error(`No paradoxes available for weekly gauntlet`)
     }
 
     // Use all available paradoxes for the marathon challenge
-    logger.log(`📊 Using all ${allFallacies.length} available paradoxes for weekly gauntlet`)
+    logger.log(`📊 Using all ${allParadoxes.length} available paradoxes for weekly gauntlet`)
 
     const questions = quizQuestionService.generateMixedQuestions(
-      allFallacies, 
-      allFallacies, 
+      allParadoxes, 
+      allParadoxes, 
       config.questionsPerQuiz, // Large number for marathon quiz
       config
     )
@@ -298,8 +298,8 @@ class QuizGenerationService {
       tier: null,
       quizNumber: null,
       title: 'Weekly Gauntlet',
-      description: `Marathon challenge across all ${allFallacies.length} unlocked paradoxes`,
-      fallacyIds: allFallacies.map((f: Paradox) => f.id),
+      description: `Marathon challenge across all ${allParadoxes.length} unlocked paradoxes`,
+      fallacyIds: allParadoxes.map((f: Paradox) => f.id),
       questions: shuffledQuestions,
       timeLimit: config.questionTimeLimitSeconds,
       passingScore: config.passingScorePercentage

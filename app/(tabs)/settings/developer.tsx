@@ -264,11 +264,11 @@ export default function DeveloperSettingsScreen() {
 
   // const markFallaciesAsLearned = async (targetTier: number) => {
   //   try {
-  //     const allFallacies = useParadoxState.getState().paradoxes
+  //     const allParadoxes = useParadoxState.getState().paradoxes
   //     const userProgressState = useUserProgressState.getState()
       
   //     for (let tier = 1; tier <= targetTier; tier++) {
-  //       const tierFallacies = allFallacies.filter(f => f.tier?.toString() === tier.toString())
+  //       const tierFallacies = allParadoxes.filter(f => f.tier?.toString() === tier.toString())
         
   //       for (const paradox of tierFallacies) {
   //         if (!userProgressState.isLearned(paradox.id)) {

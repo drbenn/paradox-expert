@@ -83,8 +83,8 @@ const ParadoxIdScreen: React.FC = () => {
     // 🔗 RELATED FALLACIES NAVIGATION HANDLER - NOW WORKING!
   const handleRelatedParadoxPress = (fallacyTitle: string) => {
     // Find the paradox by title first
-    const allFallacies = getAllFallacies()
-    const relatedParadox = allFallacies.find((f: Paradox) => f.title === fallacyTitle)
+    const allParadoxes = getAllFallacies()
+    const relatedParadox = allParadoxes.find((f: Paradox) => f.title === fallacyTitle)
     
     if (relatedParadox) {
       router.push({

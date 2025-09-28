@@ -9,7 +9,7 @@ class QuizQuestionService {
   // 🎯 : Generate mixed question types based on distribution!
   generateMixedQuestions(
     quizFallacies: Paradox[], 
-    allFallacies: Paradox[], 
+    allParadoxes: Paradox[], 
     totalQuestions: number,
     config: QuizConfig
   ): QuizQuestion[] {
@@ -25,7 +25,7 @@ class QuizQuestionService {
     // Generate each type of question
     for (let i = 0; i < exampleSelectionCount; i++) {
       const paradox = this.getRandomItem(quizFallacies)
-      questions.push(this.generateExampleSelectionQuestion(paradox, allFallacies, questions.length + 1, config))
+      questions.push(this.generateExampleSelectionQuestion(paradox, allParadoxes, questions.length + 1, config))
     }
     
     for (let i = 0; i < trueFalseCount; i++) {
@@ -52,7 +52,7 @@ class QuizQuestionService {
 
   generateExampleSelectionQuestion(
     targetParadox: Paradox, 
-    allFallacies: Paradox[], 
+    allParadoxes: Paradox[], 
     questionNumber: number,
     config: QuizConfig
   ): QuizQuestion {
@@ -63,7 +63,7 @@ class QuizQuestionService {
     }
 
     const correctExample = this.getRandomItem(targetExamples)
-    const incorrectExamples = this.getIncorrectExamples(targetParadox, allFallacies, 3)
+    const incorrectExamples = this.getIncorrectExamples(targetParadox, allParadoxes, 3)
     
     // 🏆 : Options should be EXAMPLES, not paradox names!
     const correctOption: QuizOption = {
@@ -245,7 +245,7 @@ class QuizQuestionService {
 
   // 🆕 SPECIAL QUESTION GENERATION METHODS - For Daily Challenges (focused on single paradox)
 
-  generateDailyTrueFalseQuestion(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
+  generateDailyTrueFalseQuestion(targetParadox: Paradox, allParadoxes: Paradox[], questionNumber: number): QuizQuestion {
     const examples = targetParadox.examples || []
     if (examples.length === 0) {
       throw new Error(`Paradox ${targetParadox.title} has no examples`)
@@ -254,7 +254,7 @@ class QuizQuestionService {
     const isTrue = Math.random() < 0.7 // 70% chance true for engagement
     const example = isTrue 
       ? examples[Math.floor(Math.random() * examples.length)]
-      : this.getIncorrectExamples(targetParadox, allFallacies, 1)[0]?.text || examples[0]
+      : this.getIncorrectExamples(targetParadox, allParadoxes, 1)[0]?.text || examples[0]
     
     return {
       id: `daily-tf-${targetParadox.id}-${questionNumber}-${Date.now()}`,
@@ -272,11 +272,11 @@ class QuizQuestionService {
     }
   }
 
-  generateDailyScenarioQuestion(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
+  generateDailyScenarioQuestion(targetParadox: Paradox, allParadoxes: Paradox[], questionNumber: number): QuizQuestion {
     const description = targetParadox.description || targetParadox.subtitle || targetParadox.title
     
     // Get 3 other paradoxes for incorrect options
-    const otherFallacies = allFallacies
+    const otherFallacies = allParadoxes
       .filter(f => f.id !== targetParadox.id)
       .sort(() => Math.random() - 0.5)
       .slice(0, 3)
@@ -297,14 +297,14 @@ class QuizQuestionService {
     }
   }
 
-  generateDailyBinaryChoiceQuestion(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
+  generateDailyBinaryChoiceQuestion(targetParadox: Paradox, allParadoxes: Paradox[], questionNumber: number): QuizQuestion {
     const examples = targetParadox.examples || []
     if (examples.length === 0) {
       throw new Error(`Paradox ${targetParadox.title} has no examples`)
     }
     
     const example = examples[Math.floor(Math.random() * examples.length)]
-    const otherParadox = allFallacies
+    const otherParadox = allParadoxes
       .filter(f => f.id !== targetParadox.id)
       .sort(() => Math.random() - 0.5)[0]
     
@@ -327,60 +327,60 @@ class QuizQuestionService {
   // 🆕 WEEKLY GAUNTLET QUESTION GENERATION - For random variety
   // generateGauntletQuestion(
   //   targetParadox: Paradox, 
-  //   allFallacies: Paradox[], 
+  //   allParadoxes: Paradox[], 
   //   questionNumber: number, 
   //   questionType: string
   // ): QuizQuestion {
   //   try {
   //     switch (questionType) {
   //       case 'example_selection':
-  //         return this.generateGauntletExampleSelection(targetParadox, allFallacies, questionNumber)
+  //         return this.generateGauntletExampleSelection(targetParadox, allParadoxes, questionNumber)
   //       case 'true_false':
-  //         return this.generateGauntletTrueFalse(targetParadox, allFallacies, questionNumber)
+  //         return this.generateGauntletTrueFalse(targetParadox, allParadoxes, questionNumber)
   //       case 'scenario_identification':
-  //         return this.generateGauntletScenario(targetParadox, allFallacies, questionNumber)
+  //         return this.generateGauntletScenario(targetParadox, allParadoxes, questionNumber)
   //       case 'binary_choice':
-  //         return this.generateGauntletBinaryChoice(targetParadox, allFallacies, questionNumber)
+  //         return this.generateGauntletBinaryChoice(targetParadox, allParadoxes, questionNumber)
   //       default:
   //         // Fallback to example selection
-  //         return this.generateGauntletExampleSelection(targetParadox, allFallacies, questionNumber)
+  //         return this.generateGauntletExampleSelection(targetParadox, allParadoxes, questionNumber)
   //     }
   //   } catch (error) {
   //     // logger.warn(`⚠️ Failed to generate ${questionType} question for ${targetParadox.title}, using fallback`)
   //     // Ultimate fallback to example selection with minimal requirements
-  //     return this.generateGauntletExampleSelection(targetParadox, allFallacies, questionNumber)
+  //     return this.generateGauntletExampleSelection(targetParadox, allParadoxes, questionNumber)
   //   }
   // }
 
   // // 🔄 GAUNTLET-SPECIFIC QUESTION GENERATORS (with gauntlet-specific settings)
 
-  // private generateGauntletExampleSelection(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
+  // private generateGauntletExampleSelection(targetParadox: Paradox, allParadoxes: Paradox[], questionNumber: number): QuizQuestion {
   //   const config = { questionTimeLimitSeconds: APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT }
-  //   const question = this.generateExampleSelectionQuestion(targetParadox, allFallacies, questionNumber, config as QuizConfig)
+  //   const question = this.generateExampleSelectionQuestion(targetParadox, allParadoxes, questionNumber, config as QuizConfig)
   //   question.id = `gauntlet-example-${targetParadox.id}-${questionNumber}-${Date.now()}`
   //   question.timeLimit = APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT
   //   return question
   // }
 
-  // private generateGauntletTrueFalse(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
+  // private generateGauntletTrueFalse(targetParadox: Paradox, allParadoxes: Paradox[], questionNumber: number): QuizQuestion {
   //   const config = { questionTimeLimitSeconds: APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT }
-  //   const question = this.generateTrueFalseQuestion(targetParadox, allFallacies, questionNumber, config as QuizConfig)
+  //   const question = this.generateTrueFalseQuestion(targetParadox, allParadoxes, questionNumber, config as QuizConfig)
   //   question.id = `gauntlet-tf-${targetParadox.id}-${questionNumber}-${Date.now()}`
   //   question.timeLimit = APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT
   //   return question
   // }
 
-  // private generateGauntletScenario(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
+  // private generateGauntletScenario(targetParadox: Paradox, allParadoxes: Paradox[], questionNumber: number): QuizQuestion {
   //   const config = { questionTimeLimitSeconds: APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT }
-  //   const question = this.generateScenarioIdentificationQuestion(targetParadox, allFallacies, questionNumber, config as QuizConfig)
+  //   const question = this.generateScenarioIdentificationQuestion(targetParadox, allParadoxes, questionNumber, config as QuizConfig)
   //   question.id = `gauntlet-scenario-${targetParadox.id}-${questionNumber}-${Date.now()}`
   //   question.timeLimit = APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT
   //   return question
   // }
 
-  // private generateGauntletBinaryChoice(targetParadox: Paradox, allFallacies: Paradox[], questionNumber: number): QuizQuestion {
+  // private generateGauntletBinaryChoice(targetParadox: Paradox, allParadoxes: Paradox[], questionNumber: number): QuizQuestion {
   //   const config = { questionTimeLimitSeconds: APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT }
-  //   const question = this.generateBinaryChoiceQuestion(targetParadox, allFallacies, questionNumber, config as QuizConfig)
+  //   const question = this.generateBinaryChoiceQuestion(targetParadox, allParadoxes, questionNumber, config as QuizConfig)
   //   question.id = `gauntlet-binary-${targetParadox.id}-${questionNumber}-${Date.now()}`
   //   question.timeLimit = APP_CONSTANTS.WEEKLY_GAUNTLET.QUESTION_TIME_LIMIT
   //   return question
@@ -391,10 +391,10 @@ class QuizQuestionService {
   // Get incorrect examples from other paradoxes
   private getIncorrectExamples(
     targetParadox: Paradox, 
-    allFallacies: Paradox[], 
+    allParadoxes: Paradox[], 
     count: number
   ): { text: string; fallacyId: string }[] {
-    const otherFallacies = allFallacies.filter(f => f.id !== targetParadox.id)
+    const otherFallacies = allParadoxes.filter(f => f.id !== targetParadox.id)
     const incorrectExamples: { text: string; fallacyId: string }[] = []
     
     const availableExamples: { text: string; fallacyId: string }[] = []
@@ -527,7 +527,7 @@ class QuizQuestionService {
   }
 
   // Generate questions for daily challenge (convenience method)
-  generateDailyChallengeQuestions(targetParadox: Paradox, allFallacies: Paradox[]): QuizQuestion[] {
+  generateDailyChallengeQuestions(targetParadox: Paradox, allParadoxes: Paradox[]): QuizQuestion[] {
     // logger.log(`🎮 : Generating 10-question daily challenge for "${targetParadox.title}"`)
     
     const questions = []
@@ -541,20 +541,20 @@ class QuizQuestionService {
       switch (questionType) {
         case 'example_selection':
           const config = { questionTimeLimitSeconds: 60 } as QuizConfig
-          question = this.generateExampleSelectionQuestion(targetParadox, allFallacies, i + 1, config)
+          question = this.generateExampleSelectionQuestion(targetParadox, allParadoxes, i + 1, config)
           break
         case 'true_false':
-          question = this.generateDailyTrueFalseQuestion(targetParadox, allFallacies, i + 1)
+          question = this.generateDailyTrueFalseQuestion(targetParadox, allParadoxes, i + 1)
           break
         case 'scenario_identification':
-          question = this.generateDailyScenarioQuestion(targetParadox, allFallacies, i + 1)
+          question = this.generateDailyScenarioQuestion(targetParadox, allParadoxes, i + 1)
           break
         case 'binary_choice':
-          question = this.generateDailyBinaryChoiceQuestion(targetParadox, allFallacies, i + 1)
+          question = this.generateDailyBinaryChoiceQuestion(targetParadox, allParadoxes, i + 1)
           break
         default:
           const defaultConfig = { questionTimeLimitSeconds: 60 } as QuizConfig
-          question = this.generateExampleSelectionQuestion(targetParadox, allFallacies, i + 1, defaultConfig)
+          question = this.generateExampleSelectionQuestion(targetParadox, allParadoxes, i + 1, defaultConfig)
       }
       
       // Customize for daily challenge

@@ -4,15 +4,15 @@ import { DateService } from "../DateService"
 
 class DailyChallengeQuizService {
 
-  public determineNewDailyChallengeParadox(quizHistory: QuizResult[], allFallacies: Paradox[]): Paradox {
+  public determineNewDailyChallengeParadox(quizHistory: QuizResult[], allParadoxes: Paradox[]): Paradox {
     let todaysParadox: Paradox
 
     const tierForParadoxSelection: number | 'ultimate' = this.determineTierForDailyParadox(quizHistory)
 
     if (tierForParadoxSelection === 'ultimate') {
-      todaysParadox = this.getRandomParadoxForToday(allFallacies)
+      todaysParadox = this.getRandomParadoxForToday(allParadoxes)
     } else {
-      todaysParadox = this.getRandomParadoxForTodayInTier(allFallacies, tierForParadoxSelection)
+      todaysParadox = this.getRandomParadoxForTodayInTier(allParadoxes, tierForParadoxSelection)
     }
 
     console.log(' new paradox for the day: ', todaysParadox.title)
@@ -49,13 +49,13 @@ class DailyChallengeQuizService {
     return tierForDailyParadox
   }
 
-  private getRandomParadoxForToday(allFallacies: Paradox[]): Paradox {
-    const randomIndex = Math.floor(Math.random() * allFallacies.length)
-    return allFallacies[randomIndex]
+  private getRandomParadoxForToday(allParadoxes: Paradox[]): Paradox {
+    const randomIndex = Math.floor(Math.random() * allParadoxes.length)
+    return allParadoxes[randomIndex]
   }
 
-  private getRandomParadoxForTodayInTier(allFallacies: Paradox[], tier: number): Paradox {
-    const fallaciesInTier: Paradox[] = allFallacies.filter((f: Paradox) => f.tier === tier.toString())
+  private getRandomParadoxForTodayInTier(allParadoxes: Paradox[], tier: number): Paradox {
+    const fallaciesInTier: Paradox[] = allParadoxes.filter((f: Paradox) => f.tier === tier.toString())
     const randomIndex = Math.floor(Math.random() * fallaciesInTier.length)
     return fallaciesInTier[randomIndex]
   }

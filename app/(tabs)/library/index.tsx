@@ -35,9 +35,9 @@ export default function LibraryIndexScreen() {
   )
 
   // all paradoxes updated by state for use in automatic changes to favorite and learned paradoxes
-  const allFallacies = getAllFallacies()
-  const favoriteFallacies = allFallacies.filter((f: Paradox) => f.isFavorite)
-  const learnedFallacies = allFallacies.filter((f: Paradox) => f.isLearned)
+  const allParadoxes = getAllFallacies()
+  const favoriteFallacies = allParadoxes.filter((f: Paradox) => f.isFavorite)
+  const learnedFallacies = allParadoxes.filter((f: Paradox) => f.isLearned)
   
   // 💪  STATE MANAGEMENT - NOW WITH PROGRESS MULTI-SELECT!
   const [searchText, setSearchText] = useState('')
@@ -63,15 +63,15 @@ export default function LibraryIndexScreen() {
   const progressCounts = useMemo(() => {
     const favoritesCount = favoriteFallacies.length
     const learnedCount = learnedFallacies.length
-    const totalFallacies = allFallacies.length
+    const totalFallacies = allParadoxes.length
     const unlearnedCount = totalFallacies - learnedCount
     
     return { favoritesCount, learnedCount, unlearnedCount }
-  }, [favoriteFallacies, learnedFallacies, allFallacies])
+  }, [favoriteFallacies, learnedFallacies, allParadoxes])
 
   // Filter and search logic -  STYLE WITH PROPER DEPENDENCIES!
   const filteredFallacies = useMemo(() => {
-    let filtered = allFallacies
+    let filtered = allParadoxes
     
     // Search filter
     if (searchText.trim()) {
@@ -127,7 +127,7 @@ export default function LibraryIndexScreen() {
     
     return filtered
   }, [
-    allFallacies,
+    allParadoxes,
     searchText,
     selectedDifficulty,
     selectedUsage,
